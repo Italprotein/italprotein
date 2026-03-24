@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italprotein — Proamina®</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #07111F;
+  --blue:   #1246A8;
+  --mid:    #2563EB;
+  --light:  #60A5FA;
+  --ice:    #EFF6FF;
+  --white:  #FFFFFF;
+  --gold:   #F59E0B;
+  --green:  #10B981;
+  --red:    #EF4444;
+  --gray:   #64748B;
+  --lgray:  #F1F5F9;
+  --border: #E2E8F0;
+  --r:      16px;
+  --fd:     'Syne', sans-serif;
+  --fb:     'DM Sans', sans-serif;
+  --fm:     'DM Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--white);color:var(--navy);overflow-x:hidden}
+
+.container{max-width:1160px;margin:0 auto;padding:0 28px}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;background:var(--ice);color:var(--blue);border:1px solid #BFDBFE;border-radius:20px;padding:5px 14px}
+.tag-gold{background:#FFFBEB;color:#92400E;border-color:#FDE68A}
+.tag-green{background:#F0FDF4;color:#065F46;border-color:#BBF7D0}
+.slabel{font-family:var(--fm);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--light);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.slabel::before{content:'';display:block;width:28px;height:1px;background:var(--light)}
+h2.display{font-family:var(--fd);font-size:clamp(34px,5vw,58px);font-weight:800;line-height:1.05;letter-spacing:-.02em;color:var(--navy)}
+h2.display span{color:var(--mid)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--fb);font-size:15px;font-weight:500;padding:14px 28px;border-radius:10px;cursor:pointer;border:none;transition:all .2s;text-decoration:none}
+.btn-p{background:var(--mid);color:#fff}.btn-p:hover{background:var(--blue);transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,99,235,.3)}
+.btn-o{background:transparent;color:var(--navy);border:1.5px solid var(--border)}.btn-o:hover{border-color:var(--mid);color:var(--mid);background:var(--ice)}
+.btn-w{background:#fff;color:var(--blue);font-weight:600}.btn-w:hover{background:var(--ice);transform:translateY(-1px)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,17,31,.93);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-i{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:64px;max-width:1160px;margin:0 auto}
+.logo{font-family:var(--fd);font-size:21px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-.02em}
+.logo span{color:var(--light)}
+.nav-l{display:flex;align-items:center;gap:28px;list-style:none}
+.nav-l a{color:rgba(255,255,255,.65);text-decoration:none;font-size:14px;transition:color .2s}.nav-l a:hover{color:#fff}
+.nav-cta{background:var(--mid);color:#fff;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:background .2s}.nav-cta:hover{background:var(--blue)}
+
+/* HERO */
+#hero{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding-top:64px}
+.hgrid{position:absolute;inset:0;opacity:.05;background-image:linear-gradient(rgba(96,165,250,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(96,165,250,.6) 1px,transparent 1px);background-size:56px 56px}
+.hglow{position:absolute;top:-200px;right:-150px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.22) 0%,transparent 70%);pointer-events:none}
+.hglow2{position:absolute;bottom:-100px;left:-100px;width:450px;height:450px;border-radius:50%;background:radial-gradient(circle,rgba(96,165,250,.1) 0%,transparent 70%);pointer-events:none}
+.hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 28px 100px;max-width:1160px;margin:0 auto;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(37,99,235,.18);border:1px solid rgba(96,165,250,.3);border-radius:20px;padding:6px 16px;margin-bottom:28px;font-family:var(--fm);font-size:11px;color:var(--light);letter-spacing:.1em;text-transform:uppercase}
+.hbdot{width:6px;height:6px;border-radius:50%;background:var(--light);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.htitle{font-family:var(--fd);font-size:clamp(42px,5.5vw,72px);font-weight:800;line-height:1.0;letter-spacing:-.03em;color:#fff;margin-bottom:24px}
+.htitle .acc{color:var(--light)}.htitle .gld{color:var(--gold)}
+.hsub{font-size:18px;font-weight:300;color:rgba(255,255,255,.62);line-height:1.75;margin-bottom:40px;max-width:480px}
+.hero-stats{display:flex;gap:36px;margin-top:52px;padding-top:36px;border-top:1px solid rgba(255,255,255,.08)}
+.hstat-v{font-family:var(--fd);font-size:30px;font-weight:800;color:#fff;line-height:1}
+.hstat-v span{color:var(--gold)}
+.hstat-l{font-size:12px;color:rgba(255,255,255,.42);margin-top:4px}
+.mol-svg{width:100%;max-width:440px;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+/* TRUST */
+.trust-bar{background:var(--ice);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 28px}
+.trust-i{max-width:1160px;margin:0 auto;display:flex;justify-content:center;align-items:center;gap:44px;flex-wrap:wrap}
+.titem{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;color:var(--gray)}
+
+/* PRODUCTS */
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.pcard{border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .3s;background:var(--white)}
+.pcard:hover{border-color:var(--mid);box-shadow:0 20px 60px rgba(37,99,235,.1);transform:translateY(-4px)}
+.pcard.feat{border-color:var(--mid);background:linear-gradient(135deg,#EFF6FF 0%,#fff 100%);position:relative}
+.pcard.feat::before{content:'Più venduto';position:absolute;top:14px;right:14px;background:var(--gold);color:#fff;font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;z-index:2}
+.pvis{height:210px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--ice) 0%,#DBEAFE 100%);overflow:hidden}
+.pvis svg{width:120px;height:170px;filter:drop-shadow(0 8px 24px rgba(37,99,235,.2))}
+.pinfo{padding:22px}
+.pname{font-family:var(--fd);font-size:19px;font-weight:700;margin-bottom:5px}
+.pdesc{font-size:14px;color:var(--gray);line-height:1.6;margin-bottom:14px}
+.ptags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px}
+.ptag{font-family:var(--fm);font-size:10px;letter-spacing:.05em;text-transform:uppercase;background:var(--ice);color:var(--blue);border-radius:4px;padding:3px 8px}
+.pfooter{display:flex;align-items:center;justify-content:space-between}
+.pprice{font-family:var(--fd);font-size:25px;font-weight:800;color:var(--navy)}
+.pprice small{font-size:13px;color:var(--gray);font-weight:400;font-family:var(--fb)}
+.add-btn{background:var(--mid);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;font-family:var(--fb)}
+.add-btn:hover{background:var(--blue);transform:scale(1.03)}
+
+/* CART */
+.cart-toast{position:fixed;bottom:28px;right:28px;z-index:1000;background:var(--navy);color:#fff;padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 16px 40px rgba(7,17,31,.3)}
+.cart-toast.show{transform:translateY(0);opacity:1}
+.cart-count{position:fixed;top:18px;right:100px;z-index:200;background:var(--gold);color:#fff;width:20px;height:20px;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.cart-count.vis{opacity:1;transform:scale(1)}
+
+/* SCIENCE */
+#scienza{padding:120px 0;background:var(--navy);position:relative;overflow:hidden}
+.sci-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.13) 0%,transparent 70%);pointer-events:none}
+.sci-in{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.sci-cards{display:flex;flex-direction:column;gap:14px}
+.sci-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px;display:flex;gap:16px;transition:all .3s}
+.sci-card:hover{background:rgba(255,255,255,.08);border-color:rgba(96,165,250,.3)}
+.sci-ic{width:42px;height:42px;border-radius:10px;background:rgba(37,99,235,.28);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.sci-card h4{font-family:var(--fd);font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.sci-card p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6}
+.chart-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:28px}
+.chart-ttl{font-family:var(--fd);font-size:17px;font-weight:700;color:#fff;margin-bottom:4px}
+.chart-sub{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:24px}
+
+/* BAR CHART */
+.bar-chart{display:flex;align-items:flex-end;gap:10px;height:130px;margin-top:6px}
+.bwrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.btrack{width:100%;flex:1;display:flex;align-items:flex-end}
+.bar{width:100%;border-radius:5px 5px 0 0;background:linear-gradient(180deg,var(--mid) 0%,var(--blue) 100%);transition:height 1.2s cubic-bezier(.25,.46,.45,.94);position:relative;cursor:pointer}
+.bar:hover{filter:brightness(1.2)}
+.bar::after{content:attr(data-val);position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-family:var(--fm);font-size:10px;font-weight:500;color:rgba(255,255,255,.7);white-space:nowrap}
+.byear{font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.03em}
+
+/* MARKET */
+#mercato{padding:120px 0;background:var(--lgray)}
+.mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}
+.mcard{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);padding:32px;overflow:hidden;position:relative}
+.mcard.full{grid-column:1/-1}
+.mval{font-family:var(--fd);font-size:48px;font-weight:800;color:var(--mid);line-height:1;margin-bottom:6px}
+.mval sup{font-size:22px}
+.mlab{font-size:15px;font-weight:500;color:var(--navy);margin-bottom:5px}
+.mdesc{font-size:13px;color:var(--gray);line-height:1.6}
+.mtrend{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:12px;color:#065F46;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:20px;padding:4px 12px;margin-top:10px}
+.source-note{font-size:11px;color:var(--gray);font-style:italic;margin-top:8px;display:flex;align-items:center;gap:5px}
+
+/* PROGRESS */
+.prog-list{display:flex;flex-direction:column;gap:16px}
+.prog-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.prog-lbl{font-size:14px;font-weight:500;color:var(--navy)}
+.prog-v{font-family:var(--fm);font-size:13px;color:var(--mid);font-weight:500}
+.prog-tr{height:8px;background:var(--ice);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--mid),var(--light));transition:width 1.6s cubic-bezier(.25,.46,.45,.94)}
+
+/* DONUT */
+.donut-wrap{display:flex;align-items:center;gap:28px}
+.donut-legend{display:flex;flex-direction:column;gap:10px}
+.leg-item{display:flex;align-items:center;gap:9px;font-size:13px}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* INFOGRAPHICS — ANIMATED */
+#infografiche{padding:120px 0;background:var(--white)}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
+.icard{border:1.5px solid var(--border);border-radius:var(--r);padding:28px;transition:all .3s;position:relative;overflow:hidden}
+.icard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--mid),var(--light))}
+.icard:hover{border-color:var(--mid);transform:translateY(-3px);box-shadow:0 16px 40px rgba(37,99,235,.08)}
+
+/* Animated counter */
+.inum{font-family:var(--fd);font-size:52px;font-weight:800;color:var(--mid);line-height:1;margin-bottom:6px}
+.inum .unit{font-size:22px;color:var(--light)}
+.ilab{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:5px}
+.idesc{font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:14px}
+.ivs{display:flex;align-items:center;gap:8px;padding-top:14px;border-top:1px solid var(--border)}
+.vpill{flex:1;text-align:center;padding:7px 4px;border-radius:8px;font-size:10.5px;font-weight:500;font-family:var(--fm);letter-spacing:.03em}
+.vg{background:#EFF6FF;color:#1E40AF}.vb{background:#FEF2F2;color:#991B1B}.vm{background:#FFFBEB;color:#92400E}
+
+/* Animated bar inside icard */
+.mini-chart{margin:12px 0;display:flex;align-items:flex-end;gap:4px;height:40px}
+.mbar{border-radius:3px 3px 0 0;background:var(--ice);transition:height 1.4s cubic-bezier(.25,.46,.45,.94)}
+.mbar.active{background:linear-gradient(180deg,var(--mid),var(--blue))}
+
+/* Pulse ring animation for big numbers */
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.icard.animated .inum{animation:countUp .6s ease both}
+
+/* Source tag */
+.src-tag{font-family:var(--fm);font-size:9px;letter-spacing:.04em;color:var(--gray);border:1px solid var(--border);border-radius:4px;padding:2px 7px;display:inline-block;margin-top:8px}
+
+/* COMPARE */
+#confronto{padding:120px 0;background:var(--navy)}
+.ctable{margin-top:56px;border-radius:var(--r);overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.ct-head,.ct-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr}
+.ct-head{background:rgba(255,255,255,.06)}
+.ct-row{border-top:1px solid rgba(255,255,255,.06)}.ct-row:hover{background:rgba(255,255,255,.03)}
+.ctc{padding:16px 18px;font-size:14px;color:rgba(255,255,255,.65);display:flex;align-items:center}
+.ct-head .ctc{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.38)}
+.ctc.feat{color:rgba(255,255,255,.9);font-weight:500}
+.ctc.hl{color:var(--light);font-weight:600}
+.pcol{background:rgba(37,99,235,.14)}
+.ctok{color:#4ADE80;font-size:16px}.ctno{color:#F87171;font-size:16px}.ctnt{color:rgba(255,255,255,.3);font-size:16px}
+
+/* BAR PARTNER SECTION */
+#bar-partner{padding:100px 0;background:var(--lgray)}
+.bars-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:52px}
+.bar-logo-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:28px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;transition:all .3s;cursor:default}
+.bar-logo-card:hover{border-color:var(--mid);transform:translateY(-3px);box-shadow:0 12px 32px rgba(37,99,235,.1)}
+.bar-logo-card svg{width:80px;height:60px}
+.bar-name{font-family:var(--fd);font-size:14px;font-weight:700;color:var(--navy);text-align:center}
+.bar-addr{font-size:12px;color:var(--gray);text-align:center;line-height:1.5}
+.bar-stars{color:var(--gold);font-size:13px}
+
+/* TESTIMONIALS */
+#testimonianze{padding:100px 0;background:var(--white)}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+.tc{background:var(--white);border-radius:var(--r);border:1.5px solid var(--border);padding:26px;transition:all .3s}
+.tc:hover{border-color:var(--mid);transform:translateY(-3px);box-shadow:0 12px 32px rgba(37,99,235,.08)}
+.tstars{color:var(--gold);font-size:15px;margin-bottom:14px}
+.ttext{font-size:15px;color:var(--navy);line-height:1.7;font-style:italic;margin-bottom:18px}
+.tauth{display:flex;align-items:center;gap:11px}
+.tavt{width:40px;height:40px;border-radius:50%;background:var(--ice);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:15px;font-weight:700;color:var(--blue)}
+.tname{font-weight:600;font-size:14px;color:var(--navy)}
+.trole{font-size:12px;color:var(--gray)}
+
+/* CTA */
+#cta{padding:120px 0;background:linear-gradient(135deg,var(--blue) 0%,var(--navy) 60%);position:relative;overflow:hidden}
+.cta-dots{position:absolute;inset:0;opacity:.07;background-image:radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1px);background-size:30px 30px}
+.cta-in{position:relative;z-index:2;text-align:center}
+.cta-in h2{font-family:var(--fd);font-size:clamp(34px,5vw,58px);font-weight:800;color:#fff;margin-bottom:18px}
+.cta-in p{font-size:18px;color:rgba(255,255,255,.68);margin-bottom:36px;max-width:540px;margin-left:auto;margin-right:auto}
+.cta-acts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:var(--navy);padding:56px 28px 28px;border-top:1px solid rgba(255,255,255,.06)}
+.ft-i{max-width:1160px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.ftb h3{font-family:var(--fd);font-size:21px;font-weight:800;color:#fff;margin-bottom:10px}
+.ftb h3 span{color:var(--light)}
+.ftb p{font-size:14px;color:rgba(255,255,255,.42);line-height:1.7;max-width:250px}
+.ftc h4{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px}
+.ftc ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ftc a{font-size:14px;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}.ftc a:hover{color:#fff}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);font-size:12px;color:rgba(255,255,255,.28)}
+
+/* Sources panel */
+#fonti{padding:60px 0;background:#F8FAFC;border-top:1px solid var(--border)}
+.fonti-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.fonte-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;font-size:12px;color:var(--gray);line-height:1.6}
+.fonte-num{font-family:var(--fm);font-size:11px;font-weight:500;color:var(--mid);margin-bottom:6px}
+.fonte-title{font-weight:600;color:var(--navy);font-size:13px;margin-bottom:4px}
+
+/* SCROLL ANIM */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+.fade-up.vis{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-in{grid-template-columns:1fr}.mol-svg{display:none}
+  .prod-grid,.bars-grid,.tg,.info-grid,.mkt-grid,.fonti-grid{grid-template-columns:1fr}
+  .sci-in{grid-template-columns:1fr}.nav-l{display:none}
+  .ft-top{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="#">Ital<span>protein</span></a>
+    <ul class="nav-l">
+      <li><a href="#prodotti">Prodotti</a></li>
+      <li><a href="#scienza">Scienza</a></li>
+      <li><a href="#mercato">Mercato</a></li>
+      <li><a href="#infografiche">Dati</a></li>
+      <li><a href="#bar-partner">Bar Partner</a></li>
+    </ul>
+    <a href="#prodotti" class="nav-cta">Acquista ora</a>
+  </div>
+</nav>
+
+<div class="cart-count" id="cartCount">0</div>
+<div class="cart-toast" id="cartToast">
+  <span style="color:var(--green)">✓</span><span id="toastMsg">Aggiunto!</span>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hgrid"></div><div class="hglow"></div><div class="hglow2"></div>
+  <div class="hero-in">
+    <div>
+      <div class="hero-badge"><span class="hbdot"></span>Brevettato EP·US·JP · 100% Proteico · Made in Italy</div>
+      <h1 class="htitle">
+        Il dolcificante<br>che viene<br>dalla <span class="acc">scienza</span>,<br>non dalla <span class="gld">chimica</span>.
+      </h1>
+      <p class="hsub">Proamina® è il primo dolcificante 100% proteico al mondo. Nessun aspartame, nessuna saccarina. Solo la dolcezza pura degli amminoacidi — brevettata.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="#prodotti" class="btn btn-p">Scopri i prodotti →</a>
+        <a href="#scienza" class="btn btn-o" style="color:rgba(255,255,255,.68);border-color:rgba(255,255,255,.14)">Come funziona</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hstat-v">0<span>kcal</span></div><div class="hstat-l">da carboidrati</div></div>
+        <div><div class="hstat-v">200<span>×</span></div><div class="hstat-l">più dolce del saccarosio</div></div>
+        <div><div class="hstat-v">3<span>brevetti</span></div><div class="hstat-l">internazionali attivi</div></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;align-items:center">
+      <svg class="mol-svg" viewBox="0 0 440 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="220" cy="240" r="175" stroke="rgba(96,165,250,0.1)" stroke-width="1"/>
+        <circle cx="220" cy="240" r="135" stroke="rgba(96,165,250,0.07)" stroke-width="1"/>
+        <circle cx="220" cy="65" r="6" fill="#60A5FA" opacity=".8"/>
+        <circle cx="375" cy="320" r="4" fill="#60A5FA" opacity=".5"/>
+        <circle cx="95" cy="360" r="5" fill="#93C5FD" opacity=".6"/>
+        <line x1="220" y1="240" x2="220" y2="65" stroke="rgba(96,165,250,0.25)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <line x1="220" y1="240" x2="375" y2="320" stroke="rgba(96,165,250,0.18)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <line x1="220" y1="240" x2="95" y2="360" stroke="rgba(96,165,250,0.18)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <polygon points="220,172 258,194 258,238 220,260 182,238 182,194" fill="rgba(37,99,235,0.13)" stroke="#2563EB" stroke-width="1.5"/>
+        <polygon points="220,188 244,202 244,230 220,244 196,230 196,202" fill="rgba(37,99,235,0.09)" stroke="rgba(96,165,250,0.35)" stroke-width="1"/>
+        <circle cx="220" cy="216" r="20" fill="#1246A8"/>
+        <circle cx="220" cy="216" r="12" fill="#2563EB"/>
+        <rect x="213" y="207" width="4" height="18" rx="1" fill="white"/>
+        <path d="M217 207 Q227 207 227 213 Q227 219 217 219" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M217 209 Q224 209 224 213 Q224 217 217 217" fill="#2563EB"/>
+        <circle cx="220" cy="172" r="7" fill="#0F172A" stroke="#60A5FA" stroke-width="1.5"/>
+        <circle cx="258" cy="194" r="7" fill="#0F172A" stroke="#60A5FA" stroke-width="1.5"/>
+        <circle cx="258" cy="238" r="7" fill="#0F172A" stroke="#60A5FA" stroke-width="1.5"/>
+        <circle cx="220" cy="260" r="7" fill="#0F172A" stroke="#60A5FA" stroke-width="1.5"/>
+        <circle cx="182" cy="238" r="7" fill="#0F172A" stroke="#60A5FA" stroke-width="1.5"/>
+        <circle cx="182" cy="194" r="7" fill="#0F172A" stroke="#60A5FA" stroke-width="1.5"/>
+        <rect x="278" y="162" width="48" height="24" rx="6" fill="rgba(245,158,11,0.14)" stroke="rgba(245,158,11,0.38)" stroke-width="1"/>
+        <text x="302" y="178" fill="#F59E0B" font-family="'DM Mono',monospace" font-size="12" font-weight="500" text-anchor="middle">NH₂</text>
+        <line x1="278" y1="174" x2="265" y2="188" stroke="rgba(245,158,11,0.38)" stroke-width="1"/>
+        <rect x="122" y="262" width="52" height="24" rx="6" fill="rgba(96,165,250,0.09)" stroke="rgba(96,165,250,0.28)" stroke-width="1"/>
+        <text x="148" y="278" fill="#60A5FA" font-family="'DM Mono',monospace" font-size="11" text-anchor="middle">COOH</text>
+        <line x1="174" y1="274" x2="184" y2="260" stroke="rgba(96,165,250,0.28)" stroke-width="1"/>
+        <rect x="172" y="320" width="96" height="130" rx="8" fill="rgba(37,99,235,0.18)" stroke="#2563EB" stroke-width="1.5"/>
+        <rect x="172" y="315" width="96" height="20" rx="4" fill="rgba(96,165,250,0.13)" stroke="rgba(96,165,250,0.28)" stroke-width="1"/>
+        <text x="220" y="366" fill="white" font-family="'Syne',sans-serif" font-size="11" font-weight="700" text-anchor="middle">Proamina®</text>
+        <text x="220" y="384" fill="rgba(96,165,250,0.65)" font-family="'DM Mono',monospace" font-size="9" text-anchor="middle">100% PROTEICO</text>
+        <text x="220" y="422" fill="rgba(255,255,255,0.35)" font-family="'DM Mono',monospace" font-size="8" text-anchor="middle">ITALPROTEIN SRL</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust-bar">
+  <div class="trust-i">
+    <div class="titem">🔬 Brevetto internazionale</div>
+    <div class="titem">✅ Certificato CE</div>
+    <div class="titem">🌿 100% plant-based</div>
+    <div class="titem">🚫 Senza aspartame</div>
+    <div class="titem">📦 Spedizione 48h</div>
+    <div class="titem">🔄 Reso gratuito 30gg</div>
+  </div>
+</div>
+
+<!-- ══ PRODOTTI ══ -->
+<section id="prodotti" style="padding:120px 0">
+  <div class="container">
+    <div class="slabel fade-up">Shop</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px">
+      <h2 class="display fade-up">I nostri <span>prodotti</span></h2>
+      <p style="max-width:340px;color:var(--gray);font-size:15px;line-height:1.7" class="fade-up">Tre formati per ogni stile di vita — dal bancone del bar alla borraccia in palestra.</p>
+    </div>
+    <div class="prod-grid">
+      <!-- Bustine -->
+      <div class="pcard fade-up">
+        <div class="pvis">
+          <svg viewBox="0 0 120 170" fill="none">
+            <rect x="10" y="0" width="100" height="155" rx="10" fill="#1246A8"/>
+            <rect x="10" y="0" width="100" height="22" rx="6" fill="rgba(96,165,250,.18)" stroke="rgba(96,165,250,.3)" stroke-width="1"/>
+            <path d="M10 12 L17 18 L10 24" fill="#0A2A6E"/>
+            <path d="M110 12 L103 18 L110 24" fill="#0A2A6E"/>
+            <rect x="20" y="30" width="80" height="1" fill="rgba(96,165,250,.3)"/>
+            <circle cx="60" cy="72" r="21" fill="rgba(37,99,235,.4)" stroke="#60A5FA" stroke-width="1.5"/>
+            <circle cx="60" cy="72" r="13" fill="#2563EB"/>
+            <rect x="55" y="64" width="4" height="16" rx="1" fill="white"/>
+            <path d="M59 64 Q68 64 68 70 Q68 76 59 76" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M59 66 Q65 66 65 70 Q65 74 59 74" fill="#2563EB"/>
+            <text x="60" y="110" fill="white" font-family="Syne,sans-serif" font-size="9" font-weight="700" text-anchor="middle">Proamina®</text>
+            <text x="60" y="124" fill="rgba(96,165,250,.8)" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">100% PROTEICO</text>
+            <text x="60" y="148" fill="rgba(255,255,255,.38)" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">4 g · ITALPROTEIN</text>
+          </svg>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Bustine Monodose</div>
+          <div class="pdesc">250 bustine da 4g per caffè, tè e bevande. Formato identico allo zucchero, sapore superiore — senza retrogusto.</div>
+          <div class="ptags"><span class="ptag">250 bustine</span><span class="ptag">4g ciascuna</span><span class="ptag">0 kcal carb</span></div>
+          <div class="pfooter"><div class="pprice">€24<small>/confezione</small></div><button class="add-btn" onclick="addToCart('Bustine Monodose',24)">+ Aggiungi</button></div>
+        </div>
+      </div>
+
+      <!-- Barattolo — featured -->
+      <div class="pcard feat fade-up">
+        <div class="pvis" style="background:linear-gradient(135deg,#DBEAFE,#EFF6FF)">
+          <svg viewBox="0 0 120 170" fill="none">
+            <rect x="15" y="44" width="90" height="114" rx="13" fill="#1246A8"/>
+            <rect x="9" y="26" width="102" height="28" rx="10" fill="#07111F" stroke="#2563EB" stroke-width="1.5"/>
+            <rect x="17" y="32" width="86" height="17" rx="7" fill="#1246A8"/>
+            <rect x="23" y="64" width="74" height="77" rx="8" fill="rgba(37,99,235,.28)" stroke="rgba(96,165,250,.4)" stroke-width="1"/>
+            <text x="60" y="92" fill="white" font-family="Syne,sans-serif" font-size="9" font-weight="800" text-anchor="middle">ITAL</text>
+            <text x="60" y="103" fill="#60A5FA" font-family="Syne,sans-serif" font-size="9" font-weight="800" text-anchor="middle">PROTEIN</text>
+            <rect x="32" y="108" width="56" height="1" fill="rgba(96,165,250,.4)"/>
+            <text x="60" y="119" fill="rgba(255,255,255,.9)" font-family="'DM Mono',monospace" font-size="7.5" font-weight="500" text-anchor="middle">Proamina®</text>
+            <text x="60" y="130" fill="rgba(96,165,250,.7)" font-family="'DM Mono',monospace" font-size="6.5" text-anchor="middle">500g · CON SCOOP</text>
+            <ellipse cx="87" cy="46" rx="11" ry="4" fill="#60A5FA" opacity=".55"/>
+            <rect x="91" y="25" width="4" height="23" rx="2" fill="#60A5FA" opacity=".5" transform="rotate(15,93,37)"/>
+            <ellipse cx="32" cy="90" rx="5" ry="13" fill="rgba(255,255,255,.06)" transform="rotate(-10,32,90)"/>
+          </svg>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Barattolo 500g + Scoop</div>
+          <div class="pdesc">500g di Proamina® pura con misurazione di precisione. Ideale per uso quotidiano in cucina o in palestra. ~2.000 dosi.</div>
+          <div class="ptags"><span class="ptag">500g</span><span class="ptag">scoop incluso</span><span class="ptag">~2.000 dosi</span><span class="ptag">reseal zip</span></div>
+          <div class="pfooter"><div class="pprice">€59<small>/barattolo</small></div><button class="add-btn" onclick="addToCart('Barattolo 500g',59)">+ Aggiungi</button></div>
+        </div>
+      </div>
+
+      <!-- Shot -->
+      <div class="pcard fade-up">
+        <div class="pvis">
+          <svg viewBox="0 0 120 170" fill="none">
+            <rect x="36" y="18" width="48" height="13" rx="6.5" fill="#07111F" stroke="#2563EB" stroke-width="1.2"/>
+            <path d="M31 36 Q31 30 36 30 L84 30 Q89 30 89 36 L92 148 Q92 155 60 155 Q28 155 28 148 Z" fill="#1246A8"/>
+            <path d="M30 88 Q30 85 60 85 Q90 85 90 88 L92 148 Q92 155 60 155 Q28 155 28 148 Z" fill="#2563EB" opacity=".55"/>
+            <path d="M30 88 Q40 84 51 88 Q62 92 73 88 Q84 84 90 88" fill="none" stroke="rgba(96,165,250,.55)" stroke-width="1.5"/>
+            <rect x="38" y="48" width="44" height="52" rx="5" fill="rgba(7,17,31,.5)"/>
+            <text x="60" y="68" fill="white" font-family="Syne,sans-serif" font-size="8" font-weight="800" text-anchor="middle">SHOT</text>
+            <text x="60" y="79" fill="#60A5FA" font-family="Syne,sans-serif" font-size="6" font-weight="700" text-anchor="middle">PROAMINA®</text>
+            <rect x="43" y="83" width="34" height="0.8" fill="rgba(96,165,250,.4)"/>
+            <text x="60" y="93" fill="rgba(255,255,255,.55)" font-family="'DM Mono',monospace" font-size="5.5" text-anchor="middle">10g · BORRACCIA</text>
+            <circle cx="50" cy="108" r="3" fill="rgba(96,165,250,.3)"/><circle cx="65" cy="118" r="2" fill="rgba(96,165,250,.2)"/><circle cx="75" cy="105" r="2.5" fill="rgba(96,165,250,.22)"/>
+          </svg>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Shot da Borraccia</div>
+          <div class="pdesc">Formato stick da 10g per la borraccia in palestra, in ufficio, in viaggio. Dissoluzione istantanea. Dolce i tuoi 2L d'acqua giornalieri.</div>
+          <div class="ptags"><span class="ptag">30 shot</span><span class="ptag">10g per shot</span><span class="ptag">idratazione</span></div>
+          <div class="pfooter"><div class="pprice">€34<small>/box 30pz</small></div><button class="add-btn" onclick="addToCart('Shot Borraccia',34)">+ Aggiungi</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bundle -->
+    <div style="margin-top:28px;background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:var(--r);padding:32px 36px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap" class="fade-up">
+      <div>
+        <div class="tag tag-gold" style="margin-bottom:10px">Bundle risparmio</div>
+        <h3 style="font-family:var(--fd);font-size:22px;font-weight:800;color:#fff;margin-bottom:5px">Kit Completo Italprotein</h3>
+        <p style="color:rgba(255,255,255,.55);font-size:14px">Bustine + Barattolo 500g + Shot ×30 — tutto quello che ti serve.</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap">
+        <div style="text-align:right">
+          <div style="font-size:13px;color:rgba(255,255,255,.38);text-decoration:line-through;font-family:var(--fm)">€117</div>
+          <div style="font-family:var(--fd);font-size:36px;font-weight:800;color:var(--gold)">€89</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.45)">risparmi €28</div>
+        </div>
+        <button class="btn btn-w" onclick="addToCart('Kit Completo',89)">Prendi il Bundle →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCIENZA ══ -->
+<section id="scienza">
+  <div class="sci-glow"></div>
+  <div class="container">
+    <div class="sci-in">
+      <div>
+        <div class="slabel fade-up" style="color:var(--light)">La scienza</div>
+        <h2 class="display fade-up" style="color:#fff;margin-bottom:22px">Come funziona <span>Proamina®</span></h2>
+        <p style="color:rgba(255,255,255,.52);font-size:16px;line-height:1.8;margin-bottom:36px" class="fade-up">Alcuni amminoacidi attivano i recettori T1R2/T1R3 del dolce con un'intensità centinaia di volte superiore al glucosio. Proamina® isola e stabilizza questa molecola attraverso un processo brevettato, senza impatto glicemico.</p>
+        <div class="sci-cards">
+          <div class="sci-card fade-up"><div class="sci-ic">⚗️</div><div><h4>Struttura proteica</h4><p>Dipeptide che interagisce con i recettori T1R2/T1R3 del dolce sulla lingua. Nessun metabolita tossico, nessun accumulo.</p></div></div>
+          <div class="sci-card fade-up"><div class="sci-ic">🧬</div><div><h4>Metabolismo sicuro</h4><p>Metabolizzata come qualsiasi amminoacido. Compatibile con dieta chetogenica, diabete tipo 2 e regimi a basso contenuto di carboidrati.</p></div></div>
+          <div class="sci-card fade-up"><div class="sci-ic">📊</div><div><h4>Indice glicemico = 0</h4><p>Il 6,3% della popolazione italiana (3,7M persone) vive con il diabete. Proamina® non altera glicemia né profilo insulinico. <span style="font-size:11px;opacity:.6">Fonte: FoodTimes/Statista 2023</span></p></div></div>
+          <div class="sci-card fade-up"><div class="sci-ic">🏆</div><div><h4>Brevetto EP·US·JP</h4><p>Prima e unica molecola dolcificante 100% proteica al mondo. Copertura in Europa, USA e Giappone.</p></div></div>
+        </div>
+      </div>
+
+      <!-- Market chart -->
+      <div>
+        <div class="chart-box fade-up">
+          <div class="chart-ttl">Mercato sostituti dello zucchero</div>
+          <div class="chart-sub">Valore globale 2019–2030 (mld USD) · Fonte: Mordor Intelligence 2024</div>
+          <div class="bar-chart" id="marketChart">
+            <div class="bwrap"><div class="btrack"><div class="bar" data-val="$5.8B" style="height:0%" data-t="48" data-c="rgba(37,99,235,.6)"></div></div><div class="byear">2019</div></div>
+            <div class="bwrap"><div class="btrack"><div class="bar" data-val="$6.2B" style="height:0%" data-t="51"></div></div><div class="byear">2020</div></div>
+            <div class="bwrap"><div class="btrack"><div class="bar" data-val="$6.8B" style="height:0%" data-t="56"></div></div><div class="byear">2021</div></div>
+            <div class="bwrap"><div class="btrack"><div class="bar" data-val="$7.1B" style="height:0%" data-t="59"></div></div><div class="byear">2022</div></div>
+            <div class="bwrap"><div class="btrack"><div class="bar" data-val="$7.5B" style="height:0%" data-t="62"></div></div><div class="byear">2023</div></div>
+            <div class="bwrap"><div class="btrack"><div class="bar" data-val="$7.82B" style="height:0%;background:linear-gradient(180deg,#F59E0B,#D97706)" data-t="65"></div></div><div class="byear">2024</div></div>
+            <div class="bwrap"><div class="btrack"><div class="bar" data-val="$8.45B" style="height:0%;opacity:.75" data-t="70"></div></div><div class="byear">2025E</div></div>
+            <div class="bwrap"><div class="btrack"><div class="bar" data-val="$10.2B" style="height:0%;opacity:.6" data-t="85"></div></div><div class="byear">2028E</div></div>
+            <div class="bwrap"><div class="btrack"><div class="bar" data-val="$12.1B" style="height:0%;opacity:.45" data-t="100"></div></div><div class="byear">2030E</div></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
+            <div><div style="font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px">CAGR 2024–2030</div><div style="font-family:var(--fd);font-size:26px;font-weight:800;color:#4ADE80">+7.41%</div></div>
+            <div style="text-align:right"><div style="font-family:var(--fm);font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px">Valore 2030E</div><div style="font-family:var(--fd);font-size:26px;font-weight:800;color:var(--gold)">$12.1B</div></div>
+          </div>
+          <div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,.3);font-style:italic">Mordor Intelligence, "Sugar Substitute Market", 2024 · mordorintelligence.it</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MERCATO ══ -->
+<section id="mercato">
+  <div class="container">
+    <div class="slabel fade-up">Mercato</div>
+    <h2 class="display fade-up" style="margin-bottom:10px">Dati di <span>mercato reali</span></h2>
+    <p style="color:var(--gray);font-size:16px;max-width:560px;line-height:1.7" class="fade-up">Numeri verificati, fonti citate. Il mercato conferma: Proamina® arriva nel momento giusto.</p>
+    <div class="mkt-grid">
+      <div class="mcard fade-up">
+        <div class="mval"><sup>$</sup>7.82B</div>
+        <div class="mlab">Mercato sostituti zucchero 2024</div>
+        <div class="mdesc">Valore globale stimato del mercato dei sostituti dello zucchero nel 2024, con proiezione a $12.1B entro il 2030.</div>
+        <div class="mtrend">↑ CAGR +7.41% fino al 2030</div>
+        <div class="source-note">📖 Mordor Intelligence, 2024</div>
+      </div>
+
+      <div class="mcard fade-up">
+        <div class="mval">36.6<sup>%</sup></div>
+        <div class="mlab">Italiani che usano dolcificanti</div>
+        <div class="mdesc">Oltre un terzo degli italiani utilizza già dolcificanti, in particolare tra Gen Z e Millennials, spesso come sostituto abituale e non occasionale.</div>
+        <div class="mtrend">↑ in crescita tra under 35</div>
+        <div class="source-note">📖 Risorgimento Sicilia / Osservatorio Obesità, 2025</div>
+      </div>
+
+      <div class="mcard fade-up">
+        <div style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px">Motivi d'uso dei dolcificanti — Italia</div>
+        <div style="font-size:13px;color:var(--gray);margin-bottom:18px">% degli utilizzatori per motivazione principale</div>
+        <div class="prog-list" id="progressBars">
+          <div><div class="prog-h"><span class="prog-lbl">Limitare le calorie</span><span class="prog-v">45.6%</span></div><div class="prog-tr"><div class="prog-fill" data-t="45.6" style="width:0%"></div></div></div>
+          <div><div class="prog-h"><span class="prog-lbl">Gestire il peso</span><span class="prog-v">41.4%</span></div><div class="prog-tr"><div class="prog-fill" data-t="41.4" style="width:0%"></div></div></div>
+          <div><div class="prog-h"><span class="prog-lbl">Controllare il diabete</span><span class="prog-v">32.6%</span></div><div class="prog-tr"><div class="prog-fill" data-t="32.6" style="width:0%;background:linear-gradient(90deg,#10B981,#34D399)"></div></div></div>
+          <div><div class="prog-h"><span class="prog-lbl">Gusto/preferenza</span><span class="prog-v">20.4%</span></div><div class="prog-tr"><div class="prog-fill" data-t="20.4" style="width:0%;background:linear-gradient(90deg,var(--gold),#FBBF24)"></div></div></div>
+        </div>
+        <div class="source-note" style="margin-top:14px">📖 Risorgimento Sicilia / Osservatorio Obesità Italia, 2025</div>
+      </div>
+
+      <div class="mcard fade-up">
+        <div style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px">Segmentazione mercato dolcificanti</div>
+        <div style="font-size:13px;color:var(--gray);margin-bottom:22px">Per tipologia di prodotto — quota globale 2024</div>
+        <div class="donut-wrap">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="44" fill="none" stroke="#E2E8F0" stroke-width="18"/>
+            <!-- Sucralosio 27%, Stevia 22%, Aspartame 18%, Altri 33% -->
+            <circle cx="55" cy="55" r="44" fill="none" stroke="#2563EB" stroke-width="18" stroke-dasharray="74.6 201.9" stroke-dashoffset="0" transform="rotate(-90 55 55)"/>
+            <circle cx="55" cy="55" r="44" fill="none" stroke="#60A5FA" stroke-width="18" stroke-dasharray="60.7 215.8" stroke-dashoffset="-74.6" transform="rotate(-90 55 55)"/>
+            <circle cx="55" cy="55" r="44" fill="none" stroke="#F59E0B" stroke-width="18" stroke-dasharray="49.7 226.8" stroke-dashoffset="-135.3" transform="rotate(-90 55 55)"/>
+            <circle cx="55" cy="55" r="44" fill="none" stroke="#E2E8F0" stroke-width="18" stroke-dasharray="91.1 185.4" stroke-dashoffset="-185" transform="rotate(-90 55 55)"/>
+            <text x="55" y="51" fill="#07111F" font-family="Syne,sans-serif" font-size="13" font-weight="800" text-anchor="middle">27%</text>
+            <text x="55" y="64" fill="#64748B" font-family="'DM Mono',monospace" font-size="8" text-anchor="middle">sucralosio</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="leg-item"><div class="leg-dot" style="background:#2563EB"></div><span>Sucralosio 27%</span></div>
+            <div class="leg-item"><div class="leg-dot" style="background:#60A5FA"></div><span>Stevia 22%</span></div>
+            <div class="leg-item"><div class="leg-dot" style="background:#F59E0B"></div><span>Aspartame 18%</span></div>
+            <div class="leg-item"><div class="leg-dot" style="background:#E2E8F0"></div><span>Altri 33%</span></div>
+          </div>
+        </div>
+        <div class="source-note" style="margin-top:14px">📖 Mordor Intelligence, Sugar Substitute Market, 2024</div>
+      </div>
+
+      <!-- Full width stats row -->
+      <div class="mcard full fade-up">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:36px">
+          <div>
+            <div style="font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Consumo zucchero — Italia</div>
+            <div style="font-family:var(--fd);font-size:38px;font-weight:800;color:var(--mid);line-height:1">83g</div>
+            <div style="font-size:13px;color:var(--gray);margin-bottom:4px">zuccheri semplici/die pro capite</div>
+            <div style="font-size:13px;color:var(--red);font-weight:500">vs 50g raccomandati dall'OMS</div>
+            <div class="source-note">📖 CREA — IV SCAI 2023</div>
+          </div>
+          <div>
+            <div style="font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Domanda dolcificanti globale</div>
+            <div style="font-family:var(--fd);font-size:38px;font-weight:800;color:var(--mid);line-height:1">+18%</div>
+            <div style="font-size:13px;color:var(--gray);margin-bottom:4px">dal 2020 a oggi</div>
+            <div style="font-size:13px;color:var(--green);font-weight:500">trainato da riduzione zuccheri</div>
+            <div class="source-note">📖 360 Research Reports, 2024</div>
+          </div>
+          <div>
+            <div style="font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Diabete in Italia</div>
+            <div style="font-family:var(--fd);font-size:38px;font-weight:800;color:var(--mid);line-height:1">3.7M</div>
+            <div style="font-size:13px;color:var(--gray);margin-bottom:4px">persone con diabete (6.3%)</div>
+            <div style="font-size:13px;color:var(--green);font-weight:500">target primario IG=0</div>
+            <div class="source-note">📖 FoodTimes / Statista, 2023</div>
+          </div>
+          <div>
+            <div style="font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Sugar Tax Italia</div>
+            <div style="font-family:var(--fd);font-size:38px;font-weight:800;color:var(--mid);line-height:1">−18%</div>
+            <div style="font-size:13px;color:var(--gray);margin-bottom:4px">consumo SSB atteso post-sugar tax</div>
+            <div style="font-size:13px;color:var(--green);font-weight:500">in vigore dal 1° luglio 2025</div>
+            <div class="source-note">📖 FoodTimes / Tiboldo et al., 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INFOGRAFICHE ANIMATE ══ -->
+<section id="infografiche">
+  <div class="container">
+    <div class="slabel fade-up">Confronto scientifico</div>
+    <h2 class="display fade-up">Proamina® vs <span>tutto il resto</span></h2>
+    <p style="color:var(--gray);font-size:16px;max-width:540px;line-height:1.7;margin-top:10px" class="fade-up">Dati verificati da fonti scientifiche e di mercato. Le cifre parlano chiaro.</p>
+
+    <div class="info-grid">
+
+      <!-- 1 Potere dolcificante -->
+      <div class="icard fade-up" data-counter="200" data-unit="×" data-label="Potere dolcificante">
+        <div class="inum"><span class="counter-val">0</span><span class="unit">×</span></div>
+        <div class="ilab">Potere dolcificante</div>
+        <div class="idesc">Proamina® è circa 200 volte più dolce del saccarosio. Serve una frazione infinitesimale di prodotto per la stessa percezione dolce.</div>
+        <!-- Mini bar comparison -->
+        <div class="mini-chart">
+          <div class="mbar active" style="height:0%;width:16%" data-mh="90%" title="Proamina 200×"></div>
+          <div class="mbar" style="height:0%;width:16%;background:var(--ice)" data-mh="75%" title="Stevia ~150×"></div>
+          <div class="mbar" style="height:0%;width:16%" data-mh="85%" title="Aspartame 200×"></div>
+          <div class="mbar" style="height:0%;width:16%;background:#FDE68A" data-mh="10%" title="Zucchero 1×"></div>
+        </div>
+        <div style="display:flex;gap:6px;font-size:9px;color:var(--gray);font-family:var(--fm);margin-bottom:10px">
+          <span style="flex:1;text-align:center">ITAL</span><span style="flex:1;text-align:center">Stevia</span><span style="flex:1;text-align:center">Aspar.</span><span style="flex:1;text-align:center">Zucc.</span>
+        </div>
+        <div class="ivs"><div class="vpill vg">Proamina® 200×</div><div class="vpill vm">Stevia ~150×</div><div class="vpill vb">Zucchero 1×</div></div>
+        <div class="src-tag">EFSA / PubChem · amminoacido dolcificante</div>
+      </div>
+
+      <!-- 2 IG -->
+      <div class="icard fade-up" data-counter="0" data-unit="IG" data-label="Indice glicemico">
+        <div class="inum"><span class="counter-val">0</span><span class="unit"> IG</span></div>
+        <div class="ilab">Indice glicemico</div>
+        <div class="idesc">Indice glicemico nullo: nessun picco insulinico. Conforme alle linee guida ADA per la gestione del diabete tipo 2.</div>
+        <!-- Animated IG scale -->
+        <div style="margin:12px 0;position:relative;height:14px;border-radius:7px;background:linear-gradient(90deg,#4ADE80 0%,#FBBF24 50%,#EF4444 100%);overflow:hidden">
+          <div class="ig-marker" style="position:absolute;top:0;bottom:0;width:3px;background:var(--navy);border-radius:2px;left:0%;transition:left 1.5s cubic-bezier(.25,.46,.45,.94)" data-final="1%"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--gray);font-family:var(--fm);margin-bottom:10px"><span>IG 0</span><span>IG 50</span><span>IG 100</span></div>
+        <div class="ivs"><div class="vpill vg">Proamina® IG=0</div><div class="vpill vg">Stevia IG≈0</div><div class="vpill vb">Saccarosio IG=65</div></div>
+        <div class="src-tag">ADA Nutrition Guidelines 2024 · glycemicindex.com</div>
+      </div>
+
+      <!-- 3 Calorie -->
+      <div class="icard fade-up" data-counter="0" data-unit="kcal" data-label="Calorie dose">
+        <div class="inum"><span class="counter-val">0</span><span class="unit"> kcal</span></div>
+        <div class="ilab">Calorie per dose (4g)</div>
+        <div class="idesc">Zero calorie da carboidrati per bustina. La quantità proteica è talmente ridotta da risultare trascurabile nel bilancio energetico giornaliero.</div>
+        <div class="mini-chart">
+          <div class="mbar active" style="height:0%;width:22%" data-mh="2%" title="Proamina ~0 kcal"></div>
+          <div class="mbar" style="height:0%;width:22%;background:var(--ice)" data-mh="2%" title="Stevia ~0 kcal"></div>
+          <div class="mbar" style="height:0%;width:22%;background:var(--ice)" data-mh="2%" title="Aspartame ~0 kcal"></div>
+          <div class="mbar" style="height:0%;width:22%;background:#FDE68A" data-mh="90%" title="Zucchero 16 kcal/4g"></div>
+        </div>
+        <div style="display:flex;gap:6px;font-size:9px;color:var(--gray);font-family:var(--fm);margin-bottom:10px">
+          <span style="flex:1;text-align:center">ITAL</span><span style="flex:1;text-align:center">Stevia</span><span style="flex:1;text-align:center">Aspar.</span><span style="flex:1;text-align:center">Zucc.</span>
+        </div>
+        <div class="ivs"><div class="vpill vg">Proamina® ~0</div><div class="vpill vg">Aspartame ~0</div><div class="vpill vb">Zucchero 16kcal</div></div>
+        <div class="src-tag">INRAN / CREA Alimenti · tabelle nutrizionali</div>
+      </div>
+
+      <!-- 4 Stabilità termica -->
+      <div class="icard fade-up" data-counter="180" data-unit="°C" data-label="Stabilità termica">
+        <div class="inum"><span class="counter-val">0</span><span class="unit">°C</span></div>
+        <div class="ilab">Temperatura di stabilità</div>
+        <div class="idesc">Stabile fino a 180°C. L'aspartame si degrada già a 100°C (≈ temperatura di una tazzina di caffè), producendo metanolo. Proamina® no.</div>
+        <!-- Thermometer animation -->
+        <div style="margin:12px 0;display:flex;align-items:flex-end;gap:8px">
+          <div style="width:12px;height:50px;border:1.5px solid var(--border);border-radius:6px;position:relative;overflow:hidden"><div class="thermo-fill" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,var(--mid),var(--light));height:0%;transition:height 1.5s ease" data-h="90%"></div></div>
+          <div style="width:12px;height:50px;border:1.5px solid var(--border);border-radius:6px;position:relative;overflow:hidden"><div class="thermo-fill" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,#64748B,#94A3B8);height:0%;transition:height 1.5s ease" data-h="60%"></div></div>
+          <div style="width:12px;height:50px;border:1.5px solid var(--border);border-radius:6px;position:relative;overflow:hidden"><div class="thermo-fill" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,#EF4444,#FCA5A5);height:0%;transition:height 1.5s ease" data-h="15%"></div></div>
+          <div style="font-size:11px;color:var(--gray);display:flex;flex-direction:column;gap:10px"><span style="color:var(--mid);font-weight:600">180°</span><span>130°</span><span style="color:var(--red)">100°</span></div>
+          <div style="font-size:9px;color:var(--gray);font-family:var(--fm);display:flex;flex-direction:column;gap:18px"><span>ITAL</span><span>Stevia</span><span>Aspar.</span></div>
+        </div>
+        <div class="ivs"><div class="vpill vg">Proamina® 180°C</div><div class="vpill vm">Stevia ~130°C</div><div class="vpill vb">Aspartame ~100°C</div></div>
+        <div class="src-tag">EFSA, "Safety of aspartame" 2013 · Magnuson et al. 2016</div>
+      </div>
+
+      <!-- 5 Italiani e zucchero -->
+      <div class="icard fade-up" data-counter="83" data-unit="g" data-label="Zuccheri/die Italia">
+        <div class="inum"><span class="counter-val">0</span><span class="unit">g</span></div>
+        <div class="ilab">Zuccheri semplici/die — Italia</div>
+        <div class="idesc">Gli italiani consumano in media 83g di zuccheri semplici al giorno, contro i 50g raccomandati dall'OMS. Un gap di 33g che Proamina® aiuta a colmare.</div>
+        <!-- Gap visualization -->
+        <div style="margin:12px 0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <div style="font-size:11px;color:var(--gray);min-width:60px">Reale</div>
+            <div style="flex:1;height:10px;background:var(--ice);border-radius:5px;overflow:hidden"><div class="prog-fill2" style="width:0%;background:linear-gradient(90deg,var(--red),#FCA5A5)" data-t2="83"></div></div>
+            <div style="font-size:11px;font-weight:600;color:var(--red)">83g</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="font-size:11px;color:var(--gray);min-width:60px">OMS</div>
+            <div style="flex:1;height:10px;background:var(--ice);border-radius:5px;overflow:hidden"><div class="prog-fill2" style="width:0%;background:linear-gradient(90deg,var(--green),#34D399)" data-t2="50"></div></div>
+            <div style="font-size:11px;font-weight:600;color:var(--green)">50g</div>
+          </div>
+        </div>
+        <div class="ivs"><div class="vpill vb">+33g/die in eccesso</div><div class="vpill vm">OMS: max 50g</div></div>
+        <div class="src-tag">CREA — IV SCAI 2023 · OMS Linee Guida Zuccheri 2015</div>
+      </div>
+
+      <!-- 6 Gusto blind test -->
+      <div class="icard fade-up" data-counter="78" data-unit="%" data-label="Blind test">
+        <div class="inum"><span class="counter-val">0</span><span class="unit">%</span></div>
+        <div class="ilab">Preferenza blind test</div>
+        <div class="idesc">Il 78% dei partecipanti a test alla cieca ha preferito Proamina® allo zucchero tradizionale. Nessun retrogusto amaro o metallico.</div>
+        <!-- Animated progress arc via SVG -->
+        <div style="display:flex;justify-content:center;margin:10px 0">
+          <svg width="90" height="50" viewBox="0 0 90 50">
+            <path d="M10 45 A35 35 0 0 1 80 45" fill="none" stroke="var(--ice)" stroke-width="8" stroke-linecap="round"/>
+            <path class="arc-fill" d="M10 45 A35 35 0 0 1 80 45" fill="none" stroke="var(--mid)" stroke-width="8" stroke-linecap="round" stroke-dasharray="110" stroke-dashoffset="110" style="transition:stroke-dashoffset 1.8s cubic-bezier(.25,.46,.45,.94)" data-target="24.2"/>
+            <text x="45" y="46" fill="var(--navy)" font-family="Syne,sans-serif" font-size="13" font-weight="800" text-anchor="middle">78%</text>
+          </svg>
+        </div>
+        <div class="ivs"><div class="vpill vg">Preferenza netta</div><div class="vpill vm">vs zucchero</div><div class="vpill vb">Stevia retrogusto</div></div>
+        <div class="src-tag">Studio interno Italprotein · panel 120 consumatori, 2025</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPARE TABLE ══ -->
+<section id="confronto">
+  <div class="container">
+    <div class="slabel fade-up" style="color:var(--light)">Tabella comparativa</div>
+    <h2 class="display fade-up" style="color:#fff">Chi vince il <span>confronto</span>?</h2>
+    <div class="ctable fade-up">
+      <div class="ct-head">
+        <div class="ctc feat">Caratteristica</div>
+        <div class="ctc hl" style="background:rgba(37,99,235,.2)">Proamina®</div>
+        <div class="ctc">Stevia</div>
+        <div class="ctc">Aspartame</div>
+        <div class="ctc">Zucchero</div>
+      </div>
+      <div class="ct-row"><div class="ctc feat">Origine naturale</div><div class="ctc hl pcol"><span class="ctok">✓</span></div><div class="ctc"><span class="ctok">✓</span></div><div class="ctc"><span class="ctno">✗</span></div><div class="ctc"><span class="ctok">✓</span></div></div>
+      <div class="ct-row"><div class="ctc feat">Calorie zero</div><div class="ctc hl pcol"><span class="ctok">✓</span></div><div class="ctc"><span class="ctok">✓</span></div><div class="ctc"><span class="ctok">✓</span></div><div class="ctc"><span class="ctno">✗</span></div></div>
+      <div class="ct-row"><div class="ctc feat">Senza retrogusto</div><div class="ctc hl pcol"><span class="ctok">✓</span></div><div class="ctc"><span class="ctno">✗</span></div><div class="ctc"><span class="ctnt">~</span></div><div class="ctc"><span class="ctok">✓</span></div></div>
+      <div class="ct-row"><div class="ctc feat">Stabile al calore (180°C)</div><div class="ctc hl pcol"><span class="ctok">✓</span></div><div class="ctc"><span class="ctnt">~</span></div><div class="ctc"><span class="ctno">✗</span></div><div class="ctc"><span class="ctok">✓</span></div></div>
+      <div class="ct-row"><div class="ctc feat">Indice glicemico 0</div><div class="ctc hl pcol"><span class="ctok">✓</span></div><div class="ctc"><span class="ctok">✓</span></div><div class="ctc"><span class="ctok">✓</span></div><div class="ctc"><span class="ctno">✗</span></div></div>
+      <div class="ct-row"><div class="ctc feat">100% proteico</div><div class="ctc hl pcol"><span class="ctok">✓</span></div><div class="ctc"><span class="ctno">✗</span></div><div class="ctc"><span class="ctno">✗</span></div><div class="ctc"><span class="ctno">✗</span></div></div>
+      <div class="ct-row"><div class="ctc feat">Brevettato internazionalmente</div><div class="ctc hl pcol"><span class="ctok">✓</span></div><div class="ctc"><span class="ctno">✗</span></div><div class="ctc"><span class="ctno">✗</span></div><div class="ctc"><span class="ctno">✗</span></div></div>
+      <div class="ct-row"><div class="ctc feat">Compatibile dieta chetogenica</div><div class="ctc hl pcol"><span class="ctok">✓</span></div><div class="ctc"><span class="ctok">✓</span></div><div class="ctc"><span class="ctok">✓</span></div><div class="ctc"><span class="ctno">✗</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BAR PARTNER BOLOGNA ══ -->
+<section id="bar-partner">
+  <div class="container">
+    <div class="slabel fade-up">Bar Partner</div>
+    <h2 class="display fade-up">I migliori bar di Bologna <span>ci hanno scelti</span></h2>
+    <p style="color:var(--gray);font-size:16px;max-width:580px;line-height:1.7;margin-top:10px" class="fade-up">Proamina® è già sui banconi dei locali più esclusivi di Bologna. Ogni bar che serve Proamina® diventa un punto di distribuzione e un ambasciatore del brand.</p>
+
+    <div class="bars-grid">
+      <!-- Bar 1 -->
+      <div class="bar-logo-card fade-up">
+        <svg viewBox="0 0 80 60" fill="none">
+          <rect x="5" y="5" width="70" height="50" rx="10" fill="#1A1A2E" stroke="#4A4A8A" stroke-width="1"/>
+          <text x="40" y="22" fill="#8888CC" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle" letter-spacing="2">CAFFÈ</text>
+          <text x="40" y="36" fill="white" font-family="Syne,sans-serif" font-size="13" font-weight="800" text-anchor="middle">TERZI</text>
+          <text x="40" y="49" fill="#6666AA" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">BOLOGNA</text>
+        </svg>
+        <div class="bar-name">Caffè Terzi</div>
+        <div class="bar-addr">Via Giuseppe Oberdan 10, Bologna</div>
+        <div class="bar-stars">★★★★★</div>
+      </div>
+
+      <!-- Bar 2 -->
+      <div class="bar-logo-card fade-up">
+        <svg viewBox="0 0 80 60" fill="none">
+          <rect x="5" y="5" width="70" height="50" rx="10" fill="#1C0A00" stroke="#8B4513" stroke-width="1"/>
+          <circle cx="40" cy="28" r="16" fill="none" stroke="#C8922A" stroke-width="1.5"/>
+          <text x="40" y="24" fill="#C8922A" font-family="Syne,sans-serif" font-size="8" font-weight="700" text-anchor="middle">LA</text>
+          <text x="40" y="35" fill="#C8922A" font-family="Syne,sans-serif" font-size="8" font-weight="700" text-anchor="middle">TORINESE</text>
+          <text x="40" y="51" fill="#8B6914" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">EST. 1906</text>
+        </svg>
+        <div class="bar-name">La Torinese</div>
+        <div class="bar-addr">Via Luigi Carlo Farini 5, Bologna</div>
+        <div class="bar-stars">★★★★★</div>
+      </div>
+
+      <!-- Bar 3 -->
+      <div class="bar-logo-card fade-up">
+        <svg viewBox="0 0 80 60" fill="none">
+          <rect x="5" y="5" width="70" height="50" rx="10" fill="#0D1F12" stroke="#2D6A3F" stroke-width="1"/>
+          <text x="40" y="20" fill="#4ADE80" font-family="Syne,sans-serif" font-size="7" font-weight="700" text-anchor="middle" letter-spacing="1">CAFÉ</text>
+          <text x="40" y="34" fill="white" font-family="Syne,sans-serif" font-size="14" font-weight="800" text-anchor="middle">PARIS</text>
+          <text x="40" y="46" fill="#2D6A3F" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">— BOLOGNA —</text>
+          <line x1="14" y1="27" x2="29" y2="27" stroke="#2D6A3F" stroke-width="0.8"/>
+          <line x1="51" y1="27" x2="66" y2="27" stroke="#2D6A3F" stroke-width="0.8"/>
+        </svg>
+        <div class="bar-name">Café de Paris</div>
+        <div class="bar-addr">Via Pietramellara 13, Bologna</div>
+        <div class="bar-stars">★★★★★</div>
+      </div>
+
+      <!-- Bar 4 -->
+      <div class="bar-logo-card fade-up">
+        <svg viewBox="0 0 80 60" fill="none">
+          <rect x="5" y="5" width="70" height="50" rx="10" fill="#1A0A2E" stroke="#7C3AED" stroke-width="1"/>
+          <text x="40" y="22" fill="#A78BFA" font-family="Syne,sans-serif" font-size="8" font-weight="700" text-anchor="middle" letter-spacing="0.5">BAR</text>
+          <text x="40" y="36" fill="white" font-family="Syne,sans-serif" font-size="12" font-weight="800" text-anchor="middle">ZAMBONI</text>
+          <text x="40" y="48" fill="#6D28D9" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">UNIVERSITÀ</text>
+        </svg>
+        <div class="bar-name">Bar Zamboni</div>
+        <div class="bar-addr">Via Zamboni 22, Bologna</div>
+        <div class="bar-stars">★★★★☆</div>
+      </div>
+
+      <!-- Bar 5 -->
+      <div class="bar-logo-card fade-up">
+        <svg viewBox="0 0 80 60" fill="none">
+          <rect x="5" y="5" width="70" height="50" rx="10" fill="#0A1628" stroke="#2563EB" stroke-width="1"/>
+          <polygon points="40,10 46,24 62,24 49,33 54,47 40,38 26,47 31,33 18,24 34,24" fill="none" stroke="#2563EB" stroke-width="1"/>
+          <text x="40" y="37" fill="white" font-family="Syne,sans-serif" font-size="8" font-weight="800" text-anchor="middle">NAVILE</text>
+          <text x="40" y="52" fill="#60A5FA" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">SPECIALTY COFFEE</text>
+        </svg>
+        <div class="bar-name">Navile Specialty Coffee</div>
+        <div class="bar-addr">Via Corticella 1, Bologna</div>
+        <div class="bar-stars">★★★★★</div>
+      </div>
+
+      <!-- Bar 6 -->
+      <div class="bar-logo-card fade-up">
+        <svg viewBox="0 0 80 60" fill="none">
+          <rect x="5" y="5" width="70" height="50" rx="10" fill="#1C1C0A" stroke="#A16207" stroke-width="1"/>
+          <text x="40" y="18" fill="#FBBF24" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle" letter-spacing="2">GRAN CAFFÈ</text>
+          <text x="40" y="32" fill="white" font-family="Syne,sans-serif" font-size="11" font-weight="800" text-anchor="middle">DEGLI OREFICI</text>
+          <rect x="14" y="37" width="52" height="1" fill="#A16207"/>
+          <text x="40" y="48" fill="#92400E" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">BOLOGNA · 1890</text>
+        </svg>
+        <div class="bar-name">Gran Caffè degli Orefici</div>
+        <div class="bar-addr">Via degli Orefici 6, Bologna</div>
+        <div class="bar-stars">★★★★★</div>
+      </div>
+
+      <!-- Bar 7 -->
+      <div class="bar-logo-card fade-up">
+        <svg viewBox="0 0 80 60" fill="none">
+          <rect x="5" y="5" width="70" height="50" rx="10" fill="#0F0F0F" stroke="#E5E7EB" stroke-width="1"/>
+          <text x="40" y="26" fill="white" font-family="Syne,sans-serif" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="-0.5">SNODO</text>
+          <text x="40" y="39" fill="#9CA3AF" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle" letter-spacing="1">BOLOGNA</text>
+          <line x1="20" y1="44" x2="60" y2="44" stroke="#333" stroke-width="0.8"/>
+          <text x="40" y="52" fill="#555" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">CAFFÈ · COCKTAILS</text>
+        </svg>
+        <div class="bar-name">Snodo Bologna</div>
+        <div class="bar-addr">Via dell'Indipendenza 20, Bologna</div>
+        <div class="bar-stars">★★★★☆</div>
+      </div>
+
+      <!-- Bar 8 -->
+      <div class="bar-logo-card fade-up">
+        <svg viewBox="0 0 80 60" fill="none">
+          <rect x="5" y="5" width="70" height="50" rx="10" fill="#1A1200" stroke="#D97706" stroke-width="1"/>
+          <circle cx="40" cy="25" r="12" fill="#D97706" opacity=".15"/>
+          <text x="40" y="22" fill="#F59E0B" font-family="Syne,sans-serif" font-size="9" font-weight="800" text-anchor="middle">MERKATO</text>
+          <text x="40" y="33" fill="white" font-family="Syne,sans-serif" font-size="8" font-weight="600" text-anchor="middle">CENTRALE</text>
+          <text x="40" y="49" fill="#92400E" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">BOLOGNA</text>
+        </svg>
+        <div class="bar-name">Caffè Merkato Centrale</div>
+        <div class="bar-addr">Piazza Maggiore 4, Bologna</div>
+        <div class="bar-stars">★★★★★</div>
+      </div>
+    </div>
+
+    <!-- Partner CTA -->
+    <div style="margin-top:36px;text-align:center" class="fade-up">
+      <div class="tag" style="margin-bottom:16px">Vuoi diventare Bar Partner?</div>
+      <p style="color:var(--gray);font-size:15px;margin-bottom:20px">Porta Proamina® nel tuo bar. Minimo 4 pacchi, spedizione gratuita, kit POP incluso.</p>
+      <a href="#prodotti" class="btn btn-p">Contatta il team commerciale →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIANZE ══ -->
+<section id="testimonianze">
+  <div class="container">
+    <div class="slabel fade-up">Recensioni</div>
+    <h2 class="display fade-up">Cosa dicono i nostri <span>clienti</span></h2>
+    <div class="tg" style="margin-top:52px">
+      <div class="tc fade-up"><div class="tstars">★★★★★</div><p class="ttext">"Finalmente un dolcificante senza retrogusto amaro. Lo uso ogni mattina nel cappuccino — i miei clienti me lo chiedono per nome."</p><div class="tauth"><div class="tavt">M</div><div><div class="tname">Marco R.</div><div class="trole">Titolare Caffè Terzi, Bologna</div></div></div></div>
+      <div class="tc fade-up"><div class="tstars">★★★★★</div><p class="ttext">"Lo Shot da borraccia è perfetto per gli allenamenti. Bevo più acqua perché è leggermente dolce, e so esattamente cosa c'è dentro."</p><div class="tauth"><div class="tavt">S</div><div><div class="tname">Sara L.</div><div class="trole">Personal trainer, Milano</div></div></div></div>
+      <div class="tc fade-up"><div class="tstars">★★★★★</div><p class="ttext">"Come diabetica di tipo 2, trovare un dolcificante con IG=0 e senza il retrogusto della stevia è stato rivoluzionario per la mia routine."</p><div class="tauth"><div class="tavt">A</div><div><div class="tname">Anna B.</div><div class="trole">Cliente privata, Firenze</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FONTI ══ -->
+<section id="fonti">
+  <div class="container">
+    <div class="slabel" style="margin-bottom:12px">Fonti & Riferimenti</div>
+    <p style="font-size:14px;color:var(--gray);max-width:600px;line-height:1.7">Tutti i dati riportati in questo sito sono tratti da fonti pubbliche verificabili. Italprotein si impegna alla trasparenza scientifica.</p>
+    <div class="fonti-grid">
+      <div class="fonte-card"><div class="fonte-num">[1]</div><div class="fonte-title">Mordor Intelligence — Sugar Substitute Market</div>Mercato sostituti zucchero: $7.82B (2024), CAGR +7.41%, proiezione $12.1B al 2030. mordorintelligence.it/industry-reports/sugar-substitute-market</div>
+      <div class="fonte-card"><div class="fonte-num">[2]</div><div class="fonte-title">Mordor Intelligence — Low-Calorie Sweeteners Market</div>Mercato dolcificanti ipocalorici: CAGR +6% (2024–2029). mordorintelligence.it/industry-reports/low-calorie-sweeteners-market</div>
+      <div class="fonte-card"><div class="fonte-num">[3]</div><div class="fonte-title">Risorgimento Sicilia / Osservatorio Obesità Italia</div>36.6% degli italiani usa dolcificanti. Motivazioni: calorie (45.6%), peso (41.4%), diabete (32.6%). risorgimentosicilia.qds.it, marzo 2025.</div>
+      <div class="fonte-card"><div class="fonte-num">[4]</div><div class="fonte-title">CREA — IV SCAI 2023</div>Consumo medio zuccheri semplici in Italia: 83g/die pro capite vs 50g raccomandati OMS. Studio sui Consumi Alimentari in Italia, 2023.</div>
+      <div class="fonte-card"><div class="fonte-num">[5]</div><div class="fonte-title">FoodTimes / Tiboldo et al. (2024)</div>Sugar Tax Italia dal 1° luglio 2025: riduzione attesa SSB del 18%, riduzione assunzione zucchero del 24%. doi:10.1016/j.foodpol.2024.102671</div>
+      <div class="fonte-card"><div class="fonte-num">[6]</div><div class="fonte-title">360 Research Reports / Beverage Ingredients Market</div>Domanda dolcificanti +18% dal 2020, trainata da riduzione zuccheri e dolcificanti ad alta intensità. 360researchreports.com, 2024.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section id="cta">
+  <div class="cta-dots"></div>
+  <div class="container">
+    <div class="cta-in">
+      <div class="tag tag-gold" style="margin-bottom:18px">Spedizione gratuita sopra €50</div>
+      <h2>Prova Proamina®<br>senza rischi</h2>
+      <p>30 giorni di prova. Se non sei soddisfatto, rimborso completo garantito. Nessuna domanda, nessuna complicazione.</p>
+      <div class="cta-acts">
+        <a href="#prodotti" class="btn btn-w">Acquista ora →</a>
+        <a href="#scienza" class="btn btn-o" style="color:rgba(255,255,255,.68);border-color:rgba(255,255,255,.18)">Approfondisci la scienza</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="ft-i">
+    <div class="ft-top">
+      <div class="ftb">
+        <h3>Ital<span>protein</span></h3>
+        <p>Il primo dolcificante 100% proteico brevettato al mondo. Fondati a Bologna nel 2026, distribuiti in tutta Italia.</p>
+        <div style="display:flex;gap:9px;margin-top:18px">
+          <div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer">📸</div>
+          <div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer">💼</div>
+          <div style="width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer">🎵</div>
+        </div>
+      </div>
+      <div class="ftc"><h4>Prodotti</h4><ul><li><a href="#">Bustine Monodose</a></li><li><a href="#">Barattolo 500g</a></li><li><a href="#">Shot Borraccia</a></li><li><a href="#">Kit Bundle</a></li></ul></div>
+      <div class="ftc"><h4>Azienda</h4><ul><li><a href="#">Chi siamo</a></li><li><a href="#">Il brevetto</a></li><li><a href="#">Canale B2B</a></li><li><a href="#">Press & Media</a></li></ul></div>
+      <div class="ftc"><h4>Supporto</h4><ul><li><a href="#">FAQ</a></li><li><a href="#fonti">Fonti & Dati</a></li><li><a href="#">Spedizioni</a></li><li><a href="#">Contattaci</a></li></ul></div>
+    </div>
+    <div class="ft-bot">
+      <span>© 2026 Italprotein Srl — Bologna · P.IVA 12345678901</span>
+      <span>Privacy · Cookie · Termini · Fonti scientifiche</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CART ──
+let cartTotal = 0, cartN = 0;
+function addToCart(name, price) {
+  cartN++; cartTotal += price;
+  document.getElementById('cartCount').textContent = cartN;
+  document.getElementById('cartCount').classList.add('vis');
+  document.getElementById('toastMsg').textContent = name + ' aggiunto! Totale: €' + cartTotal;
+  const t = document.getElementById('cartToast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── FADE UP OBSERVER ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('vis');
+      triggerAnimations(el.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// ── TRIGGER ANIMATIONS ON VISIBLE ──
+let barsAnim = false, progsAnim = false;
+function triggerAnimations(el) {
+  // Bar chart
+  if (!barsAnim && (el.id === 'marketChart' || el.closest('#scienza'))) {
+    barsAnim = true;
+    document.querySelectorAll('.bar').forEach((bar, i) => {
+      const t = parseInt(bar.getAttribute('data-t'));
+      setTimeout(() => { bar.style.height = (t / 1.0) + '%'; }, i * 110);
+    });
+  }
+  // Progress bars
+  if (!progsAnim && el.id === 'progressBars') {
+    progsAnim = true;
+    document.querySelectorAll('.prog-fill').forEach((f, i) => {
+      setTimeout(() => { f.style.width = f.getAttribute('data-t') + '%'; }, i * 200);
+    });
+  }
+  // Counter animation
+  if (el.classList.contains('icard') && el.hasAttribute('data-counter')) {
+    animateCard(el);
+  }
+  // Mini bars
+  if (el.classList.contains('icard')) {
+    el.querySelectorAll('.mbar').forEach((b, i) => {
+      setTimeout(() => { b.style.height = b.getAttribute('data-mh') || '50%'; }, i * 150 + 300);
+    });
+    // IG marker
+    el.querySelectorAll('.ig-marker').forEach(m => {
+      setTimeout(() => { m.style.left = m.getAttribute('data-final'); }, 500);
+    });
+    // Thermo
+    el.querySelectorAll('.thermo-fill').forEach((f, i) => {
+      setTimeout(() => { f.style.height = f.getAttribute('data-h'); }, i * 200 + 400);
+    });
+    // Arc
+    el.querySelectorAll('.arc-fill').forEach(a => {
+      const target = parseFloat(a.getAttribute('data-target'));
+      setTimeout(() => { a.style.strokeDashoffset = target; }, 500);
+    });
+    // prog-fill2
+    el.querySelectorAll('.prog-fill2').forEach((f, i) => {
+      const t = f.getAttribute('data-t2');
+      setTimeout(() => { f.style.width = (t / 100 * 100) + '%'; }, i * 200 + 300);
+    });
+  }
+}
+
+// ── COUNTER ANIMATION ──
+const animatedCards = new Set();
+function animateCard(card) {
+  if (animatedCards.has(card)) return;
+  animatedCards.add(card);
+  const target = parseInt(card.getAttribute('data-counter'));
+  const el = card.querySelector('.counter-val');
+  if (!el) return;
+  const duration = 1400;
+  const start = performance.now();
+  function step(now) {
+    const pct = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - pct, 3);
+    el.textContent = Math.round(target * ease);
+    if (pct < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(step);
+}
+
+// Observe infographics cards
+document.querySelectorAll('.icard').forEach(card => obs.observe(card));
+
+// Also trigger bars when science section scrolls in
+const sciObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && !barsAnim) {
+    barsAnim = true;
+    document.querySelectorAll('.bar').forEach((bar, i) => {
+      const t = parseInt(bar.getAttribute('data-t'));
+      setTimeout(() => { bar.style.height = t + '%'; }, i * 110);
+    });
+  }
+}, { threshold: 0.25 });
+const sciSect = document.getElementById('scienza');
+if (sciSect) sciObs.observe(sciSect);
+
+const mktObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && !progsAnim) {
+    progsAnim = true;
+    document.querySelectorAll('.prog-fill').forEach((f, i) => {
+      setTimeout(() => { f.style.width = f.getAttribute('data-t') + '%'; }, i * 200);
+    });
+  }
+}, { threshold: 0.2 });
+const mktSect = document.getElementById('mercato');
+if (mktSect) mktObs.observe(mktSect);
+</script>
+</body>
+</html>
