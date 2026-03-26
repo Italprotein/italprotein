@@ -2,14 +2,13 @@
 <html lang="it">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VB2F4N0Y6G"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-VB2F4N0Y6G');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VB2F4N0Y6G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VB2F4N0Y6G');
+  </script>
   <meta name="description" content="Italprotein Srl sviluppa e commercializza Proamina, il primo dolcificante 100% proteico. Innovazione nutrizionale per bar, aziende e consumatori.">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -59,14 +58,129 @@
   .btn-o { background: transparent; color: var(--navy); border: 1.5px solid var(--border); } .btn-o:hover { border-color: var(--mid); color: var(--mid); background: var(--ice); }
   .btn-w { background: #fff; color: var(--blue); font-weight: 600; } .btn-w:hover { background: var(--ice); transform: translateY(-1px); }
 
+  /* ══════════════════════════════════════
+     CART DRAWER
+  ══════════════════════════════════════ */
+  .cart-overlay {
+    position: fixed; inset: 0; background: rgba(7,17,31,.55);
+    backdrop-filter: blur(4px); z-index: 400;
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  .cart-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; width: 420px; max-width: 100vw;
+    background: var(--white); z-index: 401;
+    display: flex; flex-direction: column;
+    transform: translateX(100%);
+    transition: transform .4s cubic-bezier(.25,.46,.45,.94);
+    box-shadow: -20px 0 60px rgba(7,17,31,.15);
+  }
+  .cart-drawer.open { transform: translateX(0); }
+
+  .cd-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px; background: var(--navy);
+    flex-shrink: 0;
+  }
+  .cd-title { font-family: var(--fd); font-size: 18px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
+  .cd-count { background: var(--gold); color: #fff; border-radius: 20px; padding: 3px 10px; font-family: var(--fm); font-size: 11px; font-weight: 500; }
+  .cd-close { background: rgba(255,255,255,.1); border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: rgba(255,255,255,.8); font-size: 20px; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+  .cd-close:hover { background: rgba(255,255,255,.2); }
+
+  /* Free shipping progress */
+  .cd-ship-bar { padding: 14px 24px; background: var(--ice); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .cd-ship-text { font-size: 12px; color: var(--navy); margin-bottom: 7px; font-weight: 500; }
+  .cd-ship-text span { color: var(--mid); font-weight: 700; }
+  .cd-ship-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .cd-ship-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--mid), var(--green)); transition: width .5s cubic-bezier(.25,.46,.45,.94); }
+
+  /* Items */
+  .cd-items { flex: 1; overflow-y: auto; padding: 16px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .cd-items::-webkit-scrollbar { width: 4px; }
+  .cd-items::-webkit-scrollbar-track { background: transparent; }
+  .cd-items::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .cd-empty { text-align: center; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .cd-empty-icon { font-size: 52px; opacity: .3; }
+  .cd-empty p { color: var(--gray); font-size: 14px; line-height: 1.6; }
+
+  .ci {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px; background: var(--lgray); border-radius: 12px; border: 1px solid var(--border);
+    transition: all .25s;
+  }
+  .ci.removing { opacity: 0; transform: translateX(20px); }
+  .ci-icon { width: 46px; height: 46px; background: var(--ice); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+  .ci-body { flex: 1; min-width: 0; }
+  .ci-name { font-size: 14px; font-weight: 600; color: var(--navy); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
+  .ci-unit { font-family: var(--fm); font-size: 11px; color: var(--gray); margin-bottom: 9px; }
+  .ci-qty-row { display: flex; align-items: center; gap: 6px; }
+  .ci-qbtn { width: 26px; height: 26px; border: 1.5px solid var(--border); background: #fff; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: all .15s; color: var(--navy); }
+  .ci-qbtn:hover { border-color: var(--mid); background: var(--ice); }
+  .ci-qval { font-family: var(--fm); font-size: 14px; font-weight: 600; color: var(--navy); min-width: 22px; text-align: center; }
+  .ci-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; gap: 8px; }
+  .ci-subtotal { font-family: var(--fd); font-size: 16px; font-weight: 800; color: var(--navy); }
+  .ci-remove { background: none; border: none; cursor: pointer; color: #CBD5E1; font-size: 15px; transition: color .2s; padding: 4px; }
+  .ci-remove:hover { color: var(--red); }
+
+  /* Footer summary */
+  .cd-footer { padding: 20px 24px; border-top: 1px solid var(--border); background: var(--lgray); flex-shrink: 0; }
+
+  .cd-coupon { display: flex; gap: 8px; margin-bottom: 14px; }
+  .cd-coupon-input { flex: 1; padding: 10px 13px; border: 1.5px solid var(--border); border-radius: 8px; font-family: var(--fm); font-size: 12px; outline: none; transition: border .2s; background: #fff; color: var(--navy); }
+  .cd-coupon-input:focus { border-color: var(--mid); }
+  .cd-coupon-btn { padding: 10px 14px; background: var(--lgray); border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--navy); transition: all .2s; white-space: nowrap; }
+  .cd-coupon-btn:hover { background: var(--ice); border-color: var(--mid); }
+  .cd-coupon-ok { font-size: 12px; color: var(--green); font-weight: 500; margin-bottom: 10px; display: none; }
+
+  .cd-rows { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+  .cd-row { display: flex; justify-content: space-between; font-size: 14px; color: var(--gray); }
+  .cd-row .v { font-family: var(--fm); font-weight: 500; }
+  .cd-row.total { font-family: var(--fd); font-size: 19px; font-weight: 800; color: var(--navy); padding-top: 10px; border-top: 1.5px solid var(--border); margin-top: 4px; }
+  .cd-row.discount { color: var(--green); font-weight: 500; }
+  .cd-row.ship-free .v { color: var(--green); font-weight: 600; }
+
+  .cd-checkout {
+    width: 100%; padding: 15px; border-radius: 12px; border: none;
+    background: var(--mid); color: #fff; cursor: pointer;
+    font-family: var(--fb); font-size: 16px; font-weight: 700;
+    transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-bottom: 10px;
+  }
+  .cd-checkout:hover { background: var(--blue); transform: translateY(-1px); box-shadow: 0 10px 28px rgba(37,99,235,.3); }
+  .cd-checkout:disabled { background: var(--border); color: var(--gray); cursor: not-allowed; transform: none; box-shadow: none; }
+  .cd-secure { display: flex; justify-content: center; gap: 14px; }
+  .cd-sbadge { font-family: var(--fm); font-size: 10px; color: var(--gray); display: flex; align-items: center; gap: 4px; letter-spacing: .04em; }
+
   /* ── NAV ── */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(7,17,31,.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.08); }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 300; background: rgba(7,17,31,.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.08); }
   .nav-i { display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(16px,4vw,28px); height: 64px; max-width: 1160px; margin: 0 auto; }
   .logo { font-family: var(--fd); font-size: 21px; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -.02em; flex-shrink: 0; }
   .logo span { color: var(--light); }
   .nav-l { display: flex; align-items: center; gap: 28px; list-style: none; }
   .nav-l a { color: rgba(255,255,255,.65); text-decoration: none; font-size: 14px; transition: color .2s; } .nav-l a:hover { color: #fff; }
-  .nav-cta { background: var(--mid); color: #fff; padding: 9px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; transition: background .2s; white-space: nowrap; } .nav-cta:hover { background: var(--blue); }
+
+  /* Cart trigger button in nav */
+  .nav-cart-btn {
+    position: relative; display: flex; align-items: center; gap: 8px;
+    background: var(--mid); color: #fff;
+    padding: 9px 18px; border-radius: 8px; font-family: var(--fb);
+    font-size: 14px; font-weight: 600; cursor: pointer; border: none;
+    transition: all .2s; white-space: nowrap;
+  }
+  .nav-cart-btn:hover { background: var(--blue); box-shadow: 0 4px 16px rgba(37,99,235,.35); }
+  .nav-cart-badge {
+    position: absolute; top: -6px; right: -6px;
+    background: var(--gold); color: #fff; border: 2px solid rgba(7,17,31,.95);
+    width: 20px; height: 20px; border-radius: 50%;
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: scale(0);
+    transition: all .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .nav-cart-badge.vis { opacity: 1; transform: scale(1); }
 
   /* Hamburger */
   .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; border: none; background: transparent; }
@@ -76,11 +190,76 @@
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   /* Mobile menu drawer */
-  .nav-drawer { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(7,17,31,.98); padding: 20px clamp(16px,4vw,28px) 32px; border-bottom: 1px solid rgba(255,255,255,.08); z-index: 99; }
+  .nav-drawer { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(7,17,31,.98); padding: 20px clamp(16px,4vw,28px) 32px; border-bottom: 1px solid rgba(255,255,255,.08); z-index: 299; }
   .nav-drawer.open { display: flex; flex-direction: column; gap: 8px; }
   .nav-drawer a { color: rgba(255,255,255,.75); text-decoration: none; font-size: 16px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.06); transition: color .2s; }
   .nav-drawer a:hover { color: #fff; }
-  .nav-drawer .nav-cta { margin-top: 8px; text-align: center; border-radius: 10px; padding: 13px; font-size: 15px; }
+  .nav-drawer .nav-cta-link { margin-top: 8px; text-align: center; background: var(--mid); color: #fff; border-radius: 10px; padding: 13px; font-size: 15px; font-weight: 500; }
+
+  /* ── TOAST ── */
+  .cart-toast {
+    position: fixed; bottom: 28px; right: clamp(16px,4vw,28px);
+    z-index: 500; background: var(--navy); color: #fff;
+    padding: 14px 20px; border-radius: 12px; font-size: 14px; font-weight: 500;
+    display: flex; align-items: center; gap: 10px;
+    transform: translateY(100px) scale(.9); opacity: 0;
+    transition: all .4s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 16px 40px rgba(7,17,31,.3); max-width: 380px;
+  }
+  .cart-toast.show { transform: translateY(0) scale(1); opacity: 1; }
+  .cart-toast-close { background: none; border: none; color: rgba(255,255,255,.4); cursor: pointer; font-size: 18px; margin-left: 4px; }
+
+  /* ══════════════════════════════════════
+     CHECKOUT MODAL
+  ══════════════════════════════════════ */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(7,17,31,.7);
+    backdrop-filter: blur(8px); z-index: 500;
+    display: flex; align-items: center; justify-content: center; padding: 16px;
+    opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--white); border-radius: 20px;
+    max-width: 620px; width: 100%; max-height: 90vh; overflow-y: auto;
+    transform: translateY(30px) scale(.97);
+    transition: all .35s cubic-bezier(.25,.46,.45,.94);
+  }
+  .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+  .modal-header { padding: 24px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .modal-title { font-family: var(--fd); font-size: 22px; font-weight: 800; color: var(--navy); }
+  .modal-close { background: var(--lgray); border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+  .modal-close:hover { background: var(--border); }
+  .modal-body { padding: 28px; }
+  .modal-steps { display: flex; gap: 0; background: var(--lgray); border-radius: 10px; padding: 4px; margin-bottom: 28px; }
+  .mstep { flex: 1; text-align: center; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--gray); cursor: pointer; transition: all .2s; }
+  .mstep.active { background: #fff; color: var(--navy); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .step-panel { display: none; }
+  .step-panel.active { display: block; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .form-group label { font-size: 13px; font-weight: 500; color: var(--navy); }
+  .form-input { padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-family: var(--fb); font-size: 14px; color: var(--navy); outline: none; transition: border .2s; background: #fff; }
+  .form-input:focus { border-color: var(--mid); }
+  .payment-methods { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+  .pmethod { border: 1.5px solid var(--border); border-radius: 10px; padding: 14px; cursor: pointer; text-align: center; transition: all .2s; }
+  .pmethod:hover { border-color: var(--mid); }
+  .pmethod.sel { border-color: var(--mid); background: var(--ice); }
+  .pmethod-icon { font-size: 24px; margin-bottom: 5px; }
+  .pmethod-name { font-size: 12px; font-weight: 500; color: var(--navy); }
+  .order-summary-mini { background: var(--lgray); border-radius: 12px; padding: 16px; }
+  .osm-item { display: flex; justify-content: space-between; font-size: 14px; color: var(--gray); margin-bottom: 8px; }
+  .osm-item:last-child { margin-bottom: 0; padding-top: 10px; border-top: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 16px; }
+  .modal-footer { padding: 20px 28px; border-top: 1px solid var(--border); display: flex; gap: 12px; }
+  .btn-prev { flex: 1; padding: 13px; border: 1.5px solid var(--border); border-radius: 10px; background: none; font-family: var(--fb); font-size: 14px; font-weight: 500; cursor: pointer; color: var(--navy); transition: all .2s; }
+  .btn-prev:hover { border-color: var(--navy); }
+  .btn-next { flex: 2; padding: 13px; background: var(--mid); color: #fff; border: none; border-radius: 10px; font-family: var(--fb); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
+  .btn-next:hover { background: var(--blue); }
+  .success-view { display: none; text-align: center; padding: 48px 28px; }
+  .success-view.show { display: block; }
+  .success-icon { font-size: 64px; animation: bounceIn .6s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes bounceIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+  .order-num { font-family: var(--fm); font-size: 14px; color: var(--mid); background: var(--ice); padding: 8px 16px; border-radius: 8px; display: inline-block; margin: 12px 0; letter-spacing: .05em; }
 
   /* ── HERO ── */
   #hero { min-height: 100svh; background: var(--navy); display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; padding-top: 64px; }
@@ -125,15 +304,11 @@
   .pfooter { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .pprice { font-family: var(--fd); font-size: 24px; font-weight: 800; color: var(--navy); }
   .pprice small { font-size: 13px; color: var(--gray); font-weight: 400; font-family: var(--fb); }
-  .add-btn { background: var(--mid); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all .2s; font-family: var(--fb); white-space: nowrap; } .add-btn:hover { background: var(--blue); }
+  .add-btn { background: var(--mid); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all .2s; font-family: var(--fb); white-space: nowrap; }
+  .add-btn:hover { background: var(--blue); transform: translateY(-1px); }
+  .add-btn.adding { background: var(--green); }
   .bundle-box { margin-top: 28px; background: linear-gradient(135deg,var(--navy),var(--blue)); border-radius: var(--r); padding: clamp(20px,4vw,32px) clamp(20px,4vw,36px); display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
   .bundle-price-row { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
-
-  /* ── CART ── */
-  .cart-toast { position: fixed; bottom: 28px; right: clamp(16px,4vw,28px); left: clamp(16px,4vw,28px); max-width: 420px; margin-left: auto; z-index: 1000; background: var(--navy); color: #fff; padding: 14px 20px; border-radius: 12px; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px; transform: translateY(100px); opacity: 0; transition: all .35s cubic-bezier(.34,1.56,.64,1); box-shadow: 0 16px 40px rgba(7,17,31,.3); }
-  .cart-toast.show { transform: translateY(0); opacity: 1; }
-  .cart-count { position: fixed; top: 18px; right: 80px; z-index: 200; background: var(--gold); color: #fff; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0); transition: all .3s cubic-bezier(.34,1.56,.64,1); }
-  .cart-count.vis { opacity: 1; transform: scale(1); }
 
   /* ── SCIENCE ── */
   #scienza { padding: var(--section-pad) 0; background: var(--navy); position: relative; overflow: hidden; }
@@ -267,78 +442,48 @@
   .fade-up.vis { opacity: 1; transform: translateY(0); }
 
   /* ════════════════════════════════════════
-     RESPONSIVE BREAKPOINTS
+     RESPONSIVE
   ════════════════════════════════════════ */
-
-  /* ── TABLET LANDSCAPE: max 1024px ── */
   @media (max-width: 1024px) {
     .prod-grid { grid-template-columns: repeat(2,1fr); }
     .bars-grid { grid-template-columns: repeat(3,1fr); }
     .info-grid { grid-template-columns: repeat(2,1fr); }
     .stats-4col { grid-template-columns: repeat(2,1fr); gap: 24px; }
     .ft-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .cart-drawer { width: 380px; }
   }
-
-  /* ── TABLET PORTRAIT: max 768px ── */
   @media (max-width: 768px) {
-    /* Nav */
-    .nav-l, .nav-cta { display: none; }
+    .nav-l { display: none; }
     .nav-hamburger { display: flex; }
-    .cart-count { right: 60px; }
-
-    /* Hero */
     .hero-in { grid-template-columns: 1fr; gap: 0; padding-bottom: 52px; }
     .hero-visual-wrap { display: none; }
     .htitle { font-size: clamp(36px,7vw,54px); }
-
-    /* Products */
     .prod-header { flex-direction: column; align-items: flex-start; }
     .prod-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
-
-    /* Science */
     .sci-in { grid-template-columns: 1fr; gap: 40px; }
-
-    /* Market */
     .mkt-grid { grid-template-columns: 1fr; }
     .stats-4col { grid-template-columns: repeat(2,1fr); }
-
-    /* Infographics */
     .info-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
-
-    /* Bar partner */
     .bars-grid { grid-template-columns: repeat(2,1fr); }
-
-    /* Testimonials */
     .tg { grid-template-columns: 1fr; }
-
-    /* Sources */
     .fonti-grid { grid-template-columns: 1fr 1fr; }
-
-    /* Footer */
     .ft-top { grid-template-columns: 1fr 1fr; }
     .ftb { grid-column: 1 / -1; }
+    .cart-drawer { width: 100vw; }
+    .form-row { grid-template-columns: 1fr; }
+    .payment-methods { grid-template-columns: 1fr; }
   }
-
-  /* ── MOBILE: max 480px ── */
   @media (max-width: 480px) {
     :root { --r: 12px; }
-
-    /* Nav */
     .logo { font-size: 18px; }
-
-    /* Hero */
     .hero-badge { font-size: 9px; padding: 5px 12px; }
     .htitle { font-size: clamp(32px,8.5vw,48px); }
     .hsub { font-size: 15px; }
     .btn { font-size: 14px; padding: 12px 20px; }
     .hero-stats { gap: 18px; }
     .hstat-v { font-size: 22px; }
-
-    /* Trust */
     .trust-i { gap: 14px; }
     .titem { font-size: 12px; }
-
-    /* Products */
     .prod-grid { max-width: 100%; }
     .pvis { height: 180px; }
     .pname { font-size: 17px; }
@@ -346,40 +491,26 @@
     .add-btn { width: 100%; justify-content: center; }
     .bundle-box { flex-direction: column; align-items: flex-start; }
     .bundle-price-row { width: 100%; justify-content: space-between; }
-
-    /* Market */
     .stats-4col { grid-template-columns: 1fr 1fr; gap: 16px; }
     .mval { font-size: 36px; }
-
-    /* Bar partner */
     .bars-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
     .bar-logo-card { padding: 16px 12px; gap: 8px; }
-
-    /* Compare */
     .ct-head .ctc, .ctc { padding: 12px 10px; font-size: 12px; }
     .ct-head .ctc { font-size: 9px; }
-
-    /* Fonti */
     .fonti-grid { grid-template-columns: 1fr; }
-
-    /* Footer */
     .ft-top { grid-template-columns: 1fr; }
     .ftb { grid-column: unset; }
     .ft-bot { flex-direction: column; text-align: center; gap: 8px; }
-
-    /* CTA buttons stack */
     .cta-acts { flex-direction: column; align-items: center; }
     .cta-acts .btn { width: 100%; max-width: 320px; justify-content: center; }
+    .nav-cart-btn span.cart-label { display: none; }
+    .nav-cart-btn { padding: 9px 14px; }
   }
-
-  /* ── VERY SMALL: max 360px ── */
   @media (max-width: 360px) {
     .htitle { font-size: 30px; }
     .bars-grid { grid-template-columns: 1fr; max-width: 280px; margin-left: auto; margin-right: auto; }
     .hero-stats { flex-direction: column; gap: 12px; }
   }
-
-  /* ── LANDSCAPE PHONE ── */
   @media (max-height: 500px) and (orientation: landscape) {
     #hero { min-height: auto; padding-top: 64px; }
     .hero-in { padding: 32px clamp(16px,4vw,28px) 40px; }
@@ -389,7 +520,143 @@
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ══════════════════════════════════
+     CART DRAWER
+══════════════════════════════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cd-header">
+    <div class="cd-title">
+      🛒 Carrello
+      <span class="cd-count" id="cdCount">0 articoli</span>
+    </div>
+    <button class="cd-close" onclick="closeCart()">×</button>
+  </div>
+
+  <div class="cd-ship-bar" id="cdShipBar">
+    <div class="cd-ship-text" id="cdShipText">Aggiungi <span id="cdShipNeeded">€50</span> per la spedizione gratuita</div>
+    <div class="cd-ship-track"><div class="cd-ship-fill" id="cdShipFill" style="width:0%"></div></div>
+  </div>
+
+  <div class="cd-items" id="cdItems">
+    <div class="cd-empty" id="cdEmpty">
+      <div class="cd-empty-icon">🛒</div>
+      <p>Il tuo carrello è vuoto.<br>Aggiungi un prodotto!</p>
+    </div>
+  </div>
+
+  <div class="cd-footer" id="cdFooter" style="display:none">
+    <div class="cd-coupon">
+      <input class="cd-coupon-input" id="cdCouponInput" placeholder="Codice sconto…" maxlength="20">
+      <button class="cd-coupon-btn" onclick="applyCoupon()">Applica</button>
+    </div>
+    <div class="cd-coupon-ok" id="cdCouponOk">✓ BENVENUTO10 applicato — −10%</div>
+
+    <div class="cd-rows">
+      <div class="cd-row"><span>Subtotale</span><span class="v" id="cdSubtotal">€0</span></div>
+      <div class="cd-row discount" id="cdDiscRow" style="display:none"><span>Sconto −10%</span><span class="v" id="cdDiscount">−€0</span></div>
+      <div class="cd-row" id="cdShipRow"><span>Spedizione</span><span class="v" id="cdShipVal">Calcolata al checkout</span></div>
+      <div class="cd-row total"><span>Totale</span><span id="cdTotal">€0</span></div>
+    </div>
+
+    <button class="cd-checkout" id="cdCheckoutBtn" onclick="openCheckout()">
+      🔒 Procedi al checkout
+    </button>
+    <div class="cd-secure">
+      <span class="cd-sbadge">🔒 SSL</span>
+      <span class="cd-sbadge">💳 Stripe</span>
+      <span class="cd-sbadge">🅿️ PayPal</span>
+      <span class="cd-sbadge">↩️ 30gg</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     TOAST
+══════════════════════════════════ -->
+<div class="cart-toast" id="cartToast">
+  <span style="color:var(--green);font-size:18px">✓</span>
+  <span id="toastMsg">Aggiunto al carrello!</span>
+  <button class="cart-toast-close" onclick="document.getElementById('cartToast').classList.remove('show')">×</button>
+</div>
+
+<!-- ══════════════════════════════════
+     CHECKOUT MODAL
+══════════════════════════════════ -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal">
+    <div id="checkoutForm">
+      <div class="modal-header">
+        <div class="modal-title">Checkout sicuro 🔒</div>
+        <button class="modal-close" onclick="closeCheckout()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-steps">
+          <div class="mstep active" onclick="goStep(1)">1. Dati</div>
+          <div class="mstep" onclick="goStep(2)">2. Spedizione</div>
+          <div class="mstep" onclick="goStep(3)">3. Pagamento</div>
+        </div>
+        <!-- Step 1 -->
+        <div class="step-panel active" id="stepPanel1">
+          <div class="form-row">
+            <div class="form-group"><label>Nome *</label><input class="form-input" placeholder="Mario" id="fNome"></div>
+            <div class="form-group"><label>Cognome *</label><input class="form-input" placeholder="Rossi" id="fCognome"></div>
+          </div>
+          <div class="form-group"><label>Email *</label><input class="form-input" type="email" placeholder="mario@email.it" id="fEmail"></div>
+          <div class="form-group"><label>Telefono</label><input class="form-input" type="tel" placeholder="+39 333 123 4567"></div>
+        </div>
+        <!-- Step 2 -->
+        <div class="step-panel" id="stepPanel2">
+          <div class="form-group"><label>Indirizzo *</label><input class="form-input" placeholder="Via Roma 1"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Città *</label><input class="form-input" placeholder="Bologna"></div>
+            <div class="form-group"><label>CAP *</label><input class="form-input" placeholder="40100"></div>
+          </div>
+          <div class="form-group"><label>Provincia</label><input class="form-input" placeholder="BO" maxlength="2"></div>
+          <div style="background:var(--ice);border-radius:10px;padding:14px;font-size:13px;color:var(--mid);border:1px solid #BFDBFE;">
+            🚀 <strong>Consegna stimata:</strong> 24–48 ore lavorative<br>
+            <span style="color:var(--gray)">Spedizione gratuita oltre €50 · Sotto €50: €4,90</span>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="step-panel" id="stepPanel3">
+          <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:14px">Metodo di pagamento</div>
+          <div class="payment-methods">
+            <div class="pmethod sel" onclick="selectPayment(this)"><div class="pmethod-icon">💳</div><div class="pmethod-name">Carta</div></div>
+            <div class="pmethod" onclick="selectPayment(this)"><div class="pmethod-icon">🅿️</div><div class="pmethod-name">PayPal</div></div>
+            <div class="pmethod" onclick="selectPayment(this)"><div class="pmethod-icon">🏦</div><div class="pmethod-name">Bonifico</div></div>
+          </div>
+          <div id="cardFields">
+            <div class="form-group"><label>Numero carta *</label><input class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)"></div>
+            <div class="form-row">
+              <div class="form-group"><label>Scadenza *</label><input class="form-input" placeholder="MM/AA" maxlength="5" oninput="formatExp(this)"></div>
+              <div class="form-group"><label>CVV *</label><input class="form-input" placeholder="123" maxlength="3" type="password"></div>
+            </div>
+            <div class="form-group"><label>Intestatario *</label><input class="form-input" placeholder="Mario Rossi"></div>
+          </div>
+          <div class="order-summary-mini" style="margin-top:16px"><div id="modalOrderItems"></div></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-prev" id="prevBtn" onclick="prevStep()" style="display:none">← Indietro</button>
+        <button class="btn-next" id="nextBtn" onclick="nextStep()">Continua →</button>
+      </div>
+    </div>
+    <!-- Success -->
+    <div class="success-view" id="successView">
+      <div class="success-icon">🎉</div>
+      <h2 style="font-family:var(--fd);font-size:26px;font-weight:800;color:var(--navy);margin:16px 0 8px">Ordine confermato!</h2>
+      <p style="color:var(--gray);font-size:15px;margin-bottom:16px">Grazie per aver scelto Proamina®. Conferma via email in arrivo.</p>
+      <div class="order-num" id="orderNum">#IP-000000</div>
+      <p style="color:var(--gray);font-size:13px;margin-bottom:28px">Consegna stimata: 24–48 ore lavorative 🚀</p>
+      <button onclick="closeCheckout();resetCart()" style="background:var(--mid);color:#fff;border:none;border-radius:10px;padding:13px 28px;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--fb)">Torna allo shop →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     NAV
+══════════════════════════════════ -->
 <nav>
   <div class="nav-i">
     <a class="logo" href="#">Ital<span>protein</span></a>
@@ -400,10 +667,15 @@
       <li><a href="#infografiche">Dati</a></li>
       <li><a href="#bar-partner">Bar Partner</a></li>
     </ul>
-    <a href="#prodotti" class="nav-cta" style="display:none" id="navCtaDesktop">Acquista ora</a>
-    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button class="nav-cart-btn" onclick="openCart()" id="navCartBtn">
+        🛒 <span class="cart-label">Carrello</span>
+        <span class="nav-cart-badge" id="navCartBadge">0</span>
+      </button>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -414,13 +686,8 @@
   <a href="#mercato" onclick="closeMenu()">Mercato</a>
   <a href="#infografiche" onclick="closeMenu()">Dati</a>
   <a href="#bar-partner" onclick="closeMenu()">Bar Partner</a>
-  <a href="#prodotti" class="nav-cta" onclick="closeMenu()">Acquista ora</a>
+  <a href="#prodotti" class="nav-cta-link" onclick="closeMenu()">Acquista ora</a>
 </nav>
-
-<div class="cart-count" id="cartCount">0</div>
-<div class="cart-toast" id="cartToast">
-  <span style="color:var(--green)">✓</span><span id="toastMsg">Aggiunto!</span>
-</div>
 
 <!-- ══ HERO ══ -->
 <section id="hero">
@@ -509,7 +776,7 @@
           <div class="pname">Bustine Monodose</div>
           <div class="pdesc">250 bustine da 4g per caffè, tè e bevande. Formato identico allo zucchero, sapore superiore — senza retrogusto.</div>
           <div class="ptags"><span class="ptag">250 bustine</span><span class="ptag">4g ciascuna</span><span class="ptag">0 kcal carb</span></div>
-          <div class="pfooter"><div class="pprice">€24<small>/confezione</small></div><button class="add-btn" onclick="addToCart('Bustine Monodose',24)">+ Aggiungi</button></div>
+          <div class="pfooter"><div class="pprice">€24<small>/confezione</small></div><button class="add-btn" onclick="addToCart(this,'Bustine Monodose','📦',24)">+ Aggiungi</button></div>
         </div>
       </div>
       <div class="pcard feat fade-up">
@@ -520,7 +787,7 @@
           <div class="pname">Barattolo 500g + Scoop</div>
           <div class="pdesc">500g di Proamina® pura con misurazione di precisione. Ideale per uso quotidiano in cucina o in palestra. ~2.000 dosi.</div>
           <div class="ptags"><span class="ptag">500g</span><span class="ptag">scoop incluso</span><span class="ptag">~2.000 dosi</span><span class="ptag">reseal zip</span></div>
-          <div class="pfooter"><div class="pprice">€59<small>/barattolo</small></div><button class="add-btn" onclick="addToCart('Barattolo 500g',59)">+ Aggiungi</button></div>
+          <div class="pfooter"><div class="pprice">€59<small>/barattolo</small></div><button class="add-btn" onclick="addToCart(this,'Barattolo 500g','🏺',59)">+ Aggiungi</button></div>
         </div>
       </div>
       <div class="pcard fade-up">
@@ -531,7 +798,7 @@
           <div class="pname">Shot da Borraccia</div>
           <div class="pdesc">Formato stick da 10g per la borraccia in palestra, in ufficio, in viaggio. Dissoluzione istantanea. Dolce i tuoi 2L d'acqua giornalieri.</div>
           <div class="ptags"><span class="ptag">30 shot</span><span class="ptag">10g per shot</span><span class="ptag">idratazione</span></div>
-          <div class="pfooter"><div class="pprice">€34<small>/box 30pz</small></div><button class="add-btn" onclick="addToCart('Shot Borraccia',34)">+ Aggiungi</button></div>
+          <div class="pfooter"><div class="pprice">€34<small>/box 30pz</small></div><button class="add-btn" onclick="addToCart(this,'Shot Borraccia','💧',34)">+ Aggiungi</button></div>
         </div>
       </div>
     </div>
@@ -547,7 +814,7 @@
           <div style="font-family:var(--fd);font-size:clamp(28px,4vw,36px);font-weight:800;color:var(--gold)">€89</div>
           <div style="font-size:12px;color:rgba(255,255,255,.45)">risparmi €28</div>
         </div>
-        <button class="btn btn-w" onclick="addToCart('Kit Completo',89)">Prendi il Bundle →</button>
+        <button class="btn btn-w" onclick="addBundle()">Prendi il Bundle →</button>
       </div>
     </div>
   </div>
@@ -816,7 +1083,7 @@
     <h2>Prova Proamina®<br>senza rischi</h2>
     <p>30 giorni di prova. Se non sei soddisfatto, rimborso completo garantito. Nessuna domanda.</p>
     <div class="cta-acts">
-      <a href="#prodotti" class="btn btn-w">Acquista ora →</a>
+      <button class="btn btn-w" onclick="openCart()">🛒 Vedi carrello</button>
       <a href="#scienza" class="btn btn-o" style="color:rgba(255,255,255,.68);border-color:rgba(255,255,255,.18)">Approfondisci la scienza</a>
     </div>
   </div>
@@ -845,7 +1112,9 @@
 </footer>
 
 <script>
-// ── HAMBURGER MENU ──
+// ══════════════════════════════════
+//  HAMBURGER MENU
+// ══════════════════════════════════
 const hamburger = document.getElementById('hamburger');
 const navDrawer = document.getElementById('navDrawer');
 hamburger.addEventListener('click', () => {
@@ -858,32 +1127,272 @@ function closeMenu() {
   navDrawer.classList.remove('open');
   document.body.style.overflow = '';
 }
-// Close on outside tap
 document.addEventListener('click', (e) => {
   if (navDrawer.classList.contains('open') && !navDrawer.contains(e.target) && !hamburger.contains(e.target)) closeMenu();
 });
-// Show desktop CTA when nav links visible
-function updateNav() {
-  const w = window.innerWidth;
-  document.getElementById('navCtaDesktop').style.display = w > 768 ? 'inline-flex' : 'none';
-  if (w > 768) closeMenu();
-}
-updateNav();
-window.addEventListener('resize', updateNav);
 
-// ── CART ──
-let cartTotal = 0, cartN = 0;
-function addToCart(name, price) {
-  cartN++; cartTotal += price;
-  document.getElementById('cartCount').textContent = cartN;
-  document.getElementById('cartCount').classList.add('vis');
-  document.getElementById('toastMsg').textContent = name + ' — Totale: €' + cartTotal;
+// ══════════════════════════════════
+//  CART STATE
+// ══════════════════════════════════
+let cart = [];
+let couponApplied = false;
+const FREE_SHIP = 50;
+
+function cartCount() { return cart.reduce((s, i) => s + i.qty, 0); }
+function cartSubtotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
+
+// ── Add to cart ──
+function addToCart(btn, name, icon, price) {
+  const ex = cart.find(i => i.name === name);
+  if (ex) ex.qty++;
+  else cart.push({ name, icon, price, qty: 1 });
+
+  // Button feedback
+  if (btn) {
+    const orig = btn.innerHTML;
+    btn.classList.add('adding');
+    btn.innerHTML = '✓ Aggiunto!';
+    setTimeout(() => { btn.classList.remove('adding'); btn.innerHTML = orig; }, 1200);
+  }
+
+  updateCartUI();
+  showToast(`${icon} <strong>${name}</strong> aggiunto al carrello`);
+  openCart();
+}
+
+function addBundle() {
+  [
+    { name: 'Bustine Monodose', icon: '📦', price: 24 },
+    { name: 'Barattolo 500g',   icon: '🏺', price: 59 },
+    { name: 'Shot Borraccia',   icon: '💧', price: 34 }
+  ].forEach(p => {
+    const ex = cart.find(i => i.name === p.name);
+    if (ex) ex.qty++;
+    else cart.push({ ...p, qty: 1 });
+  });
+  updateCartUI();
+  showToast('🎁 Kit Completo aggiunto! Risparmio di €28 applicato.');
+  openCart();
+}
+
+// ── Modify cart ──
+function updateQty(idx, delta) {
+  cart[idx].qty = Math.max(1, cart[idx].qty + delta);
+  updateCartUI();
+}
+function removeItem(idx) {
+  const els = document.querySelectorAll('.ci');
+  if (els[idx]) { els[idx].classList.add('removing'); }
+  setTimeout(() => { cart.splice(idx, 1); updateCartUI(); }, 240);
+}
+
+// ── Coupon ──
+function applyCoupon() {
+  const val = document.getElementById('cdCouponInput').value.trim().toUpperCase();
+  const input = document.getElementById('cdCouponInput');
+  if (val === 'BENVENUTO10') {
+    couponApplied = true;
+    document.getElementById('cdCouponOk').style.display = 'block';
+    input.style.borderColor = 'var(--green)';
+    showToast('🎉 Codice BENVENUTO10 applicato — −10%');
+    updateCartUI();
+  } else {
+    input.style.borderColor = 'var(--red)';
+    showToast('❌ Codice non valido');
+    setTimeout(() => { input.style.borderColor = ''; }, 1500);
+  }
+}
+
+// ── Render ──
+function updateCartUI() {
+  const count = cartCount();
+  const sub   = cartSubtotal();
+  const disc  = couponApplied ? Math.round(sub * .1) : 0;
+  const ship  = sub >= FREE_SHIP ? 0 : (sub > 0 ? 4.90 : 0);
+  const total = sub - disc + ship;
+
+  // Nav badge
+  const badge = document.getElementById('navCartBadge');
+  badge.textContent = count;
+  badge.classList.toggle('vis', count > 0);
+
+  // Drawer header count
+  document.getElementById('cdCount').textContent = count + (count === 1 ? ' articolo' : ' articoli');
+
+  // Free shipping bar
+  const pct = Math.min((sub / FREE_SHIP) * 100, 100);
+  document.getElementById('cdShipFill').style.width = pct + '%';
+  if (sub >= FREE_SHIP) {
+    document.getElementById('cdShipText').innerHTML = '🎉 Spedizione gratuita attivata!';
+    document.getElementById('cdShipText').style.color = 'var(--green)';
+  } else {
+    const needed = (FREE_SHIP - sub).toFixed(0);
+    document.getElementById('cdShipText').innerHTML = `Aggiungi <span>€${needed}</span> per la spedizione gratuita`;
+    document.getElementById('cdShipText').style.color = '';
+  }
+
+  // Items
+  const container = document.getElementById('cdItems');
+  const empty     = document.getElementById('cdEmpty');
+  const footer    = document.getElementById('cdFooter');
+
+  // Clear old items (keep empty state el)
+  container.querySelectorAll('.ci').forEach(el => el.remove());
+
+  if (cart.length === 0) {
+    empty.style.display = 'flex';
+    footer.style.display = 'none';
+  } else {
+    empty.style.display = 'none';
+    footer.style.display = 'block';
+
+    cart.forEach((item, idx) => {
+      const el = document.createElement('div');
+      el.className = 'ci';
+      el.innerHTML = `
+        <div class="ci-icon">${item.icon}</div>
+        <div class="ci-body">
+          <div class="ci-name">${item.name}</div>
+          <div class="ci-unit">€${item.price} / pz</div>
+          <div class="ci-qty-row">
+            <button class="ci-qbtn" onclick="updateQty(${idx},-1)">−</button>
+            <span class="ci-qval">${item.qty}</span>
+            <button class="ci-qbtn" onclick="updateQty(${idx},1)">+</button>
+          </div>
+        </div>
+        <div class="ci-right">
+          <div class="ci-subtotal">€${item.price * item.qty}</div>
+          <button class="ci-remove" onclick="removeItem(${idx})" title="Rimuovi">🗑</button>
+        </div>
+      `;
+      container.appendChild(el);
+    });
+  }
+
+  // Totals
+  document.getElementById('cdSubtotal').textContent = '€' + sub;
+  const discRow = document.getElementById('cdDiscRow');
+  discRow.style.display = disc > 0 ? 'flex' : 'none';
+  document.getElementById('cdDiscount').textContent = '−€' + disc;
+
+  const shipEl = document.getElementById('cdShipVal');
+  const shipRow = document.getElementById('cdShipRow');
+  if (sub === 0) {
+    shipEl.textContent = 'Calcolata al checkout';
+    shipRow.className = 'cd-row';
+  } else if (ship === 0) {
+    shipEl.textContent = '🎉 Gratuita';
+    shipRow.className = 'cd-row ship-free';
+  } else {
+    shipEl.textContent = '€' + ship.toFixed(2);
+    shipRow.className = 'cd-row';
+  }
+
+  document.getElementById('cdTotal').textContent = '€' + total.toFixed(0);
+  document.getElementById('cdCheckoutBtn').disabled = cart.length === 0;
+}
+
+// ══════════════════════════════════
+//  CART DRAWER OPEN/CLOSE
+// ══════════════════════════════════
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ══════════════════════════════════
+//  TOAST
+// ══════════════════════════════════
+let toastTimer;
+function showToast(html) {
   const t = document.getElementById('cartToast');
+  document.getElementById('toastMsg').innerHTML = html;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
 }
 
-// ── INTERSECTION OBSERVER ──
+// ══════════════════════════════════
+//  CHECKOUT MODAL
+// ══════════════════════════════════
+let checkoutStep = 1;
+
+function openCheckout() {
+  closeCart();
+  // Build order summary in step 3
+  buildOrderSummary();
+  checkoutStep = 1;
+  renderCheckoutStep();
+  document.getElementById('checkoutModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCheckout() {
+  document.getElementById('checkoutModal').classList.remove('open');
+  document.getElementById('successView').classList.remove('show');
+  document.getElementById('checkoutForm').style.display = '';
+  document.body.style.overflow = '';
+}
+function buildOrderSummary() {
+  const sub   = cartSubtotal();
+  const disc  = couponApplied ? Math.round(sub * .1) : 0;
+  const ship  = sub >= FREE_SHIP ? 0 : 4.90;
+  const total = sub - disc + ship;
+  let html = cart.map(i => `<div class="osm-item"><span>${i.icon} ${i.name} ×${i.qty}</span><span>€${i.price * i.qty}</span></div>`).join('');
+  if (disc) html += `<div class="osm-item" style="color:var(--green)"><span>Sconto −10%</span><span>−€${disc}</span></div>`;
+  html += `<div class="osm-item"><span>Totale</span><span>€${total.toFixed(0)}</span></div>`;
+  document.getElementById('modalOrderItems').innerHTML = html;
+}
+function goStep(n) { checkoutStep = n; renderCheckoutStep(); }
+function nextStep() { if (checkoutStep < 3) { checkoutStep++; renderCheckoutStep(); } else { placeOrder(); } }
+function prevStep() { if (checkoutStep > 1) { checkoutStep--; renderCheckoutStep(); } }
+function renderCheckoutStep() {
+  document.querySelectorAll('.step-panel').forEach((p, i) => p.classList.toggle('active', i + 1 === checkoutStep));
+  document.querySelectorAll('.mstep').forEach((t, i) => t.classList.toggle('active', i + 1 === checkoutStep));
+  document.getElementById('prevBtn').style.display = checkoutStep > 1 ? '' : 'none';
+  document.getElementById('nextBtn').textContent = checkoutStep === 3 ? '🔒 Conferma ordine' : 'Continua →';
+  if (checkoutStep === 3) buildOrderSummary();
+}
+function placeOrder() {
+  const num = '#IP-' + Math.floor(100000 + Math.random() * 900000);
+  document.getElementById('orderNum').textContent = num;
+  document.getElementById('checkoutForm').style.display = 'none';
+  document.getElementById('successView').classList.add('show');
+}
+function resetCart() {
+  cart = []; couponApplied = false;
+  document.getElementById('cdCouponInput').value = '';
+  document.getElementById('cdCouponOk').style.display = 'none';
+  updateCartUI();
+}
+function selectPayment(el) {
+  document.querySelectorAll('.pmethod').forEach(m => m.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('cardFields').style.display =
+    el.querySelector('.pmethod-name').textContent === 'Carta' ? '' : 'none';
+}
+function formatCard(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function formatExp(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,4);
+  if (v.length >= 3) v = v.substring(0,2)+'/'+v.substring(2);
+  el.value = v;
+}
+// Close modal on backdrop click
+document.getElementById('checkoutModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCheckout();
+});
+
+// ══════════════════════════════════
+//  SCROLL ANIMATIONS (unchanged)
+// ══════════════════════════════════
 let barsAnim = false, progsAnim = false;
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(el => {
@@ -934,6 +1443,9 @@ function animateCounter(card) {
   }
   requestAnimationFrame(step);
 }
+
+// Init
+updateCartUI();
 </script>
 </body>
 </html>
