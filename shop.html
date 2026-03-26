@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — Italprotein · Proamina®</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: #F8FAFC; color: #07111F; overflow-x: hidden; }
+
+    :root {
+      --navy:   #07111F;
+      --blue:   #1246A8;
+      --mid:    #2563EB;
+      --light:  #60A5FA;
+      --ice:    #EFF6FF;
+      --white:  #FFFFFF;
+      --gold:   #F59E0B;
+      --green:  #10B981;
+      --red:    #EF4444;
+      --gray:   #64748B;
+      --lgray:  #F1F5F9;
+      --border: #E2E8F0;
+      --r:      14px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(7,17,31,.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .nav-i {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(16px,4vw,32px); height: 64px; gap: 16px;
+    }
+    .logo { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -.02em; flex-shrink: 0; }
+    .logo span { color: var(--light); }
+    .nav-back { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,.55); text-decoration: none; font-size: 13px; transition: color .2s; }
+    .nav-back:hover { color: #fff; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .cart-btn {
+      position: relative; display: flex; align-items: center; gap: 8px;
+      background: var(--mid); color: #fff; border: none; border-radius: 10px;
+      padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-size: 14px;
+      font-weight: 600; cursor: pointer; transition: all .2s; white-space: nowrap;
+    }
+    .cart-btn:hover { background: var(--blue); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,99,235,.35); }
+    .cart-badge {
+      position: absolute; top: -7px; right: -7px;
+      background: var(--gold); color: #fff; border: 2px solid rgba(7,17,31,.97);
+      width: 20px; height: 20px; border-radius: 50%;
+      font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0); transition: all .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    .cart-badge.vis { opacity: 1; transform: scale(1); }
+
+    /* ── HERO STRIP ── */
+    .shop-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0E2255 100%);
+      padding: clamp(40px,6vw,60px) clamp(16px,4vw,32px);
+      position: relative; overflow: hidden;
+    }
+    .shop-hero::before {
+      content: ''; position: absolute; inset: 0; opacity: .04;
+      background-image: linear-gradient(rgba(96,165,250,.6) 1px,transparent 1px), linear-gradient(90deg,rgba(96,165,250,.6) 1px,transparent 1px);
+      background-size: 48px 48px;
+    }
+    .shop-hero-in { max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+    .shop-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(28px,4vw,48px); font-weight: 800; color: #fff; letter-spacing: -.02em; margin-bottom: 8px; }
+    .shop-hero h1 span { color: var(--light); }
+    .shop-hero p { color: rgba(255,255,255,.5); font-size: 15px; }
+    .shop-breadcrumb { display: flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,.35); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 16px; }
+    .shop-breadcrumb a { color: var(--light); text-decoration: none; } .shop-breadcrumb a:hover { text-decoration: underline; }
+
+    /* ── PROMO BANNER ── */
+    .promo-bar {
+      background: linear-gradient(90deg, #92400E, var(--gold), #92400E);
+      background-size: 200% auto; animation: shimmer 3s linear infinite;
+      text-align: center; padding: 10px 16px;
+      font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+      color: #fff; letter-spacing: .06em; text-transform: uppercase;
+    }
+    @keyframes shimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }
+
+    /* ── MAIN LAYOUT ── */
+    .shop-layout {
+      max-width: 1280px; margin: 0 auto;
+      padding: clamp(24px,4vw,48px) clamp(16px,4vw,32px);
+      display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start;
+    }
+
+    /* ── FILTERS ROW ── */
+    .filters-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+    .ftab {
+      padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;
+      border: 1.5px solid var(--border); background: var(--white);
+      color: var(--gray); cursor: pointer; transition: all .2s; white-space: nowrap;
+    }
+    .ftab:hover { border-color: var(--mid); color: var(--mid); }
+    .ftab.active { background: var(--mid); color: #fff; border-color: var(--mid); }
+    .sort-select {
+      padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--navy);
+      background: var(--white); cursor: pointer; outline: none;
+    }
+    .results-count { font-size: 13px; color: var(--gray); white-space: nowrap; }
+
+    /* ── PRODUCT GRID ── */
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+    /* ── PRODUCT CARD ── */
+    .pcard {
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+      transition: all .3s cubic-bezier(.25,.46,.45,.94);
+      display: flex; flex-direction: column; position: relative;
+    }
+    .pcard:hover { transform: translateY(-5px); border-color: var(--mid); box-shadow: 0 20px 60px rgba(37,99,235,.1); }
+    .pcard.featured { border-color: var(--mid); }
+    .pcard-badge {
+      position: absolute; top: 14px; left: 14px; z-index: 3;
+      background: var(--gold); color: #fff;
+      font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: .06em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 6px;
+    }
+    .pcard-badge.new { background: var(--green); }
+    .pcard-badge.sale { background: var(--red); }
+    .pcard-wishlist {
+      position: absolute; top: 12px; right: 12px; z-index: 3;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,.9); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; transition: all .2s; backdrop-filter: blur(4px);
+    }
+    .pcard-wishlist:hover { background: #FEF2F2; transform: scale(1.1); }
+    .pcard-wishlist.active { color: var(--red); }
+
+    .pvis {
+      height: 220px; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--ice) 0%, #DBEAFE 100%);
+      position: relative; overflow: hidden;
+    }
+    .pvis::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
+      background: linear-gradient(transparent, rgba(239,246,255,.6));
+    }
+    .pvis svg { width: 110px; height: 160px; filter: drop-shadow(0 8px 24px rgba(37,99,235,.2)); transition: transform .4s; }
+    .pcard:hover .pvis svg { transform: scale(1.05) translateY(-4px); }
+
+    .pinfo { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .pname { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--navy); }
+    .pdesc { font-size: 13px; color: var(--gray); line-height: 1.6; flex: 1; }
+    .ptags { display: flex; gap: 5px; flex-wrap: wrap; }
+    .ptag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .04em; text-transform: uppercase; background: var(--ice); color: var(--blue); border-radius: 5px; padding: 3px 8px; }
+    .prating { display: flex; align-items: center; gap: 6px; }
+    .stars { color: var(--gold); font-size: 13px; }
+    .rating-val { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gray); }
+
+    /* Quantity selector */
+    .qty-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .qty-ctrl { display: flex; align-items: center; gap: 0; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .qty-btn { width: 32px; height: 32px; border: none; background: var(--lgray); cursor: pointer; font-size: 16px; font-weight: 600; color: var(--navy); display: flex; align-items: center; justify-content: center; transition: background .15s; }
+    .qty-btn:hover { background: var(--ice); }
+    .qty-val { width: 38px; height: 32px; border: none; border-left: 1.5px solid var(--border); border-right: 1.5px solid var(--border); background: #fff; text-align: center; font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--navy); outline: none; }
+    .price-area { display: flex; flex-direction: column; align-items: flex-end; }
+    .price-old { font-size: 12px; color: var(--gray); text-decoration: line-through; font-family: 'DM Mono', monospace; }
+    .price-curr { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--navy); line-height: 1; }
+    .price-curr small { font-size: 12px; color: var(--gray); font-family: 'DM Sans', sans-serif; font-weight: 400; }
+    .add-btn {
+      width: 100%; margin-top: 10px; padding: 12px; border-radius: 10px;
+      background: var(--mid); color: #fff; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+      transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .add-btn:hover { background: var(--blue); transform: translateY(-1px); box-shadow: 0 8px 20px rgba(37,99,235,.3); }
+    .add-btn:active { transform: scale(.98); }
+    .add-btn.adding { background: var(--green); }
+
+    /* ── BUNDLE CARD ── */
+    .bundle-card {
+      background: linear-gradient(135deg, var(--navy), #0E2255);
+      border: 1.5px solid rgba(37,99,235,.4);
+      border-radius: var(--r); padding: clamp(20px,3vw,28px);
+      margin-top: 24px; position: relative; overflow: hidden;
+    }
+    .bundle-card::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.2), transparent 70%);
+    }
+    .bundle-products { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+    .bprod { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; padding: 8px 12px; }
+    .bprod-icon { font-size: 20px; }
+    .bprod-name { font-size: 12px; font-weight: 500; color: rgba(255,255,255,.8); }
+    .bundle-pricing { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .bundle-save { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(245,158,11,.3); border-radius: 20px; padding: 4px 12px; display: inline-block; margin-bottom: 8px; }
+    .bundle-price-old { font-size: 13px; color: rgba(255,255,255,.35); text-decoration: line-through; font-family: 'DM Mono', monospace; }
+    .bundle-price-new { font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800; color: var(--gold); line-height: 1; }
+    .bundle-add-btn {
+      padding: 13px 28px; background: var(--gold); color: var(--navy);
+      border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 700; cursor: pointer; transition: all .2s;
+      white-space: nowrap;
+    }
+    .bundle-add-btn:hover { background: #FBBF24; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(245,158,11,.3); }
+
+    /* ── CART SIDEBAR ── */
+    .cart-sidebar {
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: var(--r); padding: 0; overflow: hidden;
+      position: sticky; top: 80px; max-height: calc(100vh - 100px);
+      display: flex; flex-direction: column;
+    }
+    .cart-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      background: var(--navy); color: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cart-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; }
+    .cart-count-badge { background: var(--gold); color: #fff; padding: 3px 10px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .cart-items::-webkit-scrollbar { width: 4px; }
+    .cart-items::-webkit-scrollbar-track { background: var(--lgray); }
+    .cart-items::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    /* Empty state */
+    .cart-empty { text-align: center; padding: 40px 20px; }
+    .cart-empty-icon { font-size: 48px; margin-bottom: 12px; opacity: .4; }
+    .cart-empty p { color: var(--gray); font-size: 14px; line-height: 1.6; }
+
+    /* Cart item */
+    .cart-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 12px; border: 1px solid var(--border); border-radius: 10px;
+      transition: all .3s; background: var(--lgray);
+    }
+    .ci-icon { font-size: 28px; flex-shrink: 0; width: 44px; height: 44px; background: var(--ice); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .ci-info { flex: 1; min-width: 0; }
+    .ci-name { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ci-price { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--mid); font-weight: 500; }
+    .ci-qty-row { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+    .ci-qty-btn { width: 24px; height: 24px; border: 1px solid var(--border); background: #fff; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+    .ci-qty-btn:hover { background: var(--ice); border-color: var(--mid); }
+    .ci-qty-val { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--navy); min-width: 20px; text-align: center; }
+    .ci-subtotal { font-size: 13px; font-weight: 700; color: var(--navy); white-space: nowrap; }
+    .ci-remove { background: none; border: none; cursor: pointer; color: #CBD5E1; font-size: 16px; transition: color .2s; flex-shrink: 0; padding: 4px; }
+    .ci-remove:hover { color: var(--red); }
+
+    /* Cart summary */
+    .cart-summary { padding: 20px 24px; border-top: 1px solid var(--border); background: var(--lgray); }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--gray); margin-bottom: 8px; }
+    .summary-row.total { font-size: 18px; font-family: 'Syne', sans-serif; font-weight: 800; color: var(--navy); margin-top: 12px; padding-top: 12px; border-top: 1.5px solid var(--border); margin-bottom: 0; }
+    .summary-row .val { font-family: 'DM Mono', monospace; font-weight: 500; }
+    .shipping-free { color: var(--green); font-weight: 600; }
+    .free-shipping-bar { margin: 12px 0; }
+    .fsb-text { font-size: 12px; color: var(--gray); margin-bottom: 6px; }
+    .fsb-text span { color: var(--mid); font-weight: 600; }
+    .fsb-track { height: 6px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .fsb-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--mid), var(--green)); transition: width .5s cubic-bezier(.25,.46,.45,.94); }
+
+    .coupon-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .coupon-input {
+      flex: 1; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px;
+      font-family: 'DM Mono', monospace; font-size: 13px; outline: none; transition: border .2s;
+    }
+    .coupon-input:focus { border-color: var(--mid); }
+    .coupon-btn {
+      padding: 10px 16px; background: var(--lgray); border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--navy);
+      transition: all .2s; white-space: nowrap;
+    }
+    .coupon-btn:hover { background: var(--ice); border-color: var(--mid); }
+    .coupon-success { font-size: 12px; color: var(--green); font-weight: 500; margin-bottom: 8px; display: none; }
+
+    .checkout-btn {
+      width: 100%; padding: 15px; border-radius: 10px;
+      background: var(--mid); color: #fff; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700;
+      transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .checkout-btn:hover { background: var(--blue); transform: translateY(-1px); box-shadow: 0 10px 28px rgba(37,99,235,.3); }
+    .checkout-btn:disabled { background: var(--border); color: var(--gray); cursor: not-allowed; transform: none; box-shadow: none; }
+    .secure-badges { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 12px; }
+    .sbadge { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray); display: flex; align-items: center; gap: 4px; letter-spacing: .04em; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 28px; right: clamp(16px,4vw,28px);
+      background: var(--navy); color: #fff; padding: 14px 20px;
+      border-radius: 12px; font-size: 14px; font-weight: 500;
+      display: flex; align-items: center; gap: 10px;
+      transform: translateY(100px) scale(.9); opacity: 0;
+      transition: all .4s cubic-bezier(.34,1.56,.64,1);
+      box-shadow: 0 16px 40px rgba(7,17,31,.3); z-index: 999; max-width: 360px;
+    }
+    .toast.show { transform: translateY(0) scale(1); opacity: 1; }
+    .toast-icon { font-size: 18px; flex-shrink: 0; }
+    .toast-close { background: none; border: none; color: rgba(255,255,255,.4); cursor: pointer; font-size: 18px; margin-left: 8px; flex-shrink: 0; }
+
+    /* ── CHECKOUT MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(7,17,31,.7);
+      backdrop-filter: blur(8px); z-index: 500;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white); border-radius: 20px; max-width: 640px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      transform: translateY(40px) scale(.96); transition: all .35s cubic-bezier(.25,.46,.45,.94);
+    }
+    .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+    .modal-header { padding: 24px 28px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .modal-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--navy); }
+    .modal-close { background: var(--lgray); border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+    .modal-close:hover { background: var(--border); }
+    .modal-body { padding: 28px; }
+    .modal-steps { display: flex; gap: 0; margin-bottom: 28px; background: var(--lgray); border-radius: 10px; padding: 4px; }
+    .mstep { flex: 1; text-align: center; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--gray); cursor: pointer; transition: all .2s; }
+    .mstep.active { background: var(--white); color: var(--navy); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-size: 13px; font-weight: 500; color: var(--navy); }
+    .form-input {
+      padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--navy);
+      outline: none; transition: border .2s; background: var(--white);
+    }
+    .form-input:focus { border-color: var(--mid); }
+    .payment-methods { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+    .pmethod { border: 1.5px solid var(--border); border-radius: 10px; padding: 14px; cursor: pointer; text-align: center; transition: all .2s; }
+    .pmethod:hover { border-color: var(--mid); }
+    .pmethod.sel { border-color: var(--mid); background: var(--ice); }
+    .pmethod-icon { font-size: 24px; margin-bottom: 5px; }
+    .pmethod-name { font-size: 12px; font-weight: 500; color: var(--navy); }
+    .order-summary-mini { background: var(--lgray); border-radius: 12px; padding: 16px; }
+    .osm-item { display: flex; justify-content: space-between; align-items: center; font-size: 14px; margin-bottom: 8px; color: var(--gray); }
+    .osm-item:last-child { margin-bottom: 0; padding-top: 10px; border-top: 1px solid var(--border); font-weight: 700; color: var(--navy); font-size: 16px; }
+    .modal-footer { padding: 20px 28px; border-top: 1px solid var(--border); display: flex; gap: 12px; }
+    .btn-prev { flex: 1; padding: 13px; border: 1.5px solid var(--border); border-radius: 10px; background: none; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; color: var(--navy); transition: all .2s; }
+    .btn-prev:hover { border-color: var(--navy); }
+    .btn-next { flex: 2; padding: 13px; background: var(--mid); color: #fff; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
+    .btn-next:hover { background: var(--blue); }
+
+    /* ── TRUST SECTION ── */
+    .trust-section { background: var(--ice); border: 1px solid #BFDBFE; border-radius: var(--r); padding: 20px; margin-top: 24px; }
+    .trust-items { display: flex; flex-direction: column; gap: 10px; }
+    .titem { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--navy); }
+    .titem-icon { font-size: 18px; flex-shrink: 0; }
+    .titem strong { display: block; font-weight: 600; margin-bottom: 2px; }
+    .titem span { color: var(--gray); font-size: 12px; }
+
+    /* ── SUCCESS STATE ── */
+    .success-view { display: none; text-align: center; padding: 40px 28px; }
+    .success-view.show { display: block; }
+    .success-icon { font-size: 64px; margin-bottom: 16px; animation: bounceIn .6s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes bounceIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-order-num { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--mid); letter-spacing: .05em; background: var(--ice); padding: 8px 16px; border-radius: 8px; display: inline-block; margin: 12px 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .shop-layout { grid-template-columns: 1fr; }
+      .cart-sidebar { position: fixed; bottom: 0; left: 0; right: 0; top: auto; max-height: 70vh; border-radius: 20px 20px 0 0; border: none; box-shadow: 0 -10px 40px rgba(7,17,31,.15); z-index: 300; transform: translateY(calc(100% - 66px)); transition: transform .4s cubic-bezier(.25,.46,.45,.94); }
+      .cart-sidebar.open { transform: translateY(0); }
+      .cart-sidebar-handle { height: 4px; width: 40px; background: rgba(255,255,255,.3); border-radius: 2px; margin: 0 auto; }
+      .cart-header { cursor: pointer; }
+      .cart-btn { display: none; }
+      .mobile-cart-bar {
+        display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 350;
+        background: var(--navy); padding: 12px 20px;
+        align-items: center; justify-content: space-between;
+        box-shadow: 0 -4px 20px rgba(7,17,31,.2);
+      }
+      .mcb-info { color: rgba(255,255,255,.65); font-size: 13px; }
+      .mcb-total { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--gold); }
+      .mcb-btn { background: var(--mid); color: #fff; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 15px; border: none; cursor: pointer; }
+      body { padding-bottom: 80px; }
+    }
+    @media (max-width: 768px) {
+      .prod-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .payment-methods { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .prod-grid { grid-template-columns: 1fr; }
+      .filter-tabs { gap: 4px; }
+      .ftab { font-size: 12px; padding: 6px 12px; }
+    }
+    @media (min-width: 1025px) { .mobile-cart-bar { display: none !important; } }
+  </style>
+</head>
+<body>
+
+<!-- PROMO BAR -->
+<div class="promo-bar">🎁 Spedizione gratuita sopra €50 · Reso gratuito 30 giorni · Codice BENVENUTO10 per il 10% di sconto</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-i">
+    <a class="logo" href="index.html">Ital<span>protein</span></a>
+    <a href="index.html" class="nav-back">← Torna al sito</a>
+    <div class="nav-right">
+      <button class="cart-btn" id="cartBtnDesktop" onclick="toggleCart()">
+        🛒 Carrello
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- SHOP HERO -->
+<div class="shop-hero">
+  <div class="shop-hero-in">
+    <div class="shop-breadcrumb">
+      <a href="index.html">Home</a> <span>/</span> <span>Shop</span>
+    </div>
+    <h1>Shop <span>Proamina®</span></h1>
+    <p>Il primo dolcificante 100% proteico brevettato al mondo. Scegli il tuo formato.</p>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="shop-layout">
+
+  <!-- LEFT: PRODUCTS -->
+  <div>
+    <!-- Filters -->
+    <div class="filters-row">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div class="filter-tabs">
+          <button class="ftab active" onclick="filterProducts('all', this)">Tutti</button>
+          <button class="ftab" onclick="filterProducts('mono', this)">Monodose</button>
+          <button class="ftab" onclick="filterProducts('bulk', this)">Sfuso</button>
+          <button class="ftab" onclick="filterProducts('sport', this)">Sport</button>
+          <button class="ftab" onclick="filterProducts('bundle', this)">Bundle</button>
+        </div>
+        <span class="results-count" id="resultsCount">4 prodotti</span>
+      </div>
+      <select class="sort-select" onchange="sortProducts(this.value)">
+        <option value="default">Ordina per: In evidenza</option>
+        <option value="price-asc">Prezzo: Crescente</option>
+        <option value="price-desc">Prezzo: Decrescente</option>
+        <option value="popular">Più popolari</option>
+      </select>
+    </div>
+
+    <!-- Products grid -->
+    <div class="prod-grid" id="prodGrid">
+
+      <!-- Card 1: Bustine -->
+      <div class="pcard" data-cat="mono" data-price="24" data-pop="85">
+        <span class="pcard-badge new">Novità</span>
+        <button class="pcard-wishlist" onclick="toggleWish(this)">🤍</button>
+        <div class="pvis">
+          <svg viewBox="0 0 120 170" fill="none"><rect x="10" y="0" width="100" height="155" rx="10" fill="#1246A8"/><rect x="10" y="0" width="100" height="22" rx="6" fill="rgba(96,165,250,.18)" stroke="rgba(96,165,250,.3)" stroke-width="1"/><path d="M10 12 L17 18 L10 24" fill="#0A2A6E"/><path d="M110 12 L103 18 L110 24" fill="#0A2A6E"/><rect x="20" y="30" width="80" height="1" fill="rgba(96,165,250,.3)"/><circle cx="60" cy="72" r="21" fill="rgba(37,99,235,.4)" stroke="#60A5FA" stroke-width="1.5"/><circle cx="60" cy="72" r="13" fill="#2563EB"/><rect x="55" y="64" width="4" height="16" rx="1" fill="white"/><path d="M59 64 Q68 64 68 70 Q68 76 59 76" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/><path d="M59 66 Q65 66 65 70 Q65 74 59 74" fill="#2563EB"/><text x="60" y="110" fill="white" font-family="Syne,sans-serif" font-size="9" font-weight="700" text-anchor="middle">Proamina®</text><text x="60" y="124" fill="rgba(96,165,250,.8)" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">100% PROTEICO</text><text x="60" y="148" fill="rgba(255,255,255,.38)" font-family="'DM Mono',monospace" font-size="7" text-anchor="middle">4 g · ITALPROTEIN</text></svg>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Bustine Monodose</div>
+          <div class="prating"><span class="stars">★★★★★</span><span class="rating-val">4.9 (127)</span></div>
+          <div class="pdesc">250 bustine da 4g per caffè, tè e bevande. Formato identico allo zucchero, sapore superiore — senza retrogusto.</div>
+          <div class="ptags"><span class="ptag">250 bust.</span><span class="ptag">4g</span><span class="ptag">0 kcal</span><span class="ptag">Bar HoReCa</span></div>
+          <div class="qty-row">
+            <div class="qty-ctrl">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <input type="text" class="qty-val" value="1" readonly>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="price-area">
+              <div class="price-curr">€24<small>/conf</small></div>
+            </div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this,'Bustine Monodose','📦',24)">
+            <span>🛒</span> Aggiungi al carrello
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: Barattolo (featured) -->
+      <div class="pcard featured" data-cat="bulk" data-price="59" data-pop="95">
+        <span class="pcard-badge">⭐ Più venduto</span>
+        <button class="pcard-wishlist" onclick="toggleWish(this)">🤍</button>
+        <div class="pvis" style="background:linear-gradient(135deg,#DBEAFE,#EFF6FF)">
+          <svg viewBox="0 0 120 170" fill="none"><rect x="15" y="44" width="90" height="114" rx="13" fill="#1246A8"/><rect x="9" y="26" width="102" height="28" rx="10" fill="#07111F" stroke="#2563EB" stroke-width="1.5"/><rect x="17" y="32" width="86" height="17" rx="7" fill="#1246A8"/><rect x="23" y="64" width="74" height="77" rx="8" fill="rgba(37,99,235,.28)" stroke="rgba(96,165,250,.4)" stroke-width="1"/><text x="60" y="92" fill="white" font-family="Syne,sans-serif" font-size="9" font-weight="800" text-anchor="middle">ITAL</text><text x="60" y="103" fill="#60A5FA" font-family="Syne,sans-serif" font-size="9" font-weight="800" text-anchor="middle">PROTEIN</text><rect x="32" y="108" width="56" height="1" fill="rgba(96,165,250,.4)"/><text x="60" y="119" fill="rgba(255,255,255,.9)" font-family="'DM Mono',monospace" font-size="7.5" font-weight="500" text-anchor="middle">Proamina®</text><text x="60" y="130" fill="rgba(96,165,250,.7)" font-family="'DM Mono',monospace" font-size="6.5" text-anchor="middle">500g · CON SCOOP</text><ellipse cx="87" cy="46" rx="11" ry="4" fill="#60A5FA" opacity=".55"/><rect x="91" y="25" width="4" height="23" rx="2" fill="#60A5FA" opacity=".5" transform="rotate(15,93,37)"/></svg>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Barattolo 500g + Scoop</div>
+          <div class="prating"><span class="stars">★★★★★</span><span class="rating-val">5.0 (89)</span></div>
+          <div class="pdesc">500g di Proamina® pura con misurazione di precisione. ~2.000 dosi. Ideale per cucina e palestra.</div>
+          <div class="ptags"><span class="ptag">500g</span><span class="ptag">scoop</span><span class="ptag">~2.000 dosi</span></div>
+          <div class="qty-row">
+            <div class="qty-ctrl">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <input type="text" class="qty-val" value="1" readonly>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="price-area">
+              <div class="price-old">€69</div>
+              <div class="price-curr">€59<small>/bar.</small></div>
+            </div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this,'Barattolo 500g','🏺',59)">
+            <span>🛒</span> Aggiungi al carrello
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: Shot -->
+      <div class="pcard" data-cat="sport" data-price="34" data-pop="72">
+        <button class="pcard-wishlist" onclick="toggleWish(this)">🤍</button>
+        <div class="pvis">
+          <svg viewBox="0 0 120 170" fill="none"><rect x="36" y="18" width="48" height="13" rx="6.5" fill="#07111F" stroke="#2563EB" stroke-width="1.2"/><path d="M31 36 Q31 30 36 30 L84 30 Q89 30 89 36 L92 148 Q92 155 60 155 Q28 155 28 148 Z" fill="#1246A8"/><path d="M30 88 Q30 85 60 85 Q90 85 90 88 L92 148 Q92 155 60 155 Q28 155 28 148 Z" fill="#2563EB" opacity=".55"/><path d="M30 88 Q40 84 51 88 Q62 92 73 88 Q84 84 90 88" fill="none" stroke="rgba(96,165,250,.55)" stroke-width="1.5"/><rect x="38" y="48" width="44" height="52" rx="5" fill="rgba(7,17,31,.5)"/><text x="60" y="68" fill="white" font-family="Syne,sans-serif" font-size="8" font-weight="800" text-anchor="middle">SHOT</text><text x="60" y="79" fill="#60A5FA" font-family="Syne,sans-serif" font-size="6" font-weight="700" text-anchor="middle">PROAMINA®</text><text x="60" y="93" fill="rgba(255,255,255,.55)" font-family="'DM Mono',monospace" font-size="5.5" text-anchor="middle">10g · BORRACCIA</text></svg>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Shot da Borraccia</div>
+          <div class="prating"><span class="stars">★★★★★</span><span class="rating-val">4.8 (54)</span></div>
+          <div class="pdesc">Stick da 10g per borraccia in palestra, ufficio, viaggio. Dissoluzione istantanea. 30 shot per box.</div>
+          <div class="ptags"><span class="ptag">30 shot</span><span class="ptag">10g</span><span class="ptag">sport</span></div>
+          <div class="qty-row">
+            <div class="qty-ctrl">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <input type="text" class="qty-val" value="1" readonly>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="price-area">
+              <div class="price-curr">€34<small>/box</small></div>
+            </div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this,'Shot Borraccia','💧',34)">
+            <span>🛒</span> Aggiungi al carrello
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 4: Prova -->
+      <div class="pcard" data-cat="mono" data-price="9" data-pop="60">
+        <span class="pcard-badge sale">−25%</span>
+        <button class="pcard-wishlist" onclick="toggleWish(this)">🤍</button>
+        <div class="pvis" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7)">
+          <svg viewBox="0 0 120 170" fill="none"><rect x="30" y="20" width="60" height="110" rx="8" fill="#065F46"/><rect x="30" y="20" width="60" height="20" rx="8" fill="#10B981" opacity=".8"/><rect x="38" y="50" width="44" height="58" rx="5" fill="rgba(0,0,0,.3)"/><text x="60" y="72" fill="white" font-family="Syne,sans-serif" font-size="7" font-weight="800" text-anchor="middle">STARTER</text><text x="60" y="83" fill="#6EE7B7" font-family="Syne,sans-serif" font-size="7" font-weight="700" text-anchor="middle">PACK</text><text x="60" y="102" fill="rgba(255,255,255,.6)" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">25 BUSTINE</text><circle cx="60" cy="145" r="8" fill="#10B981" opacity=".5"/><text x="60" y="148" fill="white" font-family="'DM Mono',monospace" font-size="6" text-anchor="middle">PROVA</text></svg>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Starter Pack — Prova</div>
+          <div class="prating"><span class="stars">★★★★☆</span><span class="rating-val">4.6 (33)</span></div>
+          <div class="pdesc">25 bustine per provare Proamina® senza impegno. Il punto di partenza ideale per nuovi clienti.</div>
+          <div class="ptags"><span class="ptag">25 bust.</span><span class="ptag">prova</span><span class="ptag">ideale inizio</span></div>
+          <div class="qty-row">
+            <div class="qty-ctrl">
+              <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+              <input type="text" class="qty-val" value="1" readonly>
+              <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="price-area">
+              <div class="price-old">€12</div>
+              <div class="price-curr">€9<small>/conf</small></div>
+            </div>
+          </div>
+          <button class="add-btn" onclick="addToCart(this,'Starter Pack',&#39;🌿&#39;,9)">
+            <span>🛒</span> Aggiungi al carrello
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bundle Card -->
+    <div class="bundle-card" id="bundleSection">
+      <div style="position:relative;z-index:2">
+        <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:rgba(245,158,11,.15);color:var(--gold);border:1px solid rgba(245,158,11,.3);border-radius:20px;padding:4px 14px;display:inline-block;margin-bottom:12px">✦ Bundle risparmio</span>
+        <h3 style="font-family:'Syne',sans-serif;font-size:clamp(20px,3vw,26px);font-weight:800;color:#fff;margin-bottom:6px">Kit Completo Italprotein</h3>
+        <p style="color:rgba(255,255,255,.5);font-size:14px;margin-bottom:16px">Tutto quello che ti serve in un unico ordine. Risparmia €28 rispetto all'acquisto separato.</p>
+        <div class="bundle-products">
+          <div class="bprod"><span class="bprod-icon">📦</span><div><div class="bprod-name">Bustine Monodose</div><div style="font-size:11px;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace">250 bust. × €24</div></div></div>
+          <div class="bprod"><span class="bprod-icon">🏺</span><div><div class="bprod-name">Barattolo 500g</div><div style="font-size:11px;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace">500g + scoop × €59</div></div></div>
+          <div class="bprod"><span class="bprod-icon">💧</span><div><div class="bprod-name">Shot Borraccia</div><div style="font-size:11px;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace">30 shot × €34</div></div></div>
+        </div>
+        <div class="bundle-pricing">
+          <div>
+            <div class="bundle-save">Risparmi €28 — 24% di sconto</div>
+            <div class="bundle-price-old">€117</div>
+            <div class="bundle-price-new">€89</div>
+          </div>
+          <button class="bundle-add-btn" onclick="addBundleToCart()">
+            🛒 Prendi il Bundle →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust -->
+    <div class="trust-section">
+      <div class="trust-items">
+        <div class="titem"><span class="titem-icon">🔒</span><div><strong>Pagamenti sicuri</strong><span>SSL 256-bit · Stripe · PayPal · Bonifico</span></div></div>
+        <div class="titem"><span class="titem-icon">🚀</span><div><strong>Spedizione rapida</strong><span>Consegna 24–48h · Gratuita sopra €50</span></div></div>
+        <div class="titem"><span class="titem-icon">↩️</span><div><strong>Reso gratuito 30 giorni</strong><span>Se non sei soddisfatto, rimborso completo garantito</span></div></div>
+        <div class="titem"><span class="titem-icon">🏆</span><div><strong>Brevetto internazionale</strong><span>EP · US · JP — Unico dolcificante 100% proteico al mondo</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: CART SIDEBAR -->
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header" onclick="toggleCartMobile()">
+      <div>
+        <div class="cart-sidebar-handle" style="margin-bottom:8px"></div>
+        <div class="cart-title">🛒 Il tuo carrello</div>
+      </div>
+      <span class="cart-count-badge" id="sidebarBadge">0 articoli</span>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Il carrello è vuoto.<br>Aggiungi un prodotto per iniziare!</p>
+      </div>
+    </div>
+
+    <div class="cart-summary" id="cartSummary" style="display:none">
+      <!-- Free shipping bar -->
+      <div class="free-shipping-bar" id="freeShipBar">
+        <div class="fsb-text" id="freeShipText">Aggiungi <span id="freeShipNeeded">€50</span> per la spedizione gratuita</div>
+        <div class="fsb-track"><div class="fsb-fill" id="freeShipFill" style="width:0%"></div></div>
+      </div>
+
+      <!-- Coupon -->
+      <div class="coupon-row">
+        <input type="text" class="coupon-input" id="couponInput" placeholder="Codice sconto..." maxlength="20">
+        <button class="coupon-btn" onclick="applyCoupon()">Applica</button>
+      </div>
+      <div class="coupon-success" id="couponSuccess">✓ Codice BENVENUTO10 applicato — −10%</div>
+
+      <div class="summary-row"><span>Subtotale</span><span class="val" id="subtotalVal">€0</span></div>
+      <div class="summary-row" id="discountRow" style="display:none;color:var(--green)"><span>Sconto (−10%)</span><span class="val" id="discountVal">−€0</span></div>
+      <div class="summary-row"><span>Spedizione</span><span class="val shipping-free" id="shippingVal">Calcolata al checkout</span></div>
+      <div class="summary-row total"><span>Totale</span><span id="totalVal">€0</span></div>
+
+      <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" style="margin-top:16px">
+        🔒 Procedi al checkout
+      </button>
+      <div class="secure-badges">
+        <span class="sbadge">🔒 SSL</span>
+        <span class="sbadge">💳 Stripe</span>
+        <span class="sbadge">🅿️ PayPal</span>
+        <span class="sbadge">↩️ 30gg</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- MOBILE CART BAR -->
+<div class="mobile-cart-bar" id="mobilCartBar" style="display:none">
+  <div>
+    <div class="mcb-info" id="mcbInfo">0 articoli nel carrello</div>
+    <div class="mcb-total" id="mcbTotal">€0</div>
+  </div>
+  <button class="mcb-btn" onclick="toggleCart()">Checkout →</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toastMsg">Prodotto aggiunto!</span>
+  <button class="toast-close" onclick="document.getElementById('toast').classList.remove('show')">×</button>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal">
+    <!-- Normal checkout form -->
+    <div id="checkoutForm">
+      <div class="modal-header">
+        <div class="modal-title">Checkout sicuro 🔒</div>
+        <button class="modal-close" onclick="closeCheckout()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-steps">
+          <div class="mstep active" id="step1Tab" onclick="goStep(1)">1. Dati</div>
+          <div class="mstep" id="step2Tab" onclick="goStep(2)">2. Spedizione</div>
+          <div class="mstep" id="step3Tab" onclick="goStep(3)">3. Pagamento</div>
+        </div>
+
+        <!-- Step 1: Contact -->
+        <div class="step-panel active" id="stepPanel1">
+          <div class="form-row">
+            <div class="form-group"><label>Nome *</label><input class="form-input" placeholder="Mario" id="fNome"></div>
+            <div class="form-group"><label>Cognome *</label><input class="form-input" placeholder="Rossi" id="fCognome"></div>
+          </div>
+          <div class="form-group"><label>Email *</label><input class="form-input" type="email" placeholder="mario@email.it" id="fEmail"></div>
+          <div class="form-group"><label>Telefono</label><input class="form-input" type="tel" placeholder="+39 333 123 4567" id="fTel"></div>
+        </div>
+
+        <!-- Step 2: Shipping -->
+        <div class="step-panel" id="stepPanel2">
+          <div class="form-group"><label>Indirizzo *</label><input class="form-input" placeholder="Via Roma 1" id="fVia"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Città *</label><input class="form-input" placeholder="Bologna" id="fCitta"></div>
+            <div class="form-group"><label>CAP *</label><input class="form-input" placeholder="40100" id="fCap"></div>
+          </div>
+          <div class="form-group"><label>Provincia</label><input class="form-input" placeholder="BO" id="fProv" maxlength="2"></div>
+          <div style="background:var(--ice);border-radius:10px;padding:14px;font-size:13px;color:var(--mid);border:1px solid #BFDBFE">
+            🚀 <strong>Consegna stimata:</strong> 24–48 ore lavorative · Corriere espresso<br>
+            <span style="color:var(--gray)">Spedizione gratuita oltre €50 · Sotto €50: €4,90</span>
+          </div>
+        </div>
+
+        <!-- Step 3: Payment -->
+        <div class="step-panel" id="stepPanel3">
+          <div style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:14px">Metodo di pagamento</div>
+          <div class="payment-methods">
+            <div class="pmethod sel" onclick="selectPayment(this)">
+              <div class="pmethod-icon">💳</div>
+              <div class="pmethod-name">Carta di credito</div>
+            </div>
+            <div class="pmethod" onclick="selectPayment(this)">
+              <div class="pmethod-icon">🅿️</div>
+              <div class="pmethod-name">PayPal</div>
+            </div>
+            <div class="pmethod" onclick="selectPayment(this)">
+              <div class="pmethod-icon">🏦</div>
+              <div class="pmethod-name">Bonifico</div>
+            </div>
+          </div>
+          <div id="cardFields">
+            <div class="form-group"><label>Numero carta *</label><input class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)" id="fCard"></div>
+            <div class="form-row">
+              <div class="form-group"><label>Scadenza *</label><input class="form-input" placeholder="MM/AA" maxlength="5" oninput="formatExp(this)" id="fExp"></div>
+              <div class="form-group"><label>CVV *</label><input class="form-input" placeholder="123" maxlength="3" type="password" id="fCvv"></div>
+            </div>
+            <div class="form-group"><label>Nome sul titolare *</label><input class="form-input" placeholder="Mario Rossi" id="fCardName"></div>
+          </div>
+          <div class="order-summary-mini" style="margin-top:16px">
+            <div id="modalOrderItems"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-prev" id="prevBtn" onclick="prevStep()" style="display:none">← Indietro</button>
+        <button class="btn-next" id="nextBtn" onclick="nextStep()">Continua →</button>
+      </div>
+    </div>
+
+    <!-- Success state -->
+    <div class="success-view" id="successView">
+      <div class="success-icon">🎉</div>
+      <h2 style="font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--navy);margin-bottom:8px">Ordine confermato!</h2>
+      <p style="color:var(--gray);font-size:15px;margin-bottom:16px">Grazie per aver scelto Proamina®. Riceverai una conferma via email.</p>
+      <div class="success-order-num" id="orderNum">#IP-000000</div>
+      <p style="color:var(--gray);font-size:13px;margin-bottom:24px">Consegna stimata: 24–48 ore lavorative 🚀</p>
+      <button onclick="closeCheckout();resetCart()" style="background:var(--mid);color:#fff;border:none;border-radius:10px;padding:13px 28px;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">Torna allo shop →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────
+//  CART STATE
+// ─────────────────────────────
+let cart = [];
+let couponApplied = false;
+let currentStep = 1;
+const FREE_SHIP_THRESHOLD = 50;
+
+function cartTotal() {
+  return cart.reduce((s, i) => s + i.price * i.qty, 0);
+}
+function cartCount() {
+  return cart.reduce((s, i) => s + i.qty, 0);
+}
+
+// ─────────────────────────────
+//  ADD TO CART
+// ─────────────────────────────
+function addToCart(btn, name, icon, price) {
+  const qtyInput = btn.closest('.pinfo').querySelector('.qty-val');
+  const qty = parseInt(qtyInput.value) || 1;
+
+  const existing = cart.find(i => i.name === name);
+  if (existing) existing.qty += qty;
+  else cart.push({ name, icon, price, qty });
+
+  // Button feedback
+  btn.classList.add('adding');
+  btn.textContent = '✓ Aggiunto!';
+  setTimeout(() => {
+    btn.classList.remove('adding');
+    btn.innerHTML = '<span>🛒</span> Aggiungi al carrello';
+    qtyInput.value = 1;
+  }, 1200);
+
+  updateCartUI();
+  showToast(`${icon} ${name} aggiunto al carrello`);
+  // On mobile, gently pulse the cart bar
+  if (window.innerWidth <= 1024) {
+    openCartSidebar();
+  }
+}
+
+function addBundleToCart() {
+  const bundles = [
+    { name: 'Bustine Monodose', icon: '📦', price: 24 },
+    { name: 'Barattolo 500g', icon: '🏺', price: 59 },
+    { name: 'Shot Borraccia', icon: '💧', price: 34 }
+  ];
+  bundles.forEach(b => {
+    const ex = cart.find(i => i.name === b.name);
+    if (ex) ex.qty += 1;
+    else cart.push({ ...b, qty: 1 });
+  });
+  // Apply bundle discount: override total with €89
+  cart._bundleDiscount = 28;
+  updateCartUI();
+  showToast('🎁 Kit Completo aggiunto al carrello! Risparmi €28');
+  if (window.innerWidth <= 1024) openCartSidebar();
+}
+
+// ─────────────────────────────
+//  RENDER CART
+// ─────────────────────────────
+function updateCartUI() {
+  const count = cartCount();
+  const subtotal = cartTotal();
+  const discount = couponApplied ? Math.round(subtotal * 0.1) : 0;
+  const shipping = subtotal >= FREE_SHIP_THRESHOLD ? 0 : (subtotal > 0 ? 4.90 : 0);
+  const total = subtotal - discount + shipping;
+
+  // Badge
+  const badge = document.getElementById('cartBadge');
+  badge.textContent = count;
+  badge.classList.toggle('vis', count > 0);
+
+  // Sidebar badge
+  document.getElementById('sidebarBadge').textContent = count + (count === 1 ? ' articolo' : ' articoli');
+
+  // Items container
+  const itemsEl = document.getElementById('cartItems');
+  const emptyEl = document.getElementById('cartEmpty');
+  const summaryEl = document.getElementById('cartSummary');
+
+  if (cart.length === 0) {
+    emptyEl.style.display = 'block';
+    summaryEl.style.display = 'none';
+    itemsEl.innerHTML = '';
+    itemsEl.appendChild(emptyEl);
+  } else {
+    emptyEl.style.display = 'none';
+    summaryEl.style.display = 'block';
+    // Rebuild items
+    const existingItems = itemsEl.querySelectorAll('.cart-item');
+    existingItems.forEach(i => i.remove());
+
+    cart.forEach((item, idx) => {
+      const el = document.createElement('div');
+      el.className = 'cart-item';
+      el.innerHTML = `
+        <div class="ci-icon">${item.icon}</div>
+        <div class="ci-info">
+          <div class="ci-name">${item.name}</div>
+          <div class="ci-price">€${item.price}/pz</div>
+          <div class="ci-qty-row">
+            <button class="ci-qty-btn" onclick="updateQty(${idx}, -1)">−</button>
+            <span class="ci-qty-val">${item.qty}</span>
+            <button class="ci-qty-btn" onclick="updateQty(${idx}, 1)">+</button>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <div class="ci-subtotal">€${item.price * item.qty}</div>
+          <button class="ci-remove" onclick="removeItem(${idx})" title="Rimuovi">🗑</button>
+        </div>
+      `;
+      itemsEl.insertBefore(el, summaryEl);
+    });
+  }
+
+  // Free shipping bar
+  const pct = Math.min((subtotal / FREE_SHIP_THRESHOLD) * 100, 100);
+  document.getElementById('freeShipFill').style.width = pct + '%';
+  const needed = Math.max(0, FREE_SHIP_THRESHOLD - subtotal);
+  if (needed <= 0) {
+    document.getElementById('freeShipText').innerHTML = '🎉 Spedizione gratuita attivata!';
+    document.getElementById('freeShipText').style.color = 'var(--green)';
+  } else {
+    document.getElementById('freeShipText').innerHTML = `Aggiungi <span>€${needed.toFixed(0)}</span> per la spedizione gratuita`;
+    document.getElementById('freeShipText').style.color = '';
+  }
+
+  // Values
+  document.getElementById('subtotalVal').textContent = '€' + subtotal;
+  document.getElementById('shippingVal').textContent = shipping === 0 ? (subtotal > 0 ? '🎉 Gratuita' : 'Calcolata') : '€' + shipping.toFixed(2);
+  document.getElementById('shippingVal').className = 'val ' + (shipping === 0 && subtotal > 0 ? 'shipping-free' : '');
+  document.getElementById('totalVal').textContent = '€' + total.toFixed(0);
+
+  const discRow = document.getElementById('discountRow');
+  discRow.style.display = discount > 0 ? 'flex' : 'none';
+  document.getElementById('discountVal').textContent = '−€' + discount;
+
+  // Checkout button
+  document.getElementById('checkoutBtn').disabled = cart.length === 0;
+
+  // Mobile bar
+  const mBar = document.getElementById('mobilCartBar');
+  if (count > 0) {
+    mBar.style.display = 'flex';
+    document.getElementById('mcbInfo').textContent = count + (count===1?' articolo':' articoli');
+    document.getElementById('mcbTotal').textContent = '€' + total.toFixed(0);
+  } else {
+    mBar.style.display = 'none';
+  }
+}
+
+function updateQty(idx, delta) {
+  cart[idx].qty = Math.max(1, cart[idx].qty + delta);
+  updateCartUI();
+}
+function removeItem(idx) {
+  const el = document.querySelectorAll('.cart-item')[idx];
+  if (el) { el.style.opacity = '0'; el.style.transform = 'translateX(20px)'; }
+  setTimeout(() => { cart.splice(idx, 1); updateCartUI(); }, 250);
+}
+
+// ─────────────────────────────
+//  QTY ON PRODUCT CARDS
+// ─────────────────────────────
+function changeQty(btn, delta) {
+  const input = btn.parentElement.querySelector('.qty-val');
+  const val = Math.max(1, Math.min(99, parseInt(input.value) + delta));
+  input.value = val;
+}
+
+// ─────────────────────────────
+//  WISHLIST
+// ─────────────────────────────
+function toggleWish(btn) {
+  btn.classList.toggle('active');
+  btn.textContent = btn.classList.contains('active') ? '❤️' : '🤍';
+  showToast(btn.classList.contains('active') ? '❤️ Aggiunto ai preferiti' : '🤍 Rimosso dai preferiti');
+}
+
+// ─────────────────────────────
+//  COUPON
+// ─────────────────────────────
+function applyCoupon() {
+  const val = document.getElementById('couponInput').value.trim().toUpperCase();
+  if (val === 'BENVENUTO10') {
+    couponApplied = true;
+    document.getElementById('couponSuccess').style.display = 'block';
+    document.getElementById('couponInput').style.borderColor = 'var(--green)';
+    showToast('🎉 Codice sconto applicato! −10%');
+    updateCartUI();
+  } else {
+    document.getElementById('couponInput').style.borderColor = 'var(--red)';
+    showToast('❌ Codice non valido');
+    setTimeout(() => { document.getElementById('couponInput').style.borderColor = ''; }, 1500);
+  }
+}
+
+// ─────────────────────────────
+//  FILTERS
+// ─────────────────────────────
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+
+  const cards = document.querySelectorAll('#prodGrid .pcard');
+  const bundle = document.getElementById('bundleSection');
+  let visible = 0;
+
+  cards.forEach(c => {
+    const show = cat === 'all' || c.dataset.cat === cat || (cat === 'bundle' && false);
+    c.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+
+  if (cat === 'bundle') {
+    cards.forEach(c => c.style.display = 'none');
+    bundle.style.display = '';
+    visible = 1;
+  } else {
+    bundle.style.display = cat === 'all' ? '' : 'none';
+  }
+
+  document.getElementById('resultsCount').textContent = visible + (visible === 1 ? ' prodotto' : ' prodotti');
+}
+
+function sortProducts(val) {
+  const grid = document.getElementById('prodGrid');
+  const cards = [...grid.querySelectorAll('.pcard')];
+  cards.sort((a, b) => {
+    if (val === 'price-asc') return +a.dataset.price - +b.dataset.price;
+    if (val === 'price-desc') return +b.dataset.price - +a.dataset.price;
+    if (val === 'popular') return +b.dataset.pop - +a.dataset.pop;
+    return 0;
+  });
+  cards.forEach(c => grid.appendChild(c));
+}
+
+// ─────────────────────────────
+//  CART TOGGLE
+// ─────────────────────────────
+function toggleCart() {
+  const s = document.getElementById('cartSidebar');
+  s.classList.toggle('open');
+}
+function openCartSidebar() {
+  document.getElementById('cartSidebar').classList.add('open');
+}
+function toggleCartMobile() {
+  if (window.innerWidth <= 1024) {
+    document.getElementById('cartSidebar').classList.toggle('open');
+  }
+}
+
+// ─────────────────────────────
+//  CHECKOUT
+// ─────────────────────────────
+function openCheckout() {
+  // Build order summary
+  const osm = document.getElementById('modalOrderItems');
+  const sub = cartTotal();
+  const disc = couponApplied ? Math.round(sub * .1) : 0;
+  const ship = sub >= 50 ? 0 : 4.90;
+  const total = sub - disc + ship;
+
+  let html = cart.map(i => `<div class="osm-item"><span>${i.icon} ${i.name} ×${i.qty}</span><span>€${i.price * i.qty}</span></div>`).join('');
+  if (disc) html += `<div class="osm-item" style="color:var(--green)"><span>Sconto −10%</span><span>−€${disc}</span></div>`;
+  html += `<div class="osm-item"><span>Totale</span><span>€${total.toFixed(0)}</span></div>`;
+  osm.innerHTML = html;
+
+  currentStep = 1;
+  renderStep();
+  document.getElementById('checkoutModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCheckout() {
+  document.getElementById('checkoutModal').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('successView').classList.remove('show');
+  document.getElementById('checkoutForm').style.display = '';
+}
+
+function goStep(n) { currentStep = n; renderStep(); }
+function nextStep() {
+  if (currentStep < 3) { currentStep++; renderStep(); }
+  else { placeOrder(); }
+}
+function prevStep() {
+  if (currentStep > 1) { currentStep--; renderStep(); }
+}
+function renderStep() {
+  document.querySelectorAll('.step-panel').forEach((p, i) => p.classList.toggle('active', i + 1 === currentStep));
+  document.querySelectorAll('.mstep').forEach((t, i) => t.classList.toggle('active', i + 1 === currentStep));
+  document.getElementById('prevBtn').style.display = currentStep > 1 ? '' : 'none';
+  document.getElementById('nextBtn').textContent = currentStep === 3 ? '🔒 Conferma ordine' : 'Continua →';
+}
+
+function placeOrder() {
+  const num = '#IP-' + Math.floor(100000 + Math.random() * 900000);
+  document.getElementById('orderNum').textContent = num;
+  document.getElementById('checkoutForm').style.display = 'none';
+  document.getElementById('successView').classList.add('show');
+}
+
+function resetCart() {
+  cart = [];
+  couponApplied = false;
+  document.getElementById('couponInput').value = '';
+  document.getElementById('couponSuccess').style.display = 'none';
+  updateCartUI();
+}
+
+// ─────────────────────────────
+//  TOAST
+// ─────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─────────────────────────────
+//  CARD FORMAT
+// ─────────────────────────────
+function formatCard(el) {
+  let v = el.value.replace(/\D/g, '').substring(0, 16);
+  el.value = v.replace(/(.{4})/g, '$1 ').trim();
+}
+function formatExp(el) {
+  let v = el.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length >= 3) v = v.substring(0,2) + '/' + v.substring(2);
+  el.value = v;
+}
+
+// ─────────────────────────────
+//  PAYMENT METHOD SELECT
+// ─────────────────────────────
+function selectPayment(el) {
+  document.querySelectorAll('.pmethod').forEach(m => m.classList.remove('sel'));
+  el.classList.add('sel');
+  const isCcard = el.querySelector('.pmethod-name').textContent === 'Carta di credito';
+  document.getElementById('cardFields').style.display = isCcard ? '' : 'none';
+}
+
+// Close modal on outside click
+document.getElementById('checkoutModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCheckout();
+});
+
+// Init
+updateCartUI();
+</script>
+</body>
+</html>
