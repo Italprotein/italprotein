@@ -125,6 +125,21 @@
   .cert-item{display:flex;align-items:center;gap:8px;font-family:var(--fm);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);white-space:nowrap}
   .cert-item span{font-size:16px}
 
+  /* ═══ FORMATI ═══ */
+  #formati{padding:var(--sec) 0;background:var(--warm)}
+  .fmt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,32px)}
+  .fmt-card{position:relative;border-radius:var(--r);overflow:hidden;background:var(--white);border:1px solid var(--border);transition:all .4s}
+  .fmt-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.08);border-color:var(--gold)}
+  .fmt-img{aspect-ratio:4/5;overflow:hidden;background:var(--lgray)}
+  .fmt-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.25,.46,.45,.94)}
+  .fmt-card:hover .fmt-img img{transform:scale(1.04)}
+  .fmt-body{padding:clamp(20px,3vw,28px)}
+  .fmt-num{font-family:var(--fm);font-size:11px;letter-spacing:.12em;color:var(--gold);margin-bottom:10px}
+  .fmt-name{font-family:var(--fd);font-size:clamp(22px,3vw,28px);font-weight:400;margin-bottom:8px;letter-spacing:-.01em}
+  .fmt-desc{font-size:14px;color:var(--gray);line-height:1.7}
+  .fmt-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+  .fmt-tag{padding:4px 10px;border-radius:4px;font-family:var(--fm);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:rgba(155,123,77,.06)}
+
   /* ═══ SCIENZA ═══ */
   #scienza{padding:var(--sec) 0;background:var(--teal);position:relative;overflow:hidden}
   .sci-glow{position:absolute;top:50%;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(155,123,77,.1),transparent 70%);pointer-events:none}
@@ -257,17 +272,17 @@
   @keyframes fadeScale{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
   @keyframes barGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 
-  .stagger-in .sci-card,.stagger-in .spec-cell,.stagger-in .mcard,.stagger-in .icard{opacity:0;transform:translateY(16px)}
-  .stagger-in.vis .sci-card,.stagger-in.vis .spec-cell,.stagger-in.vis .mcard,.stagger-in.vis .icard{opacity:1;transform:translateY(0);transition:opacity .5s,transform .5s}
-  .stagger-in.vis .sci-card:nth-child(1),.stagger-in.vis .spec-cell:nth-child(1),.stagger-in.vis .mcard:nth-child(1),.stagger-in.vis .icard:nth-child(1){transition-delay:.05s}
-  .stagger-in.vis .sci-card:nth-child(2),.stagger-in.vis .spec-cell:nth-child(2),.stagger-in.vis .mcard:nth-child(2),.stagger-in.vis .icard:nth-child(2){transition-delay:.15s}
-  .stagger-in.vis .sci-card:nth-child(3),.stagger-in.vis .spec-cell:nth-child(3),.stagger-in.vis .mcard:nth-child(3),.stagger-in.vis .icard:nth-child(3){transition-delay:.25s}
+  .stagger-in .sci-card,.stagger-in .spec-cell,.stagger-in .mcard,.stagger-in .icard,.stagger-in .fmt-card{opacity:0;transform:translateY(16px)}
+  .stagger-in.vis .sci-card,.stagger-in.vis .spec-cell,.stagger-in.vis .mcard,.stagger-in.vis .icard,.stagger-in.vis .fmt-card{opacity:1;transform:translateY(0);transition:opacity .5s,transform .5s}
+  .stagger-in.vis .sci-card:nth-child(1),.stagger-in.vis .spec-cell:nth-child(1),.stagger-in.vis .mcard:nth-child(1),.stagger-in.vis .icard:nth-child(1),.stagger-in.vis .fmt-card:nth-child(1){transition-delay:.05s}
+  .stagger-in.vis .sci-card:nth-child(2),.stagger-in.vis .spec-cell:nth-child(2),.stagger-in.vis .mcard:nth-child(2),.stagger-in.vis .icard:nth-child(2),.stagger-in.vis .fmt-card:nth-child(2){transition-delay:.15s}
+  .stagger-in.vis .sci-card:nth-child(3),.stagger-in.vis .spec-cell:nth-child(3),.stagger-in.vis .mcard:nth-child(3),.stagger-in.vis .icard:nth-child(3),.stagger-in.vis .fmt-card:nth-child(3){transition-delay:.25s}
   .stagger-in.vis .sci-card:nth-child(4),.stagger-in.vis .spec-cell:nth-child(4),.stagger-in.vis .mcard:nth-child(4),.stagger-in.vis .icard:nth-child(4){transition-delay:.35s}
   .stagger-in.vis .sci-card:nth-child(5),.stagger-in.vis .spec-cell:nth-child(5),.stagger-in.vis .icard:nth-child(5){transition-delay:.45s}
   .stagger-in.vis .sci-card:nth-child(6),.stagger-in.vis .spec-cell:nth-child(6),.stagger-in.vis .icard:nth-child(6){transition-delay:.55s}
 
   /* ═══ RESPONSIVE ═══ */
-  @media(max-width:1024px){.cosa-grid,.cap-grid,.sci-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:repeat(2,1fr)}.stat-cell:nth-child(2){border-right:none}.stat-cell:nth-child(1),.stat-cell:nth-child(2){border-bottom:1px solid var(--border)}.ft-grid{grid-template-columns:1fr 1fr}.mkt-grid{grid-template-columns:1fr}}
+  @media(max-width:1024px){.cosa-grid,.cap-grid,.sci-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:repeat(2,1fr)}.stat-cell:nth-child(2){border-right:none}.stat-cell:nth-child(1),.stat-cell:nth-child(2){border-bottom:1px solid var(--border)}.ft-grid{grid-template-columns:1fr 1fr}.mkt-grid{grid-template-columns:1fr}.fmt-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}}
   @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.info-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}.cosa-features{grid-template-columns:1fr}.specs-grid{grid-template-columns:1fr}.spec-cell{border-right:none !important}.spec-cell{border-bottom:1px solid var(--border-l) !important}.spec-cell:last-child{border-bottom:none !important}.ft-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr}.stat-cell{border-right:none !important;border-bottom:1px solid var(--border) !important}.stat-cell:last-child{border-bottom:none !important}}
   @media(max-width:480px){.hero-actions{flex-direction:column}.hero-actions .btn{width:100%;justify-content:center}.hero-stats{flex-direction:column;gap:20px}.hero-stat{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}.hero-stat:first-child{border-top:none;padding-top:0}}
   </style>
@@ -280,7 +295,8 @@
     <a class="logo" href="#">Italprotein</a>
     <ul class="nav-links">
       <li><a href="#cosa">Proamina®</a></li>
-      <li><a href="#scienza">Scienza</a></li>
+      <li><a href="#formati">Formati</a></li>
+      <li><a href="#scienza">Caratteristiche</a></li>
       <li><a href="#cappuccino">Cappuccino</a></li>
       <li><a href="#mercato">Mercato</a></li>
       <li><a href="#confronto">Confronto</a></li>
@@ -294,7 +310,8 @@
 </nav>
 <div class="mob-drawer" id="mobDrawer">
   <a href="#cosa" onclick="closeMob()">Proamina®</a>
-  <a href="#scienza" onclick="closeMob()">Scienza</a>
+  <a href="#formati" onclick="closeMob()">Formati</a>
+  <a href="#scienza" onclick="closeMob()">Caratteristiche</a>
   <a href="#cappuccino" onclick="closeMob()">Cappuccino</a>
   <a href="#mercato" onclick="closeMob()">Mercato</a>
   <a href="#confronto" onclick="closeMob()">Confronto</a>
@@ -311,9 +328,9 @@
   <div class="hero-content">
     <div class="hero-tag reveal">Brevetto Italiano &amp; PCT Internazionale · 100% Proteico · Made in Italy</div>
     <h1 class="hero-title reveal reveal-d1">La dolcezza<br>che viene dalle <em>proteine</em>,<br>non dalla chimica.</h1>
-    <p class="hero-sub reveal reveal-d2">Proamina® e la prima alternativa allo zucchero al mondo interamente a base proteica. Un blend brevettato di amminoacidi da fermentazione batterica, sviluppato da <a href="https://nh2tech.com/" target="_blank" style="color:var(--gold-l);text-decoration:none">NH2 Tech</a>. Zero carboidrati, zero allergeni, potere dolcificante 1,1 volte il saccarosio.</p>
+    <p class="hero-sub reveal reveal-d2">Proamina® e la prima alternativa allo zucchero al mondo interamente a base proteica. Un ingrediente brevettato sviluppato da <a href="https://nh2tech.com/" target="_blank" style="color:var(--gold-l);text-decoration:none">NH2 Tech</a>. Zero carboidrati, zero allergeni, potere dolcificante 1,1 volte il saccarosio.</p>
     <div class="hero-actions reveal reveal-d3">
-      <a href="#scienza" class="btn btn-light">Come Funziona</a>
+      <a href="#scienza" class="btn btn-light">Caratteristiche</a>
       <a href="#cta" class="btn btn-light">Contattaci</a>
     </div>
     <div class="hero-stats reveal reveal-d4">
@@ -331,8 +348,8 @@
     <div class="cosa-grid">
       <div class="cosa-text reveal">
         <h2>La prima alternativa allo zucchero al mondo fatta interamente di proteine.</h2>
-        <p>Proamina® e un blend brevettato di amminoacidi (Glicina e L-Serina) prodotto tramite fermentazione batterica da <a href="https://nh2tech.com/" target="_blank" style="color:var(--gold);text-decoration:none">NH2 Tech Srl</a>, Milano.</p>
-        <p>Non e un dolcificante chimico, non e un polialcol, non e stevia. E un ingrediente alimentare che dolcifica perche e fatto di amminoacidi che attivano i recettori del dolce sulla lingua, gli stessi amminoacidi presenti naturalmente in ogni alimento proteico.</p>
+        <p>Proamina® e un ingrediente alimentare brevettato, sviluppato da <a href="https://nh2tech.com/" target="_blank" style="color:var(--gold);text-decoration:none">NH2 Tech Srl</a>, Milano, e distribuito in esclusiva in Italia da Italprotein.</p>
+        <p>Non e un dolcificante chimico, non e un polialcol, non e stevia. E un ingrediente 100% proteico che dolcifica naturalmente, con un profilo nutrizionale unico: zero carboidrati, zero grassi, zero zuccheri.</p>
         <div class="cosa-features">
           <div class="cosa-feat reveal reveal-d1"><div class="cosa-feat-num">01</div><h4>Sotto l'1,1%</h4><p>Classificato come aromatizzante UE. Nessuna dichiarazione "con edulcorante".</p></div>
           <div class="cosa-feat reveal reveal-d2"><div class="cosa-feat-num">02</div><h4>Sopra l'1,1%</h4><p>Ingrediente proteico. Contribuisce alle proteine per porzione.</p></div>
@@ -362,23 +379,74 @@
   </div>
 </div>
 
+<!-- ═══ FORMATI ═══ -->
+<section id="formati">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2 class="sec-title">Formati</h2>
+      <span class="sec-label">Tre Modi di Vivere Proamina®</span>
+    </div>
+    <div class="fmt-grid stagger-in reveal">
+      <div class="fmt-card">
+        <div class="fmt-img"><img src="images/bustine.jpg" alt="Bustina Proamina accanto a una tazza di caffe"></div>
+        <div class="fmt-body">
+          <div class="fmt-num">01 - Bustine</div>
+          <div class="fmt-name">Per il caffe e le bevande calde.</div>
+          <div class="fmt-desc">Il formato monodose pensato per il rituale quotidiano. Una bustina, una tazza, la dolcezza che cercavi.</div>
+          <div class="fmt-meta">
+            <span class="fmt-tag">Monodose</span>
+            <span class="fmt-tag">Caffe</span>
+            <span class="fmt-tag">Te</span>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-card">
+        <div class="fmt-img"><img src="images/barattolo.jpg" alt="Barattolo Proamina 500g con scoop su piano cucina"></div>
+        <div class="fmt-body">
+          <div class="fmt-num">02 - Barattolo 500g</div>
+          <div class="fmt-name">Per la cucina e la pasticceria di casa.</div>
+          <div class="fmt-desc">Il formato famiglia con scoop incluso. Si dosa come lo zucchero, resta stabile in cottura fino a 214 °C.</div>
+          <div class="fmt-meta">
+            <span class="fmt-tag">Cottura</span>
+            <span class="fmt-tag">Pasticceria</span>
+            <span class="fmt-tag">Scoop incluso</span>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-card">
+        <div class="fmt-img"><img src="images/shot.jpg" alt="Stick shot Proamina accanto a una borraccia sportiva"></div>
+        <div class="fmt-body">
+          <div class="fmt-num">03 - Shot</div>
+          <div class="fmt-name">Per lo sport e la borraccia.</div>
+          <div class="fmt-desc">Lo stick da sciogliere in acqua, durante l'allenamento o la giornata in movimento. Si dissolve in pochi secondi.</div>
+          <div class="fmt-meta">
+            <span class="fmt-tag">Sport</span>
+            <span class="fmt-tag">Borraccia</span>
+            <span class="fmt-tag">On the go</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ SCIENZA ═══ -->
 <section id="scienza">
   <div class="sci-glow"></div>
   <div class="container">
     <div class="sec-head on-dark reveal">
-      <h2 class="sec-title">Come Funziona</h2>
-      <span class="sec-label">La Scienza</span>
+      <h2 class="sec-title">Caratteristiche</h2>
+      <span class="sec-label">Proprieta Tecniche</span>
     </div>
     <div class="sci-grid">
       <div>
         <div class="sci-text reveal">
-          <p>Proamina® e composta da Glicina (componente predominante) e L-Serina, due amminoacidi naturalmente presenti in ogni alimento proteico. Sono prodotti tramite fermentazione batterica, non sintesi chimica.</p>
-          <p>Il blend attiva i recettori del dolce (T1R2/T1R3) sulla lingua con un potere dolcificante pari a 1,1 volte il saccarosio, senza generare risposta glicemica e senza prodotti di glicazione avanzata (AGEs).</p>
+          <p>Proamina® e un ingrediente alimentare brevettato con un potere dolcificante pari a 1,1 volte il saccarosio. Si presenta in cristalli bianchi, liberamente solubili in acqua.</p>
+          <p>A differenza dei dolcificanti chimici e dei polialcol, e un ingrediente 100% proteico con zero carboidrati, zero grassi e zero zuccheri, che non genera risposta glicemica e non produce prodotti di glicazione avanzata (AGEs).</p>
         </div>
         <div class="sci-cards stagger-in reveal">
-          <div class="sci-card"><div class="sci-ic">⚗️</div><div><h4>Fermentazione batterica</h4><p>Prodotto tramite fermentazione, non sintesi chimica. Cristalli bianchi, solubili in acqua (280,9 g/L).</p></div></div>
-          <div class="sci-card"><div class="sci-ic">🧬</div><div><h4>Metabolismo proteico puro</h4><p>Metabolizzata come qualsiasi amminoacido. Zero carboidrati, zero grassi. Compatibile con dieta chetogenica e regimi ipoglucidici.</p></div></div>
+          <div class="sci-card"><div class="sci-ic">💧</div><div><h4>Liberamente solubile</h4><p>Cristalli bianchi che si dissolvono rapidamente in acqua (280,9 g/L) e in qualsiasi bevanda, calda o fredda.</p></div></div>
+          <div class="sci-card"><div class="sci-ic">🧬</div><div><h4>Profilo 100% proteico</h4><p>Zero carboidrati, zero grassi, zero zuccheri. Compatibile con dieta chetogenica, regimi ipoglucidici e stili di vita proteici.</p></div></div>
           <div class="sci-card"><div class="sci-ic">🏆</div><div><h4>Stabile in cottura</h4><p>Termostabile fino a 214 °C. Stabile a pH 5,5-6,5 e anche a pH yogurt (~4,5) dove potenzia la percezione di dolcezza.</p></div></div>
           <div class="sci-card"><div class="sci-ic">📋</div><div><h4>Etichetta pulita</h4><p>Sotto l'1,1%: aromatizzante UE, nessuna dichiarazione "con edulcorante". Sopra l'1,1%: ingrediente proteico. Nessun E-number.</p></div></div>
         </div>
@@ -417,7 +485,7 @@
       </div>
       <div class="cap-text reveal reveal-d2">
         <h2>La magia del cappuccino.</h2>
-        <p>La natura proteica di Proamina® interagisce con le proteine del latte durante la schiumatura, formando una rete proteica potenziata: micro-schiuma piu densa, vellutata e persistente.</p>
+        <p>La natura proteica di Proamina® interagisce con le proteine del latte durante la schiumatura, formando una rete potenziata: micro-schiuma piu densa, vellutata e persistente.</p>
         <p>Il risultato e un cappuccino con una crema che esalta il latte art del barista, con dolcezza naturale e zero carboidrati. Funziona con ogni tipo di latte.</p>
         <div class="cap-milks">
           <div class="cap-milk">Vaccino</div>
@@ -448,7 +516,7 @@
       <div class="icard" data-counter="100" data-unit="%">
         <div class="inum"><span class="counter-val">0</span><span class="unit">%</span></div>
         <div class="ilab">Contenuto Proteico</div>
-        <div class="idesc">100% proteine per peso. Arricchisce il prodotto finale di amminoacidi.</div>
+        <div class="idesc">100% proteine per peso. Arricchisce il prodotto finale di proteine.</div>
         <div class="itags"><span class="itag itag-g">100% Proteine</span><span class="itag itag-g">Massa Magra</span></div>
       </div>
       <div class="icard" data-counter="281" data-unit=" g/L">
@@ -566,7 +634,8 @@
       <div class="ft-col">
         <h4>Contenuti</h4>
         <a href="#cosa">Cos'e Proamina</a>
-        <a href="#scienza">Come Funziona</a>
+        <a href="#formati">Formati</a>
+        <a href="#scienza">Caratteristiche</a>
         <a href="#cappuccino">Il Cappuccino</a>
         <a href="#mercato">Dati di Mercato</a>
       </div>
