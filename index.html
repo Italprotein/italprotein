@@ -10,6 +10,7 @@
   <link rel="alternate" hreflang="en" href="en-index.html">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <title>Italprotein - Proamina®</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -281,6 +282,101 @@
   .stagger-in.vis .sci-card:nth-child(5),.stagger-in.vis .spec-cell:nth-child(5),.stagger-in.vis .icard:nth-child(5){transition-delay:.45s}
   .stagger-in.vis .sci-card:nth-child(6),.stagger-in.vis .spec-cell:nth-child(6),.stagger-in.vis .icard:nth-child(6){transition-delay:.55s}
 
+  /* ═══ 3D LAYER ═══ */
+  /* Hero 3D canvas */
+  .hero-3d-canvas{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.95;mix-blend-mode:screen}
+  /* Scienza 3D canvas */
+  .sci-3d-canvas{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.6}
+
+  /* 3D tilt cards */
+  .tilt-3d{transform-style:preserve-3d;will-change:transform;transition:transform .6s cubic-bezier(.25,.46,.45,.94),box-shadow .5s}
+  .tilt-3d.active{transition:transform .08s ease-out}
+  .tilt-3d > *{transform-style:preserve-3d}
+  .tilt-3d .fmt-img,.tilt-3d .fmt-body{transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+  .tilt-3d.active .fmt-img{transform:translateZ(30px)}
+  .tilt-3d.active .fmt-name{transform:translateZ(40px)}
+  .tilt-3d.active .fmt-num{transform:translateZ(30px)}
+
+  /* Perspective containers */
+  .persp-700{perspective:700px}
+  .persp-1200{perspective:1200px}
+  .persp-1600{perspective:1600px}
+
+  /* Hero title 3D layering */
+  .hero-title{perspective:1400px;transform-style:preserve-3d}
+  .hero-title em{display:inline-block;transform:translateZ(40px);transition:transform .8s cubic-bezier(.25,.46,.45,.94);text-shadow:0 8px 24px rgba(196,164,109,.25)}
+  #hero.loaded .hero-title em{animation:emFloat 7s ease-in-out infinite}
+  @keyframes emFloat{0%,100%{transform:translateZ(40px) translateY(0)}50%{transform:translateZ(60px) translateY(-3px)}}
+
+  /* Hero stats 3D hover */
+  .hero-stat{transform-style:preserve-3d;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+  .hero-stat:hover{transform:translateZ(20px) translateY(-2px)}
+  .hero-stat-val{transition:transform .4s}
+  .hero-stat:hover .hero-stat-val{transform:translateZ(15px)}
+
+  /* Cosa visual 3D tilt */
+  .cosa-visual{transform-style:preserve-3d;transition:transform .6s cubic-bezier(.25,.46,.45,.94),box-shadow .5s;will-change:transform}
+  .cosa-visual.active{transition:transform .08s ease-out}
+
+  /* Cappuccino visual 3D tilt */
+  .cap-visual{transform-style:preserve-3d;transition:transform .6s cubic-bezier(.25,.46,.45,.94),box-shadow .5s;will-change:transform}
+  .cap-visual.active{transition:transform .08s ease-out}
+
+  /* Specs grid 3D depth on hover */
+  .specs-grid{perspective:1000px;transform-style:preserve-3d}
+  .spec-cell{transition:transform .5s cubic-bezier(.25,.46,.45,.94),background .3s,box-shadow .4s}
+  .spec-cell:hover{transform:translateZ(25px);background:rgba(196,164,109,.08);box-shadow:0 12px 32px rgba(0,0,0,.25);z-index:2;position:relative}
+
+  /* Cosa feat 3D hover */
+  .cosa-feat{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.25,.46,.45,.94),border-color .3s,box-shadow .4s}
+  .cosa-feat:hover{transform:translateZ(20px) translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.08)}
+
+  /* Sci card 3D hover override */
+  .sci-card{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.25,.46,.45,.94),background .3s,border-color .3s}
+  .sci-card:hover{transform:translateZ(15px) translateX(6px);background:rgba(255,255,255,.08);border-color:rgba(196,164,109,.3)}
+
+  /* Nutri values 3D pulse */
+  .nutri-v{transition:transform .5s,color .3s}
+  .nutri-box:hover .nutri-v{transform:translateZ(20px)}
+  .nutri-box{perspective:600px}
+
+  /* 3D scroll reveal upgrade */
+  .reveal-3d{opacity:0;transform:translateY(40px) translateZ(-100px) rotateX(8deg);transition:opacity .9s cubic-bezier(.25,.46,.45,.94),transform .9s cubic-bezier(.25,.46,.45,.94);transform-style:preserve-3d}
+  .reveal-3d.vis{opacity:1;transform:translateY(0) translateZ(0) rotateX(0deg)}
+
+  /* Section header 3D */
+  .sec-title{transform-style:preserve-3d}
+
+  /* Compare table 3D rows */
+  .ct-row{transition:transform .4s cubic-bezier(.25,.46,.45,.94),background .2s;transform-style:preserve-3d}
+  .ct-row:hover{transform:translateZ(15px);background:rgba(196,164,109,.06);z-index:2;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+
+  /* Mercato/info card 3D shadow */
+  .tilt-3d.mcard,.tilt-3d.icard{will-change:transform}
+  .tilt-3d.active.mcard,.tilt-3d.active.icard{box-shadow:0 24px 60px rgba(0,0,0,.12)}
+
+  /* Hero overlay slight perspective shift on scroll */
+  .hero-content{transform-style:preserve-3d}
+
+  /* Floating crystal orbit decoration in scienza */
+  .sci-orbit{position:absolute;width:140px;height:140px;border-radius:50%;border:1px solid rgba(196,164,109,.15);pointer-events:none;animation:orbit 20s linear infinite}
+  .sci-orbit::before{content:'';position:absolute;width:8px;height:8px;background:var(--gold-l);border-radius:50%;top:-4px;left:50%;transform:translateX(-50%);box-shadow:0 0 20px rgba(196,164,109,.6)}
+  @keyframes orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+  /* Cert items 3D hover */
+  .cert-item{transition:transform .3s,color .3s}
+  .cert-item:hover{transform:translateZ(10px) translateY(-2px);color:var(--gold)}
+
+  /* Cap-milk badges 3D */
+  .cap-milk{transform-style:preserve-3d;transition:transform .3s,background .3s,border-color .3s}
+  .cap-milk:hover{transform:translateZ(8px) translateY(-2px)}
+
+  /* Performance: pause animations when not visible */
+  @media(prefers-reduced-motion:reduce){
+    .hero-3d-canvas,.sci-3d-canvas{display:none}
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  }
+
   /* ═══ RESPONSIVE ═══ */
   @media(max-width:1024px){.cosa-grid,.cap-grid,.sci-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:repeat(2,1fr)}.stat-cell:nth-child(2){border-right:none}.stat-cell:nth-child(1),.stat-cell:nth-child(2){border-bottom:1px solid var(--border)}.ft-grid{grid-template-columns:1fr 1fr}.mkt-grid{grid-template-columns:1fr}.fmt-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}}
   @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.info-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}.cosa-features{grid-template-columns:1fr}.specs-grid{grid-template-columns:1fr}.spec-cell{border-right:none !important}.spec-cell{border-bottom:1px solid var(--border-l) !important}.spec-cell:last-child{border-bottom:none !important}.ft-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr}.stat-cell{border-right:none !important;border-bottom:1px solid var(--border) !important}.stat-cell:last-child{border-bottom:none !important}}
@@ -323,6 +419,7 @@
   <div class="hero-bg">
     <img class="hero-bg-img" src="images/hero-powder-gold.jpg" alt="Proamina polvere cristallina">
     <div class="hero-overlay"></div>
+    <canvas id="hero3d" class="hero-3d-canvas"></canvas>
   </div>
   <div class="hero-grain"></div>
   <div class="hero-content">
@@ -386,9 +483,9 @@
       <h2 class="sec-title">Formati</h2>
       <span class="sec-label">Tre Modi di Vivere Proamina®</span>
     </div>
-    <div class="fmt-grid stagger-in reveal">
-      <div class="fmt-card">
-        <div class="fmt-img"><img src="images/bustina-cappuccino.jpg" alt="Bustina Proamina accanto a una tazza di caffe"></div>
+    <div class="fmt-grid stagger-in reveal persp-1600">
+      <div class="fmt-card tilt-3d">
+        <div class="fmt-img"><img src="images/bustine.jpg" alt="Bustina Proamina accanto a una tazza di caffe"></div>
         <div class="fmt-body">
           <div class="fmt-num">01 - Bustine</div>
           <div class="fmt-name">Per il caffe e le bevande calde.</div>
@@ -400,8 +497,8 @@
           </div>
         </div>
       </div>
-      <div class="fmt-card">
-        <div class="fmt-img"><img src="images/barattolo-cucina.jpg" alt="Barattolo Proamina 500g con scoop su piano cucina"></div>
+      <div class="fmt-card tilt-3d">
+        <div class="fmt-img"><img src="images/barattolo.jpg" alt="Barattolo Proamina 500g con scoop su piano cucina"></div>
         <div class="fmt-body">
           <div class="fmt-num">02 - Barattolo 500g</div>
           <div class="fmt-name">Per la cucina e la pasticceria di casa.</div>
@@ -413,7 +510,7 @@
           </div>
         </div>
       </div>
-      <div class="fmt-card">
+      <div class="fmt-card tilt-3d">
         <div class="fmt-img"><img src="images/shot.jpg" alt="Stick shot Proamina accanto a una borraccia sportiva"></div>
         <div class="fmt-body">
           <div class="fmt-num">03 - Shot</div>
@@ -433,6 +530,7 @@
 <!-- ═══ SCIENZA ═══ -->
 <section id="scienza">
   <div class="sci-glow"></div>
+  <canvas id="sci3d" class="sci-3d-canvas"></canvas>
   <div class="container">
     <div class="sec-head on-dark reveal">
       <h2 class="sec-title">Caratteristiche</h2>
@@ -506,20 +604,20 @@
       <h2 class="sec-title">Proamina® in Numeri</h2>
       <span class="sec-label">Dati Verificati</span>
     </div>
-    <div class="info-grid stagger-in reveal">
-      <div class="icard" data-counter="0" data-unit="g">
+    <div class="info-grid stagger-in reveal persp-1200">
+      <div class="icard tilt-3d" data-counter="0" data-unit="g">
         <div class="inum"><span class="counter-val">0</span><span class="unit">g</span></div>
         <div class="ilab">Carboidrati per 100g</div>
         <div class="idesc">Zero carboidrati, zero zuccheri, zero grassi. Il 100% del peso e proteine.</div>
         <div class="itags"><span class="itag itag-g">Proamina® 0g</span><span class="itag itag-r">Zucchero 100g</span></div>
       </div>
-      <div class="icard" data-counter="100" data-unit="%">
+      <div class="icard tilt-3d" data-counter="100" data-unit="%">
         <div class="inum"><span class="counter-val">0</span><span class="unit">%</span></div>
         <div class="ilab">Contenuto Proteico</div>
         <div class="idesc">100% proteine per peso. Arricchisce il prodotto finale di proteine.</div>
         <div class="itags"><span class="itag itag-g">100% Proteine</span><span class="itag itag-g">Massa Magra</span></div>
       </div>
-      <div class="icard" data-counter="281" data-unit=" g/L">
+      <div class="icard tilt-3d" data-counter="281" data-unit=" g/L">
         <div class="inum"><span class="counter-val">0</span><span class="unit"> g/L</span></div>
         <div class="ilab">Idrosolubilita</div>
         <div class="idesc">Si dissolve in pochi secondi in qualsiasi bevanda, calda o fredda.</div>
@@ -536,20 +634,20 @@
       <h2 class="sec-title">Dati di Mercato</h2>
       <span class="sec-label">Numeri Reali, Fonti Citate</span>
     </div>
-    <div class="mkt-grid stagger-in reveal">
-      <div class="mcard">
+    <div class="mkt-grid stagger-in reveal persp-1200">
+      <div class="mcard tilt-3d">
         <div class="mval"><sup>$</sup>7.82B</div>
         <div class="mlab">Mercato sostituti zucchero 2024</div>
         <div class="mdesc">Proiezione a $12.1B entro il 2030.</div>
         <div class="msrc">Mordor Intelligence, 2024</div>
       </div>
-      <div class="mcard">
+      <div class="mcard tilt-3d">
         <div class="mval">36.6<sup>%</sup></div>
         <div class="mlab">Italiani che usano alternative</div>
         <div class="mdesc">In crescita tra Gen Z e Millennials.</div>
         <div class="msrc">Osservatorio Obesita, 2025</div>
       </div>
-      <div class="mcard">
+      <div class="mcard tilt-3d">
         <div style="font-size:15px;font-weight:500;color:var(--ink);margin-bottom:16px">Motivi d'uso in Italia</div>
         <div class="prog-list" id="progBars">
           <div><div class="prog-h"><span class="prog-lbl">Limitare le calorie</span><span class="prog-v">45.6%</span></div><div class="prog-tr"><div class="prog-fill" data-t="45.6" style="width:0%"></div></div></div>
@@ -558,7 +656,7 @@
         </div>
         <div class="msrc">Osservatorio Obesita Italia, 2025</div>
       </div>
-      <div class="mcard">
+      <div class="mcard tilt-3d">
         <div class="mval">83<sup>g</sup></div>
         <div class="mlab">Zuccheri semplici/die in Italia</div>
         <div class="mdesc">vs 50g raccomandati dall'OMS. +33g/die in eccesso.</div>
@@ -707,6 +805,317 @@ function animateCounter(card){
 const hb=document.getElementById('hamburger'),md=document.getElementById('mobDrawer');
 hb.addEventListener('click',()=>{hb.classList.toggle('open');md.classList.toggle('open');document.body.style.overflow=md.classList.contains('open')?'hidden':''});
 function closeMob(){hb.classList.remove('open');md.classList.remove('open');document.body.style.overflow=''}
+
+// ═══════════════════════════════════════════════
+// 3D LAYER: Three.js scenes + tilt + parallax
+// ═══════════════════════════════════════════════
+const is3DEnabled = window.innerWidth >= 768 && typeof THREE !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// HERO 3D SCENE: floating gold crystals
+function initHero3D(){
+  if(!is3DEnabled) return;
+  const canvas = document.getElementById('hero3d');
+  if(!canvas) return;
+
+  const hero = document.getElementById('hero');
+  const w = ()=>hero.clientWidth, h = ()=>hero.clientHeight;
+
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(w(), h());
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, w()/h(), 0.1, 100);
+  camera.position.z = 14;
+
+  // Lighting
+  scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+  const key = new THREE.DirectionalLight(0xC4A46D, 1.4);
+  key.position.set(6, 8, 6);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xF5F0EB, 0.7);
+  fill.position.set(-6, 4, 3);
+  scene.add(fill);
+  const rim = new THREE.PointLight(0x9B7B4D, 1.0, 30);
+  rim.position.set(0, 0, 8);
+  scene.add(rim);
+
+  // Crystals
+  const group = new THREE.Group();
+  const geoms = [
+    new THREE.OctahedronGeometry(1, 0),
+    new THREE.IcosahedronGeometry(1, 0),
+    new THREE.TetrahedronGeometry(1.3, 0),
+    new THREE.DodecahedronGeometry(0.9, 0),
+    new THREE.OctahedronGeometry(0.8, 1)
+  ];
+
+  const crystals = [];
+  for(let i = 0; i < 11; i++){
+    const geom = geoms[i % geoms.length];
+    const useGold = i % 2 === 0;
+    const mat = new THREE.MeshStandardMaterial({
+      color: useGold ? 0xC4A46D : 0xF5F0EB,
+      metalness: useGold ? 0.9 : 0.55,
+      roughness: useGold ? 0.22 : 0.35,
+      flatShading: true,
+      emissive: useGold ? 0x9B7B4D : 0x000000,
+      emissiveIntensity: useGold ? 0.08 : 0
+    });
+    const mesh = new THREE.Mesh(geom, mat);
+    mesh.position.set(
+      (Math.random() - 0.5) * 22,
+      (Math.random() - 0.5) * 12,
+      (Math.random() - 0.5) * 10 - 3
+    );
+    const s = 0.35 + Math.random() * 0.95;
+    mesh.scale.set(s, s, s);
+    mesh.userData = {
+      rs: {
+        x: (Math.random() - 0.5) * 0.006,
+        y: (Math.random() - 0.5) * 0.006,
+        z: (Math.random() - 0.5) * 0.004
+      },
+      fo: Math.random() * Math.PI * 2,
+      fs: 0.4 + Math.random() * 0.5,
+      oy: mesh.position.y
+    };
+    crystals.push(mesh);
+    group.add(mesh);
+  }
+  scene.add(group);
+
+  // Mouse parallax
+  let mx = 0, my = 0, tmx = 0, tmy = 0;
+  window.addEventListener('mousemove', (e) => {
+    tmx = (e.clientX / window.innerWidth - 0.5) * 0.35;
+    tmy = (e.clientY / window.innerHeight - 0.5) * 0.25;
+  });
+
+  // Scroll parallax
+  let scrollY = 0;
+  window.addEventListener('scroll', () => { scrollY = window.scrollY; }, {passive:true});
+
+  // Animation loop
+  let frame = 0;
+  function animate(){
+    frame++;
+    const t = performance.now() * 0.001;
+
+    mx += (tmx - mx) * 0.05;
+    my += (tmy - my) * 0.05;
+
+    group.rotation.y = mx + t * 0.04;
+    group.rotation.x = my;
+    group.position.y = scrollY * 0.003;
+    group.position.z = scrollY * 0.005;
+
+    crystals.forEach(c => {
+      c.rotation.x += c.userData.rs.x;
+      c.rotation.y += c.userData.rs.y;
+      c.rotation.z += c.userData.rs.z;
+      c.position.y = c.userData.oy + Math.sin(t * c.userData.fs + c.userData.fo) * 0.35;
+    });
+
+    // Only render when hero is visible
+    if(scrollY < window.innerHeight + 200){
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Mark hero loaded for em animation
+  hero.classList.add('loaded');
+
+  // Resize
+  window.addEventListener('resize', () => {
+    camera.aspect = w() / h();
+    camera.updateProjectionMatrix();
+    renderer.setSize(w(), h());
+  });
+}
+
+// SCIENZA 3D SCENE: large rotating crystal
+function initScienza3D(){
+  if(!is3DEnabled) return;
+  const canvas = document.getElementById('sci3d');
+  if(!canvas) return;
+
+  const sec = document.getElementById('scienza');
+  const w = ()=>sec.clientWidth, h = ()=>sec.clientHeight;
+
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(w(), h());
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, w()/h(), 0.1, 100);
+  camera.position.z = 16;
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+  const key = new THREE.DirectionalLight(0xC4A46D, 1.6);
+  key.position.set(8, 5, 6);
+  scene.add(key);
+  const back = new THREE.DirectionalLight(0x9B7B4D, 0.9);
+  back.position.set(-6, -3, -4);
+  scene.add(back);
+
+  // Central large crystal
+  const mainGeom = new THREE.IcosahedronGeometry(3, 0);
+  const mainMat = new THREE.MeshStandardMaterial({
+    color: 0xC4A46D,
+    metalness: 0.92,
+    roughness: 0.25,
+    flatShading: true,
+    emissive: 0x9B7B4D,
+    emissiveIntensity: 0.12
+  });
+  const main = new THREE.Mesh(mainGeom, mainMat);
+  main.position.set(7, 0, 0);
+  scene.add(main);
+
+  // Small orbiting crystals
+  const orbiters = [];
+  for(let i = 0; i < 4; i++){
+    const g = new THREE.OctahedronGeometry(0.45, 0);
+    const m = new THREE.MeshStandardMaterial({
+      color: 0xF5F0EB,
+      metalness: 0.6,
+      roughness: 0.3,
+      flatShading: true
+    });
+    const o = new THREE.Mesh(g, m);
+    o.userData = {
+      r: 4.5 + Math.random() * 1.2,
+      a: (i / 4) * Math.PI * 2,
+      s: 0.3 + Math.random() * 0.3,
+      ty: (Math.random() - 0.5) * 2
+    };
+    orbiters.push(o);
+    scene.add(o);
+  }
+
+  // Render only when section is visible
+  let visible = false;
+  const sciObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { visible = e.isIntersecting; });
+  }, {threshold: 0.05});
+  sciObs.observe(sec);
+
+  function animate(){
+    const t = performance.now() * 0.001;
+    main.rotation.x = t * 0.15;
+    main.rotation.y = t * 0.2;
+    main.rotation.z = t * 0.08;
+
+    orbiters.forEach(o => {
+      o.userData.a += o.userData.s * 0.01;
+      o.position.x = main.position.x + Math.cos(o.userData.a) * o.userData.r;
+      o.position.z = Math.sin(o.userData.a) * o.userData.r;
+      o.position.y = o.userData.ty + Math.sin(t * 0.8 + o.userData.a) * 0.4;
+      o.rotation.x += 0.01;
+      o.rotation.y += 0.015;
+    });
+
+    if(visible) renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = w() / h();
+    camera.updateProjectionMatrix();
+    renderer.setSize(w(), h());
+  });
+}
+
+// MOUSE-TRACKED TILT for cards
+function initTilt(){
+  if(!is3DEnabled) return;
+  document.querySelectorAll('.tilt-3d').forEach(card => {
+    let raf = null;
+    card.addEventListener('mousemove', (e) => {
+      if(raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rx = -((y - cy) / cy) * 7;
+        const ry = ((x - cx) / cx) * 7;
+        card.classList.add('active');
+        card.style.transform = `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(15px)`;
+      });
+    });
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('active');
+      card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+    });
+  });
+
+  // Cosa visual and Cappuccino visual tilt
+  ['.cosa-visual', '.cap-visual'].forEach(sel => {
+    const el = document.querySelector(sel);
+    if(!el) return;
+    let raf = null;
+    el.addEventListener('mousemove', (e) => {
+      if(raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rx = -((y - rect.height/2) / (rect.height/2)) * 5;
+        const ry = ((x - rect.width/2) / (rect.width/2)) * 5;
+        el.classList.add('active');
+        el.style.transform = `perspective(1400px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(10px)`;
+      });
+    });
+    el.addEventListener('mouseleave', () => {
+      el.classList.remove('active');
+      el.style.transform = 'perspective(1400px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+    });
+  });
+}
+
+// SCROLL PARALLAX for hero content
+function initScrollParallax(){
+  if(!is3DEnabled) return;
+  const heroContent = document.querySelector('.hero-content');
+  const heroTitle = document.querySelector('.hero-title');
+  if(!heroContent) return;
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if(!ticking){
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if(y < window.innerHeight){
+          heroContent.style.transform = `translateY(${y * 0.3}px) translateZ(${-y * 0.2}px)`;
+          heroContent.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.7));
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, {passive: true});
+}
+
+// Initialize all 3D features
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', () => {
+    initHero3D();
+    initScienza3D();
+    initTilt();
+    initScrollParallax();
+  });
+} else {
+  initHero3D();
+  initScienza3D();
+  initTilt();
+  initScrollParallax();
+}
 </script>
 </body>
 </html>
