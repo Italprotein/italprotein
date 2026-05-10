@@ -45,7 +45,6 @@
 
   .container{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
 
-  /* ═══ SECTION HEADER ═══ */
   .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px;padding-bottom:20px;border-bottom:1px solid var(--gold);flex-wrap:wrap}
   .sec-title{font-family:var(--fd);font-size:clamp(32px,5.5vw,58px);font-weight:400;letter-spacing:-.02em;line-height:1.05}
   .sec-label{font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
@@ -53,7 +52,6 @@
   .sec-head.on-dark{border-color:rgba(196,164,109,.4)}
   .sec-head.on-dark .sec-label{color:var(--gold-l)}
 
-  /* ═══ BUTTONS ═══ */
   .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:16px 32px;border:1px solid;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
   .btn-light{border-color:rgba(255,255,255,.35);color:var(--cream);background:transparent}
   .btn-light:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
@@ -62,7 +60,6 @@
   .btn-gold{border-color:var(--gold);color:var(--gold);background:transparent}
   .btn-gold:hover{background:var(--gold);color:var(--white)}
 
-  /* ═══ NAV ═══ */
   nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 var(--pad);transition:background .4s}
   nav.scrolled{background:rgba(45,59,53,.97);backdrop-filter:blur(16px)}
   .nav-in{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px}
@@ -85,7 +82,6 @@
   .mob-drawer.open{display:flex}
   .mob-drawer a{color:rgba(255,255,255,.7);text-decoration:none;font-size:15px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 
-  /* ═══ HERO ═══ */
   #hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding-top:68px}
   .hero-bg{position:absolute;inset:0;z-index:0}
   .hero-bg-img{position:absolute;inset:0;object-fit:cover;width:100%;height:100%}
@@ -105,7 +101,6 @@
   .hero-stat-val span{color:var(--gold-l)}
   .hero-stat-lbl{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:6px}
 
-  /* ═══ COSA È ═══ */
   #cosa{padding:var(--sec) 0;background:var(--cream)}
   .cosa-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center}
   .cosa-text h2{font-family:var(--fd);font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.2;margin-bottom:20px;letter-spacing:-.01em}
@@ -120,13 +115,11 @@
   .cosa-visual{aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;position:relative}
   .cosa-visual img{width:100%;height:100%;object-fit:cover}
 
-  /* ═══ CERT STRIP ═══ */
   .cert-strip{padding:clamp(24px,4vw,36px) 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--cream)}
   .cert-row{display:flex;align-items:center;justify-content:center;gap:clamp(16px,4vw,48px);flex-wrap:wrap}
   .cert-item{display:flex;align-items:center;gap:8px;font-family:var(--fm);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);white-space:nowrap}
   .cert-item span{font-size:16px}
 
-  /* ═══ FORMATI ═══ */
   #formati{padding:var(--sec) 0;background:var(--warm)}
   .fmt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,32px)}
   .fmt-card{position:relative;border-radius:var(--r);overflow:hidden;background:var(--white);border:1px solid var(--border);transition:all .4s}
@@ -141,35 +134,49 @@
   .fmt-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
   .fmt-tag{padding:4px 10px;border-radius:4px;font-family:var(--fm);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:rgba(155,123,77,.06)}
 
-  /* ═══ SCIENZA ═══ */
-  #scienza{padding:var(--sec) 0;background:var(--teal);position:relative;overflow:hidden}
-  .sci-glow{position:absolute;top:50%;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(155,123,77,.1),transparent 70%);pointer-events:none}
-  .sci-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:start;position:relative;z-index:2}
-  .sci-text p{font-size:15px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:16px}
+  /* ═══════════════════════════════════════════════
+     SCIENZA / CARATTERISTICHE - only section with 3D
+     ═══════════════════════════════════════════════ */
+  #scienza{padding:var(--sec) 0;background:var(--teal);position:relative;overflow:hidden;min-height:720px}
+  /* Static atmospheric glow */
+  .sci-glow{position:absolute;top:20%;right:-200px;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(155,123,77,.22),transparent 70%);pointer-events:none;z-index:0;filter:blur(20px)}
+  /* Pulsing secondary glow */
+  .sci-glow-2{position:absolute;bottom:-120px;right:18%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(196,164,109,.12),transparent 65%);pointer-events:none;z-index:0;filter:blur(40px);animation:sciGlowPulse 9s ease-in-out infinite}
+  @keyframes sciGlowPulse{0%,100%{opacity:.65;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+  /* The 3D scene */
+  .sci-3d-canvas{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:1}
+  /* Subtle grain texture overlay for film-like depth */
+  .sci-grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  /* Content stays above 3D layer */
+  #scienza .container{position:relative;z-index:3}
+  .sci-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:start;position:relative;z-index:3}
+  .sci-text p{font-size:15px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:16px}
   .sci-cards{display:flex;flex-direction:column;gap:12px;margin-top:32px}
-  .sci-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:20px;display:flex;gap:14px;transition:all .3s;cursor:default}
-  .sci-card:hover{background:rgba(255,255,255,.08);border-color:rgba(196,164,109,.3);transform:translateX(4px)}
-  .sci-ic{width:40px;height:40px;border-radius:8px;background:rgba(155,123,77,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+  .sci-card{background:rgba(28,38,33,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:20px;display:flex;gap:14px;transition:all .35s cubic-bezier(.25,.46,.45,.94);cursor:default}
+  .sci-card:hover{background:rgba(40,55,48,.7);border-color:rgba(196,164,109,.35);transform:translateX(6px)}
+  .sci-ic{width:40px;height:40px;border-radius:8px;background:rgba(155,123,77,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
   .sci-card h4{font-family:var(--fd);font-size:16px;font-weight:500;color:var(--cream);margin-bottom:3px}
-  .sci-card p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6}
+  .sci-card p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6}
 
-  /* Specs grid */
-  .specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-l)}
+  /* Specs grid with backdrop blur to sit cleanly over 3D */
+  .specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-l);background:rgba(28,38,33,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:6px;overflow:hidden}
   .spec-cell{padding:20px;border-right:1px solid var(--border-l);border-bottom:1px solid var(--border-l);transition:background .3s}
   .spec-cell:nth-child(2n){border-right:none}
   .spec-cell:nth-last-child(-n+2){border-bottom:none}
-  .spec-cell:hover{background:rgba(255,255,255,.04)}
+  .spec-cell:hover{background:rgba(255,255,255,.05)}
   .spec-val{font-family:var(--fd);font-size:clamp(22px,3vw,30px);font-weight:400;color:var(--cream);margin-bottom:2px}
-  .spec-lbl{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+  .spec-lbl{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4)}
 
-  /* Nutritional box */
-  .nutri-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:20px 24px;margin-top:32px}
+  /* Nutri box also gets backdrop blur */
+  .nutri-box{background:rgba(28,38,33,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:20px 24px;margin-top:32px}
   .nutri-label{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l);margin-bottom:14px}
   .nutri-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center}
   .nutri-v{font-family:var(--fd);font-size:20px;font-weight:400;color:var(--cream)}
-  .nutri-l{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px}
+  .nutri-l{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px}
 
-  /* ═══ CAPPUCCINO ═══ */
+  /* Sci text in a subtle frosted card so it reads well over moving 3D */
+  .sci-text{background:rgba(28,38,33,.4);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-left:2px solid rgba(196,164,109,.4);padding:20px 24px;border-radius:0 var(--r) var(--r) 0}
+
   #cappuccino{padding:var(--sec) 0;background:var(--warm)}
   .cap-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center}
   .cap-visual{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3}
@@ -180,7 +187,6 @@
   .cap-milk{padding:6px 14px;border:1px solid var(--border);border-radius:20px;font-family:var(--fm);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);transition:all .3s}
   .cap-milk:hover{border-color:var(--gold);background:rgba(155,123,77,.06)}
 
-  /* ═══ MERCATO ═══ */
   #mercato{padding:var(--sec) 0;background:var(--cream)}
   .mkt-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:0}
   .mcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:clamp(20px,3vw,32px);transition:all .3s}
@@ -192,7 +198,6 @@
   .mdesc{font-size:13px;color:var(--gray);line-height:1.6}
   .msrc{font-family:var(--fm);font-size:10px;color:var(--gray);margin-top:10px;letter-spacing:.02em}
 
-  /* Progress bars */
   .prog-list{display:flex;flex-direction:column;gap:14px}
   .prog-h{display:flex;justify-content:space-between;margin-bottom:6px}
   .prog-lbl{font-size:13px;font-weight:500;color:var(--ink)}
@@ -200,7 +205,6 @@
   .prog-tr{height:6px;background:var(--lgray);border-radius:3px;overflow:hidden}
   .prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold-l));transition:width 1.6s cubic-bezier(.25,.46,.45,.94)}
 
-  /* Stats row */
   .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);margin-top:24px}
   .stat-cell{padding:clamp(16px,2.5vw,28px);text-align:center;border-right:1px solid var(--border);transition:background .3s}
   .stat-cell:last-child{border-right:none}
@@ -209,7 +213,6 @@
   .stat-big em{font-style:normal;color:var(--gold)}
   .stat-sm{font-size:12px;color:var(--gray);margin-top:4px}
 
-  /* ═══ CONFRONTO ═══ */
   #confronto{padding:var(--sec) 0;background:var(--teal)}
   .ctable{border:1px solid var(--border-l);border-radius:var(--r);overflow:hidden;overflow-x:auto}
   .ct-inner{min-width:600px}
@@ -226,7 +229,6 @@
   .ctok{color:var(--green)}
   .ctno{color:var(--red)}
 
-  /* ═══ INFOGRAFICHE ═══ */
   #infografiche{padding:var(--sec) 0;background:var(--warm)}
   .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
   .icard{border:1px solid var(--border);border-radius:var(--r);padding:clamp(20px,3vw,28px);transition:all .3s;background:var(--white);position:relative;overflow:hidden}
@@ -242,7 +244,6 @@
   .itag-g{background:rgba(155,123,77,.08);color:var(--gold)}
   .itag-r{background:rgba(229,115,115,.08);color:var(--red)}
 
-  /* ═══ CTA ═══ */
   #cta{padding:var(--sec) 0;background:var(--teal);position:relative;overflow:hidden}
   .cta-in{position:relative;z-index:2;text-align:center;max-width:680px;margin:0 auto}
   .cta-in h2{font-family:var(--fd);font-size:clamp(32px,5vw,56px);font-weight:400;color:var(--cream);margin-bottom:16px;line-height:1.1}
@@ -253,7 +254,6 @@
   .cta-c-val{font-size:14px;color:rgba(255,255,255,.5)}
   .cta-c-val a{color:var(--gold-l);text-decoration:none}
 
-  /* ═══ FOOTER ═══ */
   footer{background:#1F2A25;padding:clamp(48px,6vw,64px) 0 28px}
   .ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:clamp(24px,4vw,44px);margin-bottom:40px}
   .ft-brand h3{font-family:var(--fm);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);margin-bottom:14px;font-weight:500}
@@ -263,15 +263,9 @@
   .ft-col a:hover{color:var(--cream)}
   .ft-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid rgba(255,255,255,.06);font-size:12px;color:rgba(255,255,255,.18);gap:16px;flex-wrap:wrap}
 
-  /* ═══ ANIMATIONS ═══ */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94)}
   .reveal.vis{opacity:1;transform:translateY(0)}
   .reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
-
-  @keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes slideIn{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
-  @keyframes fadeScale{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-  @keyframes barGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 
   .stagger-in .sci-card,.stagger-in .spec-cell,.stagger-in .mcard,.stagger-in .icard,.stagger-in .fmt-card{opacity:0;transform:translateY(16px)}
   .stagger-in.vis .sci-card,.stagger-in.vis .spec-cell,.stagger-in.vis .mcard,.stagger-in.vis .icard,.stagger-in.vis .fmt-card{opacity:1;transform:translateY(0);transition:opacity .5s,transform .5s}
@@ -282,110 +276,18 @@
   .stagger-in.vis .sci-card:nth-child(5),.stagger-in.vis .spec-cell:nth-child(5),.stagger-in.vis .icard:nth-child(5){transition-delay:.45s}
   .stagger-in.vis .sci-card:nth-child(6),.stagger-in.vis .spec-cell:nth-child(6),.stagger-in.vis .icard:nth-child(6){transition-delay:.55s}
 
-  /* ═══ 3D LAYER ═══ */
-  /* Hero 3D canvas */
-  .hero-3d-canvas{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.95;mix-blend-mode:screen}
-  /* Scienza 3D canvas */
-  .sci-3d-canvas{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.6}
-
-  /* 3D tilt cards */
-  .tilt-3d{transform-style:preserve-3d;will-change:transform;transition:transform .6s cubic-bezier(.25,.46,.45,.94),box-shadow .5s}
-  .tilt-3d.active{transition:transform .08s ease-out}
-  .tilt-3d > *{transform-style:preserve-3d}
-  .tilt-3d .fmt-img,.tilt-3d .fmt-body{transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
-  .tilt-3d.active .fmt-img{transform:translateZ(30px)}
-  .tilt-3d.active .fmt-name{transform:translateZ(40px)}
-  .tilt-3d.active .fmt-num{transform:translateZ(30px)}
-
-  /* Perspective containers */
-  .persp-700{perspective:700px}
-  .persp-1200{perspective:1200px}
-  .persp-1600{perspective:1600px}
-
-  /* Hero title 3D layering */
-  .hero-title{perspective:1400px;transform-style:preserve-3d}
-  .hero-title em{display:inline-block;transform:translateZ(40px);transition:transform .8s cubic-bezier(.25,.46,.45,.94);text-shadow:0 8px 24px rgba(196,164,109,.25)}
-  #hero.loaded .hero-title em{animation:emFloat 7s ease-in-out infinite}
-  @keyframes emFloat{0%,100%{transform:translateZ(40px) translateY(0)}50%{transform:translateZ(60px) translateY(-3px)}}
-
-  /* Hero stats 3D hover */
-  .hero-stat{transform-style:preserve-3d;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
-  .hero-stat:hover{transform:translateZ(20px) translateY(-2px)}
-  .hero-stat-val{transition:transform .4s}
-  .hero-stat:hover .hero-stat-val{transform:translateZ(15px)}
-
-  /* Cosa visual 3D tilt */
-  .cosa-visual{transform-style:preserve-3d;transition:transform .6s cubic-bezier(.25,.46,.45,.94),box-shadow .5s;will-change:transform}
-  .cosa-visual.active{transition:transform .08s ease-out}
-
-  /* Cappuccino visual 3D tilt */
-  .cap-visual{transform-style:preserve-3d;transition:transform .6s cubic-bezier(.25,.46,.45,.94),box-shadow .5s;will-change:transform}
-  .cap-visual.active{transition:transform .08s ease-out}
-
-  /* Specs grid 3D depth on hover */
-  .specs-grid{perspective:1000px;transform-style:preserve-3d}
-  .spec-cell{transition:transform .5s cubic-bezier(.25,.46,.45,.94),background .3s,box-shadow .4s}
-  .spec-cell:hover{transform:translateZ(25px);background:rgba(196,164,109,.08);box-shadow:0 12px 32px rgba(0,0,0,.25);z-index:2;position:relative}
-
-  /* Cosa feat 3D hover */
-  .cosa-feat{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.25,.46,.45,.94),border-color .3s,box-shadow .4s}
-  .cosa-feat:hover{transform:translateZ(20px) translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.08)}
-
-  /* Sci card 3D hover override */
-  .sci-card{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.25,.46,.45,.94),background .3s,border-color .3s}
-  .sci-card:hover{transform:translateZ(15px) translateX(6px);background:rgba(255,255,255,.08);border-color:rgba(196,164,109,.3)}
-
-  /* Nutri values 3D pulse */
-  .nutri-v{transition:transform .5s,color .3s}
-  .nutri-box:hover .nutri-v{transform:translateZ(20px)}
-  .nutri-box{perspective:600px}
-
-  /* 3D scroll reveal upgrade */
-  .reveal-3d{opacity:0;transform:translateY(40px) translateZ(-100px) rotateX(8deg);transition:opacity .9s cubic-bezier(.25,.46,.45,.94),transform .9s cubic-bezier(.25,.46,.45,.94);transform-style:preserve-3d}
-  .reveal-3d.vis{opacity:1;transform:translateY(0) translateZ(0) rotateX(0deg)}
-
-  /* Section header 3D */
-  .sec-title{transform-style:preserve-3d}
-
-  /* Compare table 3D rows */
-  .ct-row{transition:transform .4s cubic-bezier(.25,.46,.45,.94),background .2s;transform-style:preserve-3d}
-  .ct-row:hover{transform:translateZ(15px);background:rgba(196,164,109,.06);z-index:2;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-
-  /* Mercato/info card 3D shadow */
-  .tilt-3d.mcard,.tilt-3d.icard{will-change:transform}
-  .tilt-3d.active.mcard,.tilt-3d.active.icard{box-shadow:0 24px 60px rgba(0,0,0,.12)}
-
-  /* Hero overlay slight perspective shift on scroll */
-  .hero-content{transform-style:preserve-3d}
-
-  /* Floating crystal orbit decoration in scienza */
-  .sci-orbit{position:absolute;width:140px;height:140px;border-radius:50%;border:1px solid rgba(196,164,109,.15);pointer-events:none;animation:orbit 20s linear infinite}
-  .sci-orbit::before{content:'';position:absolute;width:8px;height:8px;background:var(--gold-l);border-radius:50%;top:-4px;left:50%;transform:translateX(-50%);box-shadow:0 0 20px rgba(196,164,109,.6)}
-  @keyframes orbit{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-
-  /* Cert items 3D hover */
-  .cert-item{transition:transform .3s,color .3s}
-  .cert-item:hover{transform:translateZ(10px) translateY(-2px);color:var(--gold)}
-
-  /* Cap-milk badges 3D */
-  .cap-milk{transform-style:preserve-3d;transition:transform .3s,background .3s,border-color .3s}
-  .cap-milk:hover{transform:translateZ(8px) translateY(-2px)}
-
-  /* Performance: pause animations when not visible */
   @media(prefers-reduced-motion:reduce){
-    .hero-3d-canvas,.sci-3d-canvas{display:none}
+    .sci-3d-canvas,.sci-glow-2{display:none}
     *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
   }
 
-  /* ═══ RESPONSIVE ═══ */
   @media(max-width:1024px){.cosa-grid,.cap-grid,.sci-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:repeat(2,1fr)}.stat-cell:nth-child(2){border-right:none}.stat-cell:nth-child(1),.stat-cell:nth-child(2){border-bottom:1px solid var(--border)}.ft-grid{grid-template-columns:1fr 1fr}.mkt-grid{grid-template-columns:1fr}.fmt-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}}
-  @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.info-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}.cosa-features{grid-template-columns:1fr}.specs-grid{grid-template-columns:1fr}.spec-cell{border-right:none !important}.spec-cell{border-bottom:1px solid var(--border-l) !important}.spec-cell:last-child{border-bottom:none !important}.ft-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr}.stat-cell{border-right:none !important;border-bottom:1px solid var(--border) !important}.stat-cell:last-child{border-bottom:none !important}}
+  @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.info-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}.cosa-features{grid-template-columns:1fr}.specs-grid{grid-template-columns:1fr}.spec-cell{border-right:none !important}.spec-cell{border-bottom:1px solid var(--border-l) !important}.spec-cell:last-child{border-bottom:none !important}.ft-grid{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr}.stat-cell{border-right:none !important;border-bottom:1px solid var(--border) !important}.stat-cell:last-child{border-bottom:none !important}.sci-3d-canvas{opacity:.6}}
   @media(max-width:480px){.hero-actions{flex-direction:column}.hero-actions .btn{width:100%;justify-content:center}.hero-stats{flex-direction:column;gap:20px}.hero-stat{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.08);padding-top:16px}.hero-stat:first-child{border-top:none;padding-top:0}}
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="mainNav">
   <div class="nav-in">
     <a class="logo" href="#">Italprotein</a>
@@ -414,12 +316,10 @@
   <a href="https://nh2tech.com/" target="_blank" onclick="closeMob()" style="color:var(--gold-l)">NH2 Tech ↗</a>
 </div>
 
-<!-- ═══ HERO ═══ -->
 <section id="hero">
   <div class="hero-bg">
     <img class="hero-bg-img" src="images/hero-powder-gold.jpg" alt="Proamina polvere cristallina">
     <div class="hero-overlay"></div>
-    <canvas id="hero3d" class="hero-3d-canvas"></canvas>
   </div>
   <div class="hero-grain"></div>
   <div class="hero-content">
@@ -439,7 +339,6 @@
   </div>
 </section>
 
-<!-- ═══ COSA È ═══ -->
 <section id="cosa">
   <div class="container">
     <div class="cosa-grid">
@@ -461,7 +360,6 @@
   </div>
 </section>
 
-<!-- ═══ CERT ═══ -->
 <div class="cert-strip">
   <div class="container">
     <div class="cert-row reveal">
@@ -476,16 +374,15 @@
   </div>
 </div>
 
-<!-- ═══ FORMATI ═══ -->
 <section id="formati">
   <div class="container">
     <div class="sec-head reveal">
       <h2 class="sec-title">Formati</h2>
       <span class="sec-label">Tre Modi di Vivere Proamina®</span>
     </div>
-    <div class="fmt-grid stagger-in reveal persp-1600">
-      <div class="fmt-card tilt-3d">
-        <div class="fmt-img"><img src="images/bustina-cappuccino.jpg" alt="Bustina Proamina accanto a una tazza di caffe"></div>
+    <div class="fmt-grid stagger-in reveal">
+      <div class="fmt-card">
+        <div class="fmt-img"><img src="images/bustine.jpg" alt="Bustina Proamina accanto a una tazza di caffe"></div>
         <div class="fmt-body">
           <div class="fmt-num">01 - Bustine</div>
           <div class="fmt-name">Per il caffe e le bevande calde.</div>
@@ -497,8 +394,8 @@
           </div>
         </div>
       </div>
-      <div class="fmt-card tilt-3d">
-        <div class="fmt-img"><img src="images/barattolo-cucina.jpg" alt="Barattolo Proamina 500g con scoop su piano cucina"></div>
+      <div class="fmt-card">
+        <div class="fmt-img"><img src="images/barattolo.jpg" alt="Barattolo Proamina 500g con scoop su piano cucina"></div>
         <div class="fmt-body">
           <div class="fmt-num">02 - Barattolo 500g</div>
           <div class="fmt-name">Per la cucina e la pasticceria di casa.</div>
@@ -510,7 +407,7 @@
           </div>
         </div>
       </div>
-      <div class="fmt-card tilt-3d">
+      <div class="fmt-card">
         <div class="fmt-img"><img src="images/shot.jpg" alt="Stick shot Proamina accanto a una borraccia sportiva"></div>
         <div class="fmt-body">
           <div class="fmt-num">03 - Shot</div>
@@ -527,10 +424,12 @@
   </div>
 </section>
 
-<!-- ═══ SCIENZA ═══ -->
+<!-- ═══ CARATTERISTICHE (3D scene live here) ═══ -->
 <section id="scienza">
   <div class="sci-glow"></div>
+  <div class="sci-glow-2"></div>
   <canvas id="sci3d" class="sci-3d-canvas"></canvas>
+  <div class="sci-grain"></div>
   <div class="container">
     <div class="sec-head on-dark reveal">
       <h2 class="sec-title">Caratteristiche</h2>
@@ -574,7 +473,6 @@
   </div>
 </section>
 
-<!-- ═══ CAPPUCCINO ═══ -->
 <section id="cappuccino">
   <div class="container">
     <div class="cap-grid">
@@ -597,27 +495,26 @@
   </div>
 </section>
 
-<!-- ═══ INFOGRAFICHE ═══ -->
 <section id="infografiche">
   <div class="container">
     <div class="sec-head reveal">
       <h2 class="sec-title">Proamina® in Numeri</h2>
       <span class="sec-label">Dati Verificati</span>
     </div>
-    <div class="info-grid stagger-in reveal persp-1200">
-      <div class="icard tilt-3d" data-counter="0" data-unit="g">
+    <div class="info-grid stagger-in reveal">
+      <div class="icard" data-counter="0" data-unit="g">
         <div class="inum"><span class="counter-val">0</span><span class="unit">g</span></div>
         <div class="ilab">Carboidrati per 100g</div>
         <div class="idesc">Zero carboidrati, zero zuccheri, zero grassi. Il 100% del peso e proteine.</div>
         <div class="itags"><span class="itag itag-g">Proamina® 0g</span><span class="itag itag-r">Zucchero 100g</span></div>
       </div>
-      <div class="icard tilt-3d" data-counter="100" data-unit="%">
+      <div class="icard" data-counter="100" data-unit="%">
         <div class="inum"><span class="counter-val">0</span><span class="unit">%</span></div>
         <div class="ilab">Contenuto Proteico</div>
         <div class="idesc">100% proteine per peso. Arricchisce il prodotto finale di proteine.</div>
         <div class="itags"><span class="itag itag-g">100% Proteine</span><span class="itag itag-g">Massa Magra</span></div>
       </div>
-      <div class="icard tilt-3d" data-counter="281" data-unit=" g/L">
+      <div class="icard" data-counter="281" data-unit=" g/L">
         <div class="inum"><span class="counter-val">0</span><span class="unit"> g/L</span></div>
         <div class="ilab">Idrosolubilita</div>
         <div class="idesc">Si dissolve in pochi secondi in qualsiasi bevanda, calda o fredda.</div>
@@ -627,27 +524,26 @@
   </div>
 </section>
 
-<!-- ═══ MERCATO ═══ -->
 <section id="mercato">
   <div class="container">
     <div class="sec-head reveal">
       <h2 class="sec-title">Dati di Mercato</h2>
       <span class="sec-label">Numeri Reali, Fonti Citate</span>
     </div>
-    <div class="mkt-grid stagger-in reveal persp-1200">
-      <div class="mcard tilt-3d">
+    <div class="mkt-grid stagger-in reveal">
+      <div class="mcard">
         <div class="mval"><sup>$</sup>7.82B</div>
         <div class="mlab">Mercato sostituti zucchero 2024</div>
         <div class="mdesc">Proiezione a $12.1B entro il 2030.</div>
         <div class="msrc">Mordor Intelligence, 2024</div>
       </div>
-      <div class="mcard tilt-3d">
+      <div class="mcard">
         <div class="mval">36.6<sup>%</sup></div>
         <div class="mlab">Italiani che usano alternative</div>
         <div class="mdesc">In crescita tra Gen Z e Millennials.</div>
         <div class="msrc">Osservatorio Obesita, 2025</div>
       </div>
-      <div class="mcard tilt-3d">
+      <div class="mcard">
         <div style="font-size:15px;font-weight:500;color:var(--ink);margin-bottom:16px">Motivi d'uso in Italia</div>
         <div class="prog-list" id="progBars">
           <div><div class="prog-h"><span class="prog-lbl">Limitare le calorie</span><span class="prog-v">45.6%</span></div><div class="prog-tr"><div class="prog-fill" data-t="45.6" style="width:0%"></div></div></div>
@@ -656,7 +552,7 @@
         </div>
         <div class="msrc">Osservatorio Obesita Italia, 2025</div>
       </div>
-      <div class="mcard tilt-3d">
+      <div class="mcard">
         <div class="mval">83<sup>g</sup></div>
         <div class="mlab">Zuccheri semplici/die in Italia</div>
         <div class="mdesc">vs 50g raccomandati dall'OMS. +33g/die in eccesso.</div>
@@ -672,7 +568,6 @@
   </div>
 </section>
 
-<!-- ═══ CONFRONTO ═══ -->
 <section id="confronto">
   <div class="container">
     <div class="sec-head on-dark reveal">
@@ -703,7 +598,6 @@
   </div>
 </section>
 
-<!-- ═══ CTA ═══ -->
 <section id="cta">
   <div class="container">
     <div class="cta-in reveal">
@@ -721,7 +615,6 @@
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="container">
     <div class="ft-grid">
@@ -760,20 +653,18 @@
 </footer>
 
 <script>
-// NAV
+// NAV scroll background
 const nav=document.getElementById('mainNav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
 
-// REVEAL + STAGGER
+// REVEAL + STAGGER + counters + progress bars
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(el=>{
     if(el.isIntersecting){
       el.target.classList.add('vis');
-      // Counter animation
       if(el.target.classList.contains('icard')&&el.target.dataset.counter){
         animateCounter(el.target);
       }
-      // Progress bars
       if(el.target.closest('#mercato')){
         document.querySelectorAll('.prog-fill').forEach((f,i)=>{
           setTimeout(()=>{f.style.width=f.dataset.t+'%'},i*180+200);
@@ -784,7 +675,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal,.icard').forEach(el=>obs.observe(el));
 
-// Counter animation
 const counted=new Set();
 function animateCounter(card){
   if(counted.has(card))return;
@@ -801,148 +691,25 @@ function animateCounter(card){
   })(performance.now());
 }
 
-// HAMBURGER
+// Hamburger menu
 const hb=document.getElementById('hamburger'),md=document.getElementById('mobDrawer');
 hb.addEventListener('click',()=>{hb.classList.toggle('open');md.classList.toggle('open');document.body.style.overflow=md.classList.contains('open')?'hidden':''});
 function closeMob(){hb.classList.remove('open');md.classList.remove('open');document.body.style.overflow=''}
 
-// ═══════════════════════════════════════════════
-// 3D LAYER: Three.js scenes + tilt + parallax
-// ═══════════════════════════════════════════════
-const is3DEnabled = window.innerWidth >= 768 && typeof THREE !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// HERO 3D SCENE: floating gold crystals
-function initHero3D(){
-  if(!is3DEnabled) return;
-  const canvas = document.getElementById('hero3d');
-  if(!canvas) return;
-
-  const hero = document.getElementById('hero');
-  const w = ()=>hero.clientWidth, h = ()=>hero.clientHeight;
-
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(w(), h());
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, w()/h(), 0.1, 100);
-  camera.position.z = 14;
-
-  // Lighting
-  scene.add(new THREE.AmbientLight(0xffffff, 0.35));
-  const key = new THREE.DirectionalLight(0xC4A46D, 1.4);
-  key.position.set(6, 8, 6);
-  scene.add(key);
-  const fill = new THREE.DirectionalLight(0xF5F0EB, 0.7);
-  fill.position.set(-6, 4, 3);
-  scene.add(fill);
-  const rim = new THREE.PointLight(0x9B7B4D, 1.0, 30);
-  rim.position.set(0, 0, 8);
-  scene.add(rim);
-
-  // Crystals
-  const group = new THREE.Group();
-  const geoms = [
-    new THREE.OctahedronGeometry(1, 0),
-    new THREE.IcosahedronGeometry(1, 0),
-    new THREE.TetrahedronGeometry(1.3, 0),
-    new THREE.DodecahedronGeometry(0.9, 0),
-    new THREE.OctahedronGeometry(0.8, 1)
-  ];
-
-  const crystals = [];
-  for(let i = 0; i < 11; i++){
-    const geom = geoms[i % geoms.length];
-    const useGold = i % 2 === 0;
-    const mat = new THREE.MeshStandardMaterial({
-      color: useGold ? 0xC4A46D : 0xF5F0EB,
-      metalness: useGold ? 0.9 : 0.55,
-      roughness: useGold ? 0.22 : 0.35,
-      flatShading: true,
-      emissive: useGold ? 0x9B7B4D : 0x000000,
-      emissiveIntensity: useGold ? 0.08 : 0
-    });
-    const mesh = new THREE.Mesh(geom, mat);
-    mesh.position.set(
-      (Math.random() - 0.5) * 22,
-      (Math.random() - 0.5) * 12,
-      (Math.random() - 0.5) * 10 - 3
-    );
-    const s = 0.35 + Math.random() * 0.95;
-    mesh.scale.set(s, s, s);
-    mesh.userData = {
-      rs: {
-        x: (Math.random() - 0.5) * 0.006,
-        y: (Math.random() - 0.5) * 0.006,
-        z: (Math.random() - 0.5) * 0.004
-      },
-      fo: Math.random() * Math.PI * 2,
-      fs: 0.4 + Math.random() * 0.5,
-      oy: mesh.position.y
-    };
-    crystals.push(mesh);
-    group.add(mesh);
-  }
-  scene.add(group);
-
-  // Mouse parallax
-  let mx = 0, my = 0, tmx = 0, tmy = 0;
-  window.addEventListener('mousemove', (e) => {
-    tmx = (e.clientX / window.innerWidth - 0.5) * 0.35;
-    tmy = (e.clientY / window.innerHeight - 0.5) * 0.25;
-  });
-
-  // Scroll parallax
-  let scrollY = 0;
-  window.addEventListener('scroll', () => { scrollY = window.scrollY; }, {passive:true});
-
-  // Animation loop
-  let frame = 0;
-  function animate(){
-    frame++;
-    const t = performance.now() * 0.001;
-
-    mx += (tmx - mx) * 0.05;
-    my += (tmy - my) * 0.05;
-
-    group.rotation.y = mx + t * 0.04;
-    group.rotation.x = my;
-    group.position.y = scrollY * 0.003;
-    group.position.z = scrollY * 0.005;
-
-    crystals.forEach(c => {
-      c.rotation.x += c.userData.rs.x;
-      c.rotation.y += c.userData.rs.y;
-      c.rotation.z += c.userData.rs.z;
-      c.position.y = c.userData.oy + Math.sin(t * c.userData.fs + c.userData.fo) * 0.35;
-    });
-
-    // Only render when hero is visible
-    if(scrollY < window.innerHeight + 200){
-      renderer.render(scene, camera);
-    }
-    requestAnimationFrame(animate);
-  }
-  animate();
-
-  // Mark hero loaded for em animation
-  hero.classList.add('loaded');
-
-  // Resize
-  window.addEventListener('resize', () => {
-    camera.aspect = w() / h();
-    camera.updateProjectionMatrix();
-    renderer.setSize(w(), h());
-  });
-}
-
-// SCIENZA 3D SCENE: large rotating crystal
+// ═══════════════════════════════════════════════════════════════
+// 3D SCENE: CARATTERISTICHE (Three.js)
+// Cluster of faceted crystals + drifting satellites + golden dust
+// + orbiting accent light + mouse parallax bound to the section
+// ═══════════════════════════════════════════════════════════════
 function initScienza3D(){
-  if(!is3DEnabled) return;
-  const canvas = document.getElementById('sci3d');
-  if(!canvas) return;
+  if(typeof THREE === 'undefined') return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(window.innerWidth < 640) return;
 
+  const canvas = document.getElementById('sci3d');
   const sec = document.getElementById('scienza');
+  if(!canvas || !sec) return;
+
   const w = ()=>sec.clientWidth, h = ()=>sec.clientHeight;
 
   const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
@@ -950,79 +717,196 @@ function initScienza3D(){
   renderer.setSize(w(), h());
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(40, w()/h(), 0.1, 100);
-  camera.position.z = 16;
+  const camera = new THREE.PerspectiveCamera(38, w()/h(), 0.1, 100);
+  camera.position.set(0, 0, 18);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-  const key = new THREE.DirectionalLight(0xC4A46D, 1.6);
-  key.position.set(8, 5, 6);
-  scene.add(key);
-  const back = new THREE.DirectionalLight(0x9B7B4D, 0.9);
-  back.position.set(-6, -3, -4);
-  scene.add(back);
+  // ── LIGHTING: three-point setup with one moving accent ──
+  scene.add(new THREE.AmbientLight(0xffffff, 0.22));
 
-  // Central large crystal
-  const mainGeom = new THREE.IcosahedronGeometry(3, 0);
-  const mainMat = new THREE.MeshStandardMaterial({
-    color: 0xC4A46D,
-    metalness: 0.92,
-    roughness: 0.25,
-    flatShading: true,
-    emissive: 0x9B7B4D,
-    emissiveIntensity: 0.12
-  });
-  const main = new THREE.Mesh(mainGeom, mainMat);
-  main.position.set(7, 0, 0);
-  scene.add(main);
+  const keyLight = new THREE.DirectionalLight(0xC4A46D, 1.9);
+  keyLight.position.set(10, 7, 8);
+  scene.add(keyLight);
 
-  // Small orbiting crystals
-  const orbiters = [];
-  for(let i = 0; i < 4; i++){
-    const g = new THREE.OctahedronGeometry(0.45, 0);
-    const m = new THREE.MeshStandardMaterial({
-      color: 0xF5F0EB,
-      metalness: 0.6,
-      roughness: 0.3,
-      flatShading: true
+  const fillLight = new THREE.DirectionalLight(0x88B5A8, 0.55);
+  fillLight.position.set(-9, -3, 5);
+  scene.add(fillLight);
+
+  const rimLight = new THREE.PointLight(0xF5F0EB, 1.4, 35);
+  rimLight.position.set(-2, 6, -6);
+  scene.add(rimLight);
+
+  // This light orbits the cluster, sweeping highlights across facets
+  const accentLight = new THREE.PointLight(0x9B7B4D, 2.2, 22);
+  scene.add(accentLight);
+
+  // ── CLUSTER: 5 faceted crystals tightly packed on the right ──
+  const cluster = new THREE.Group();
+  const clusterCenter = new THREE.Vector3(6.2, 0, 0);
+  cluster.position.copy(clusterCenter);
+  scene.add(cluster);
+
+  const clusterSpecs = [
+    {geom: new THREE.IcosahedronGeometry(2.3, 0),  pos:[ 0,    0.2,  0  ], scale:1.0,  rs:[ 0.0028, 0.0042, 0.0011], gold:true },
+    {geom: new THREE.OctahedronGeometry(1.5, 0),   pos:[ 1.9,  1.4,  0.6], scale:0.95, rs:[ 0.0052,-0.0036, 0.0021], gold:false},
+    {geom: new THREE.TetrahedronGeometry(1.7, 0),  pos:[-1.6, -1.1,  0.9], scale:0.9,  rs:[-0.0044, 0.0033,-0.0024], gold:true },
+    {geom: new THREE.DodecahedronGeometry(1.0, 0), pos:[ 0.7, -1.9, -0.4], scale:0.75, rs:[ 0.0061, 0.0048, 0.0033], gold:false},
+    {geom: new THREE.IcosahedronGeometry(0.85, 0), pos:[-0.8,  1.8,  1.2], scale:0.7,  rs:[ 0.0048,-0.0055, 0.0028], gold:false}
+  ];
+
+  const clusterMeshes = [];
+  clusterSpecs.forEach(spec => {
+    const mat = new THREE.MeshStandardMaterial({
+      color: spec.gold ? 0xC4A46D : 0xF5F0EB,
+      metalness: 0.93,
+      roughness: 0.17,
+      flatShading: true,
+      emissive: spec.gold ? 0x9B7B4D : 0x4A3A1F,
+      emissiveIntensity: spec.gold ? 0.18 : 0.08
     });
-    const o = new THREE.Mesh(g, m);
-    o.userData = {
-      r: 4.5 + Math.random() * 1.2,
-      a: (i / 4) * Math.PI * 2,
-      s: 0.3 + Math.random() * 0.3,
-      ty: (Math.random() - 0.5) * 2
+    const mesh = new THREE.Mesh(spec.geom, mat);
+    mesh.position.set(spec.pos[0], spec.pos[1], spec.pos[2]);
+    mesh.scale.setScalar(spec.scale);
+    mesh.userData = {rs: spec.rs};
+    cluster.add(mesh);
+    clusterMeshes.push(mesh);
+  });
+
+  // ── SATELLITES: 9 small crystals drifting around the section ──
+  const satellites = [];
+  const satGeoms = [
+    new THREE.OctahedronGeometry(0.32, 0),
+    new THREE.TetrahedronGeometry(0.38, 0),
+    new THREE.IcosahedronGeometry(0.28, 0),
+    new THREE.DodecahedronGeometry(0.25, 0)
+  ];
+
+  for(let i = 0; i < 9; i++){
+    const g = satGeoms[i % satGeoms.length];
+    const isGold = i % 3 !== 0;
+    const m = new THREE.MeshStandardMaterial({
+      color: isGold ? 0xC4A46D : 0xF5F0EB,
+      metalness: 0.88,
+      roughness: 0.22,
+      flatShading: true,
+      emissive: isGold ? 0x9B7B4D : 0x000000,
+      emissiveIntensity: isGold ? 0.15 : 0
+    });
+    const mesh = new THREE.Mesh(g, m);
+    const angle = (i / 9) * Math.PI * 2 + Math.random() * 0.5;
+    const radius = 5.5 + Math.random() * 2.5;
+    const baseX = clusterCenter.x + Math.cos(angle) * radius;
+    const baseY = Math.sin(angle * 1.6) * 3.5;
+    const baseZ = Math.sin(angle) * radius * 0.5;
+    mesh.position.set(baseX, baseY, baseZ);
+    mesh.userData = {
+      origin: new THREE.Vector3(baseX, baseY, baseZ),
+      off: Math.random() * Math.PI * 2,
+      speed: 0.25 + Math.random() * 0.4,
+      amp: {x: 0.4 + Math.random() * 0.5, y: 0.5 + Math.random() * 0.6, z: 0.3 + Math.random() * 0.4},
+      rs: {
+        x: (Math.random() - 0.5) * 0.018,
+        y: (Math.random() - 0.5) * 0.018,
+        z: (Math.random() - 0.5) * 0.012
+      }
     };
-    orbiters.push(o);
-    scene.add(o);
+    satellites.push(mesh);
+    scene.add(mesh);
   }
 
-  // Render only when section is visible
+  // ── DUST: golden specks drifting upward, wrapping when off-screen ──
+  const dustCount = 90;
+  const dustGeom = new THREE.BufferGeometry();
+  const dustPos = new Float32Array(dustCount * 3);
+  const dustSpeeds = [];
+  for(let i = 0; i < dustCount; i++){
+    dustPos[i*3]     = (Math.random() - 0.3) * 26;
+    dustPos[i*3 + 1] = (Math.random() - 0.5) * 16;
+    dustPos[i*3 + 2] = (Math.random() - 0.5) * 14;
+    dustSpeeds.push(0.05 + Math.random() * 0.12);
+  }
+  dustGeom.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+  const dustMat = new THREE.PointsMaterial({
+    color: 0xC4A46D,
+    size: 0.07,
+    transparent: true,
+    opacity: 0.75,
+    sizeAttenuation: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+  const dust = new THREE.Points(dustGeom, dustMat);
+  scene.add(dust);
+
+  // ── MOUSE PARALLAX: bound to the section, not the page ──
+  let mx = 0, my = 0, tmx = 0, tmy = 0;
+  sec.addEventListener('mousemove', (e) => {
+    const rect = sec.getBoundingClientRect();
+    tmx = ((e.clientX - rect.left) / rect.width - 0.5) * 0.5;
+    tmy = ((e.clientY - rect.top) / rect.height - 0.5) * 0.35;
+  });
+  sec.addEventListener('mouseleave', () => { tmx = 0; tmy = 0; });
+
+  // ── RENDER ONLY WHEN SECTION VISIBLE (saves GPU) ──
   let visible = false;
   const sciObs = new IntersectionObserver(entries => {
     entries.forEach(e => { visible = e.isIntersecting; });
-  }, {threshold: 0.05});
+  }, {threshold: 0.02});
   sciObs.observe(sec);
 
+  // ── ANIMATION LOOP ──
   function animate(){
     const t = performance.now() * 0.001;
-    main.rotation.x = t * 0.15;
-    main.rotation.y = t * 0.2;
-    main.rotation.z = t * 0.08;
 
-    orbiters.forEach(o => {
-      o.userData.a += o.userData.s * 0.01;
-      o.position.x = main.position.x + Math.cos(o.userData.a) * o.userData.r;
-      o.position.z = Math.sin(o.userData.a) * o.userData.r;
-      o.position.y = o.userData.ty + Math.sin(t * 0.8 + o.userData.a) * 0.4;
-      o.rotation.x += 0.01;
-      o.rotation.y += 0.015;
+    // Smooth interpolated mouse following
+    mx += (tmx - mx) * 0.045;
+    my += (tmy - my) * 0.045;
+
+    // Cluster: whole group rotates slowly, breathes vertically, reacts to mouse
+    cluster.rotation.y = t * 0.1 + mx * 1.4;
+    cluster.rotation.x = my * 0.7 + Math.sin(t * 0.3) * 0.05;
+    cluster.position.y = clusterCenter.y + Math.sin(t * 0.45) * 0.35;
+    cluster.position.x = clusterCenter.x + mx * 0.6;
+
+    // Each crystal in the cluster has its own spin
+    clusterMeshes.forEach(c => {
+      c.rotation.x += c.userData.rs[0];
+      c.rotation.y += c.userData.rs[1];
+      c.rotation.z += c.userData.rs[2];
     });
+
+    // Satellites drift in 3 axes with individual phase and amplitude
+    satellites.forEach(s => {
+      const d = s.userData;
+      s.position.x = d.origin.x + Math.sin(t * d.speed + d.off) * d.amp.x;
+      s.position.y = d.origin.y + Math.cos(t * d.speed * 0.8 + d.off) * d.amp.y;
+      s.position.z = d.origin.z + Math.sin(t * d.speed * 0.6 + d.off * 1.5) * d.amp.z;
+      s.rotation.x += d.rs.x;
+      s.rotation.y += d.rs.y;
+      s.rotation.z += d.rs.z;
+    });
+
+    // Accent light orbits the cluster, sweeping highlights across facets
+    accentLight.position.set(
+      cluster.position.x + Math.cos(t * 0.7) * 7,
+      Math.sin(t * 0.45) * 3.5,
+      Math.sin(t * 0.7) * 7 + 2
+    );
+
+    // Dust drifts upward, wraps when it leaves the top
+    const positions = dust.geometry.attributes.position.array;
+    for(let i = 0; i < dustCount; i++){
+      positions[i*3 + 1] += dustSpeeds[i] * 0.02;
+      if(positions[i*3 + 1] > 8) positions[i*3 + 1] = -8;
+    }
+    dust.geometry.attributes.position.needsUpdate = true;
+    dust.rotation.y = t * 0.015;
 
     if(visible) renderer.render(scene, camera);
     requestAnimationFrame(animate);
   }
   animate();
 
+  // ── RESIZE ──
   window.addEventListener('resize', () => {
     camera.aspect = w() / h();
     camera.updateProjectionMatrix();
@@ -1030,91 +914,10 @@ function initScienza3D(){
   });
 }
 
-// MOUSE-TRACKED TILT for cards
-function initTilt(){
-  if(!is3DEnabled) return;
-  document.querySelectorAll('.tilt-3d').forEach(card => {
-    let raf = null;
-    card.addEventListener('mousemove', (e) => {
-      if(raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const rx = -((y - cy) / cy) * 7;
-        const ry = ((x - cx) / cx) * 7;
-        card.classList.add('active');
-        card.style.transform = `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(15px)`;
-      });
-    });
-    card.addEventListener('mouseleave', () => {
-      card.classList.remove('active');
-      card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
-    });
-  });
-
-  // Cosa visual and Cappuccino visual tilt
-  ['.cosa-visual', '.cap-visual'].forEach(sel => {
-    const el = document.querySelector(sel);
-    if(!el) return;
-    let raf = null;
-    el.addEventListener('mousemove', (e) => {
-      if(raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const rx = -((y - rect.height/2) / (rect.height/2)) * 5;
-        const ry = ((x - rect.width/2) / (rect.width/2)) * 5;
-        el.classList.add('active');
-        el.style.transform = `perspective(1400px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(10px)`;
-      });
-    });
-    el.addEventListener('mouseleave', () => {
-      el.classList.remove('active');
-      el.style.transform = 'perspective(1400px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
-    });
-  });
-}
-
-// SCROLL PARALLAX for hero content
-function initScrollParallax(){
-  if(!is3DEnabled) return;
-  const heroContent = document.querySelector('.hero-content');
-  const heroTitle = document.querySelector('.hero-title');
-  if(!heroContent) return;
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if(!ticking){
-      requestAnimationFrame(() => {
-        const y = window.scrollY;
-        if(y < window.innerHeight){
-          heroContent.style.transform = `translateY(${y * 0.3}px) translateZ(${-y * 0.2}px)`;
-          heroContent.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.7));
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, {passive: true});
-}
-
-// Initialize all 3D features
 if(document.readyState === 'loading'){
-  document.addEventListener('DOMContentLoaded', () => {
-    initHero3D();
-    initScienza3D();
-    initTilt();
-    initScrollParallax();
-  });
+  document.addEventListener('DOMContentLoaded', initScienza3D);
 } else {
-  initHero3D();
   initScienza3D();
-  initTilt();
-  initScrollParallax();
 }
 </script>
 </body>
