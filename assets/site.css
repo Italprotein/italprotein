@@ -165,3 +165,88 @@
 @media(max-width:760px){.hero h1,.shop-page .hero h1{font-size:clamp(38px,9vw,61px)}.hero-price-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.hero-price-card{padding:9px}.hero-price-card strong{min-height:43px;font-size:10px}.hero-price-card span{font-size:23px}.hero-price-card small{font-size:10px}.best-value-layout,.detail-grid,.detail-info-grid{grid-template-columns:1fr}.best-value-picture{height:350px;order:1}.best-value-copy{order:2}.horeca-section{grid-template-columns:1fr}.horeca-image{min-height:370px}.horeca-body{padding:45px var(--pad)}.trust-grid{grid-template-columns:1fr}.trust-grid article,.trust-grid article+article{padding:20px 0;border-right:0;border-bottom:1px solid var(--line)}.detail-media{min-height:360px;padding:22px}.detail-media img{height:300px}.detail-buy{padding:0}.detail-info-grid{gap:26px}.other-format-grid{grid-template-columns:1fr}.detail-section{padding-bottom:55px}}
 @media(max-width:400px){.hero-price-card strong{font-size:9px}.hero-price-card span{font-size:19px}.hero-price-card small{font-size:9px}.other-format{grid-template-columns:110px 1fr;gap:10px}.other-format img{width:110px;height:120px}}
 @media(max-width:760px){.hero-bundle:after{display:none}.hero-bundle .hero-side{font-size:10px}.hero-bundle .hero-packset{margin-top:12px}}
+
+/* Banking details and calm motion design, November 2026 */
+:root{--ease-out:cubic-bezier(.22,1,.36,1)}
+.payment-section{padding:clamp(70px,8vw,112px) 0;background:#f8f6f0;border-top:1px solid #e6e3db;border-bottom:1px solid #e6e3db}
+.payment-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(30px,6vw,95px);align-items:center}
+.payment-intro{max-width:530px}
+.payment-intro h2{font-size:clamp(40px,5.1vw,76px);line-height:1.02;letter-spacing:-.065em;margin:19px 0 23px;text-wrap:balance}
+.payment-intro>p{font-size:clamp(15px,1.5vw,18px);line-height:1.72;color:#50524a;max-width:50ch}
+.payment-process{margin-top:36px;padding-left:18px;border-left:3px solid #b81514}
+.payment-process>span{display:block;font-weight:750;font-size:12px;text-transform:uppercase;letter-spacing:.11em;color:#b81514}
+.payment-process p{font-size:14px;line-height:1.6;color:#55594e;margin:8px 0 0}
+.bank-card{background:#fff;border:1px solid #e7e1d9;border-radius:24px;padding:clamp(22px,3.8vw,40px);box-shadow:0 18px 50px rgba(38,28,23,.055)}
+.bank-card-top{display:flex;align-items:center;gap:15px;padding-bottom:22px;border-bottom:1px solid #eee9e2}
+.bank-card-top>div{display:grid;gap:4px}
+.bank-card-top strong{font-size:17px;letter-spacing:-.015em}
+.bank-card-top small{color:#707067;font-size:13px}
+.bank-icon{width:46px;height:46px;border-radius:15px;background:#f8e9e4;color:#a31918;display:grid;place-items:center;font-size:24px;font-weight:700}
+.bank-row{padding:16px 0;border-bottom:1px solid #f0ece6;display:flex;align-items:center;gap:16px;justify-content:space-between}
+.bank-row>div{display:grid;gap:5px;min-width:0}
+.bank-row span{font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.10em;color:#73756d}
+.bank-row strong{font-size:clamp(13px,1.3vw,16px);font-weight:650;overflow-wrap:anywhere;line-height:1.45}
+.bank-code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.01em}
+.copy-bank{flex:0 0 auto;border:1px solid #dad2ca;color:#33312f;background:#faf8f5;padding:9px 13px;border-radius:9px;font-size:12px;font-weight:750;transition:background .18s ease,border-color .18s ease,transform .25s var(--ease-out)}
+.copy-bank:hover{background:#f4e0dc;border-color:#d8b4ad;transform:translateY(-2px)}
+.copy-bank:focus-visible{outline:3px solid #b81514;outline-offset:3px}
+.bank-warning{display:flex;align-items:flex-start;gap:10px;background:#fff7e8;color:#60432c;border:1px solid #f1ddbd;border-radius:12px;padding:14px 16px;margin:24px 0 0;line-height:1.58;font-size:13px}
+.bank-warning span{font-size:17px;line-height:1.3;flex:0 0 auto}
+.bank-drawer-details{border-top:1px solid #e5e0d9;padding:14px 0;margin-top:10px}
+.bank-drawer-details summary{font-size:13px;font-weight:750;cursor:pointer;color:#8c211d}
+.bank-drawer-details p{font-size:12px;line-height:1.6;margin:12px 0}
+.bank-drawer-details dl{display:grid;grid-template-columns:100px minmax(0,1fr);gap:10px 12px;font-size:12px;margin:13px 0 0}
+.bank-drawer-details dt{color:#696b64}.bank-drawer-details dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+/* Consistent, restrained interactions. Never animate when reduced motion is preferred. */
+.btn-primary,.add-btn,.btn-outline,.cart-trigger,.product,.pack-card,.product-art img,.detail-media img,.use-case-card,.horeca-product img{transition:transform .38s var(--ease-out),box-shadow .38s var(--ease-out),background-color .22s ease,color .22s ease,border-color .22s ease}
+@media (hover:hover) and (pointer:fine){
+ .btn-primary:hover,.add-btn:hover,.btn-outline:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(55,27,24,.12)}
+ .cart-trigger:hover{transform:translateY(-1px)}
+ .product:hover,.use-case-card:hover{transform:translateY(-5px);box-shadow:0 24px 50px rgba(38,28,23,.11)}
+ .pack-card:hover{transform:translateY(-7px) scale(1.015)}
+ .detail-media:hover img{transform:scale(1.025)}
+ .horeca-product:hover img{transform:scale(1.035)}
+}
+:where(.btn-primary,.btn-outline,.add-btn,.mobile-preorder-button,.lang-link,.copy-bank):focus-visible{outline:3px solid #a31918;outline-offset:3px}
+.faq details{transition:background .2s ease,padding .2s ease}
+.faq details[open]{background:rgba(255,255,255,.46);padding-inline:16px;border-radius:8px}
+.faq summary{transition:color .2s ease}
+.faq summary:hover{color:#9d231c}
+.faq details p{animation:faq-in .32s var(--ease-out) both}
+@keyframes faq-in{from{opacity:.4;transform:translateY(-5px)}to{opacity:1;transform:none}}
+/* Progressive enhancement: content stays fully readable without JavaScript */
+@media (prefers-reduced-motion:no-preference){
+ .has-motion .motion-reveal{opacity:0;transform:translate3d(0,24px,0);transition:opacity .62s var(--ease-out),transform .75s var(--ease-out);transition-delay:var(--reveal-delay,0ms)}
+ .has-motion .motion-reveal.is-visible{opacity:1;transform:translateZ(0)}
+ .cart-count.bump{animation:cart-bump .36s var(--ease-out) both}
+ @keyframes cart-bump{0%{transform:scale(1)}45%{transform:scale(1.28)}100%{transform:scale(1)}}
+}
+.site-header{transition:height .22s ease,box-shadow .22s ease}
+.site-header.is-scrolled{box-shadow:0 8px 20px rgba(25,26,22,.055)}
+.reading-progress{position:absolute;bottom:0;left:0;width:0;height:2px;background:#b81514;pointer-events:none;transition:width .14s linear}
+.mobile-preorder{display:none}
+@media(max-width:980px){.payment-layout{grid-template-columns:1fr}.payment-intro{max-width:700px}}
+@media(max-width:760px){
+ .payment-section{padding:62px 0 78px}.payment-intro h2{font-size:clamp(36px,8vw,50px)}
+ .bank-card{padding:23px 18px;border-radius:17px}
+ .mobile-preorder{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:79;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,250,245,.97);backdrop-filter:blur(16px);border-top:1px solid #e4dcd4;box-shadow:0 -6px 24px rgba(31,24,21,.10);padding:11px max(16px,env(safe-area-inset-left)) calc(11px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-right))}
+ .mobile-preorder>div{display:flex;flex-direction:column;min-width:0;gap:2px}.mobile-preorder strong{font-size:13px;line-height:1.2}.mobile-preorder small{font-size:10px;color:#68655f;line-height:1.4}
+ .mobile-preorder-button{border:0;display:inline-flex;gap:11px;justify-content:center;align-items:center;background:#a91c1a;color:#fff;padding:12px 15px;border-radius:10px;white-space:nowrap;font-weight:750;font-size:12px;min-height:43px}
+ .footer{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+ .drawer{z-index:101}.overlay{z-index:100}
+ .hero-copy{padding-bottom:28px}
+}
+@media(max-width:390px){.mobile-preorder strong{font-size:12px}.mobile-preorder-button{font-size:11px;padding:11px}.mobile-preorder small{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.faq details p{animation:none!important}.btn-primary,.add-btn,.btn-outline,.cart-trigger,.product,.pack-card,.product-art img,.detail-media img,.use-case-card,.horeca-product img,.site-header,.reading-progress{transition:none!important;animation:none!important}}
+@media (hover:hover) and (pointer:fine){
+ .pack-card.pack-left:hover{transform:rotate(-9deg) translateY(-7px) scale(1.02)}
+ .pack-card.pack-right:hover{transform:rotate(8deg) translateY(-7px) scale(1.02)}
+ .pack-card.pack-center:hover{transform:translateY(3px) scale(1.025)}
+}
+@media (prefers-reduced-motion:no-preference){
+ .hero-packset .pack-card{animation:pack-appear .8s var(--ease-out) both}
+ .hero-packset .pack-left{animation-delay:.08s}
+ .hero-packset .pack-center{animation-delay:.19s}
+ .hero-packset .pack-right{animation-delay:.30s}
+ @keyframes pack-appear{from{opacity:0;filter:blur(5px)}to{opacity:1;filter:blur(0)}}
+}
