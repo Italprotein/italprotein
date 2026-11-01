@@ -48,6 +48,29 @@ $('requestForm').addEventListener('submit',function(e){
  window.location.href=mailto;
  showToast(words.fallback);
 });
+// Shared preorder summary for email and copy-to-clipboard fallback.
+function buildSummary(){
+ var name=$('buyerName').value.trim(),email=$('buyerEmail').value.trim(),note=$('buyerNote').value.trim();
+ var lines=[words.intro,''];
+ Object.keys(cart).filter(function(id){return cart[id]>0}).forEach(function(id){
+  var p=products[id];lines.push('- '+p[lang]+' × '+cart[id]+' | '+euro(p.price)+' cad. | '+words.subtotal+': '+euro(cart[id]*p.price)+' | '+words.shipping+': '+(lang==='it'?p.shippingIt:p.shippingEn));
+ });
+ lines.push('',words.estimatedTotal+': '+euro(total()),words.shippingFootnote);
+ if(name)lines.push('',words.fieldName+': '+name);
+ if(email)lines.push(words.fieldEmail+': '+email);
+ if(note)lines.push(words.fieldNotes+': '+note);
+ lines.push('',words.closing);
+ return lines.join('\n');
+}
+var copyPreorderBtn=$('copyPreorderBtn');
+if(copyPreorderBtn){copyPreorderBtn.addEventListener('click',function(){
+ if(count()===0){showToast(words.emptyHint);return;}
+ var value=buildSummary();var fallback=function(){
+  var textarea=document.createElement('textarea');textarea.value=value;textarea.style.position='fixed';textarea.style.opacity='0';
+  document.body.appendChild(textarea);textarea.select();try{document.execCommand('copy');showToast(lang==='it'?'Riepilogo copiato':'Summary copied')}catch(e){showToast(words.fallback)}textarea.remove();
+ };
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(value).then(function(){showToast(lang==='it'?'Riepilogo copiato':'Summary copied')},fallback)}else fallback();
+});}
 render();
 // Motion is progressively enhanced. Reduced-motion users retain static content.
 (function(){
@@ -75,4 +98,57 @@ render();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(value).then(function(){done(true)},function(){done(false)})}else{done(false)}
  });});
 })();
+})();
+
+// Focused product selection, mobile dock and progressive disclosure.
+(function(){
+ 'use strict';
+ var lang=document.body.dataset.lang==='en'?'en':'it';
+ var labels=lang==='it'?[['Barattolo 1 kg','€50','Spedizione inclusa'],['Busta 200 g','€10','Spedizione esclusa'],['100 bustine da 5 g','€25','Spedizione da confermare']]:[['1 kg jar','€50','Shipping included'],['200 g pouch','€10','Shipping excluded'],['100 × 5 g sachets','€25','Shipping to be confirmed']];
+ var cards=Array.prototype.slice.call(document.querySelectorAll('[data-select-product]'));
+ var action=document.getElementById('quickAddButton');
+ var dock=document.getElementById('mobilePreorderDock');
+ var dockAction=document.getElementById('dockAction');
+ var activeId=0;
+ var fixedId=dock&&dock.hasAttribute('data-dock-product')?Number(dock.getAttribute('data-dock-product')):null;
+ var detailPage=Number.isInteger(fixedId)&&fixedId>=0&&fixedId<=2;
+ function setSelection(id){
+  if(!Number.isInteger(id)||id<0||id>2)return;
+  activeId=id;
+  cards.forEach(function(c){var selected=Number(c.getAttribute('data-select-product'))===id;c.setAttribute('aria-pressed',String(selected));c.classList.toggle('is-selected',selected)});
+  var text=document.getElementById('selectedFormatLabel');if(text)text.textContent=labels[id][0]+' · '+labels[id][1];
+  var ship=document.getElementById('selectedFormatShipping');if(ship)ship.textContent=labels[id][2];
+  var visual=document.querySelector('.hero-bundle');if(visual)visual.setAttribute('data-selected-format',String(id));
+  var dockLabel=document.getElementById('dockProductLabel');if(dockLabel&&!detailPage)dockLabel.textContent=labels[id][0]+' · '+labels[id][1];
+ }
+ function addItem(id){var existing=document.querySelector('[data-add="'+id+'"]');if(existing)existing.click();}
+ cards.forEach(function(c){c.addEventListener('click',function(){setSelection(Number(c.getAttribute('data-select-product')))});});
+ if(action)action.addEventListener('click',function(){addItem(activeId)});
+ if(dockAction)dockAction.addEventListener('click',function(){addItem(detailPage?fixedId:activeId)});
+ setSelection(detailPage?fixedId:0);
+ // The dock stays away from the top hero so it does not block initial viewing.
+ if(dock){
+  var threshold=document.querySelector('.hero')||document.querySelector('.detail-section');
+  var io=null;
+  if(threshold&&'IntersectionObserver' in window){
+   io=new IntersectionObserver(function(entries){
+    var show=!entries[0].isIntersecting;
+    dock.classList.toggle('is-active',show);
+   },{rootMargin:'-40px 0px 0px 0px',threshold:0});io.observe(threshold);
+  }else{dock.classList.add('is-active');}
+  var overlay=document.getElementById('cartOverlay');
+  if(overlay){
+    var observer=new MutationObserver(function(){dock.classList.toggle('is-cart-open',overlay.classList.contains('open'))});
+    observer.observe(overlay,{attributes:true,attributeFilter:['class']});
+  }
+ }
+ // Navigation labels reflect the current section and make long pages easier to explore.
+ var navLinks=Array.prototype.slice.call(document.querySelectorAll('.nav-list a[href^="#"]'));
+ if('IntersectionObserver' in window&&navLinks.length){
+   var ids=navLinks.map(function(a){return a.getAttribute('href').slice(1)});
+   var sections=ids.map(function(id){return document.getElementById(id)}).filter(Boolean);
+   if(sections.length){var navObs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(!e.isIntersecting)return;navLinks.forEach(function(a){a.classList.toggle('is-active',a.getAttribute('href')==='#'+e.target.id)})});
+    },{rootMargin:'-100px 0px -70% 0px',threshold:0});sections.forEach(function(el){navObs.observe(el)});}
+ }
 })();
