@@ -1,0 +1,85 @@
+/* Proamina editorial refresh. Bright surfaces are the default; black and lime are accents. */
+:root{--ink:#141514;--paper:#fff;--white:#fff;--soft:#f5f5f1;--line:#e5e5df;--muted:#555a54;--lime:#d3fd65;--ux-cream:#fff;--ux-stroke:#e5e5df}
+html{scroll-padding-top:140px}
+body{background:#fff;color:#161716}
+.site-header{background:rgba(255,255,255,.97);border-bottom:1px solid #ebebe6;box-shadow:0 7px 24px rgba(20,20,20,.025)}
+.site-header .nav-list a{color:#303530}
+.site-header .nav-list a:hover,.site-header .nav-list a[aria-current="page"]{color:#141514}
+.announcement-marquee{background:#101211!important;color:#f6f6f3!important}
+.marquee-group{gap:44px}
+.marquee-separator{display:none!important}
+.marquee-item{padding:0 3px!important;font-size:11px;letter-spacing:.08em;font-weight:700}
+.marquee-item:nth-of-type(4n){color:#d3fd65}
+.hero{background:#fff!important;color:#161716!important}
+.hero .hero-copy{background:#fff;color:#161716}
+.hero .hero-copy h1{color:#181a17!important;font-size:clamp(48px,4.5vw,74px);font-weight:650;letter-spacing:-.06em;line-height:1.05;max-width:14ch;margin-bottom:23px}
+.hero .hero-copy h1 em{font:inherit;font-style:normal;color:#161716}
+.hero .hero-copy .eyebrow{color:#454942;font-size:11px;letter-spacing:.085em}
+.hero .hero-desc{color:#3d433d;line-height:1.72;font-size:clamp(16px,1.15vw,19px);max-width:590px}
+.hero .hero-note{color:#5e6259}
+.hero .hero-trust{color:#454c42}
+.hero .hero-price-card{background:#fff!important;color:#151515!important;border:1px solid #deded7!important;border-radius:13px;box-shadow:none!important;transition:border-color .18s,background .18s,transform .18s}
+.hero .hero-price-card strong,.hero .hero-price-card span,.hero .hero-price-card small{color:#161716!important}
+.hero .hero-price-card[aria-pressed="true"]{background:#f1facf!important;border-color:#9cc13c!important;box-shadow:inset 0 0 0 1px #9cc13c!important}
+.hero .hero-price-card:hover{border-color:#748b44!important;transform:translateY(-2px)}
+.hero .hero-choice-cta{background:transparent}
+.hero .hero-choice-current span,.hero .hero-choice-current small{color:#5a6056}
+.hero .hero-choice-current strong{color:#101310}
+.hero .quick-add-btn,.hero .btn-primary,.cart-trigger{background:#171a17!important;border-color:#171a17!important;color:#fff!important}
+.hero .quick-add-btn:hover,.hero .btn-primary:hover,.cart-trigger:hover{background:#313932!important;border-color:#313932!important}
+.hero .btn-outline{border-color:#222921;color:#1c211b;background:#fff}
+.hero .btn-outline:hover{background:#eef8d2}
+.hero .hero-product-scene.hero-hq{position:relative;display:block;overflow:hidden;min-height:640px;background:#f0eee9!important;isolation:isolate}
+.hero .hero-product-scene.hero-hq::before,.hero .hero-product-scene.hero-hq::after{display:none!important;content:none!important}
+.hero-hq .hero-hq-image{display:block;position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:51% center;filter:none!important;transform:none!important;image-rendering:auto;transition:none!important}
+.hero-hq .hero-scene-stamp{position:absolute;bottom:18px;right:19px;z-index:3;background:rgba(255,255,255,.91);border:1px solid rgba(20,20,20,.08);border-radius:3px;padding:7px 11px;color:#3d403a;font-weight:600;font-size:11px;letter-spacing:0}
+.purchase-assurance{background:#f7f7f4!important;color:#222622;border-block:1px solid #e5e5df}
+.purchase-assurance .assurance-item{border-color:#e5e5df}
+.purchase-assurance .assurance-item strong,.purchase-assurance .assurance-item small{color:#343a32}
+.ticker{background:#fff!important;border-bottom:1px solid #e9e9e5}
+.ticker span:before{color:#719328}
+.preorder-strip{background:#fff!important;border-bottom:1px solid #e8e8e2}
+.preorder-grid article{border-color:#e8e8e2}
+.preorder-grid strong{background:#171a17;color:#fff}
+.section#prodotti,.section.use-cases,.trust-section,.section#benefici,.section#faq,.detail-section,.detail-information,.detail-other{background:#fff!important;color:#161716!important}
+.section h2,.use-case-card h3,.trust-grid h3{letter-spacing:-.045em;line-height:1.06}
+.section#prodotti .section-sub,.section.use-cases .section-sub{color:#62675e}
+.product,.use-case-card{border:1px solid #e2e2dc;background:#fff;color:#171a17;box-shadow:none}
+.product:hover{border-color:#aebc91;box-shadow:0 15px 25px rgba(12,19,7,.06)}
+.product-art{background:#f8f8f5!important}
+.product:nth-child(2) .product-art{background:#f5f6f1!important}
+.product:nth-child(3) .product-art{background:#f5f5f2!important}
+.product-info,.product-info p,.product-info h3{color:#222522}
+.product-info p{color:#5b6059}
+.preorder-pill{background:#edf4d8;color:#344122}
+.price-panel{background:#f9faf7;border-color:#e5e8df}
+.price-main{color:#171a17}
+.product .add-btn,.detail-buy .add-btn{background:#171a17;border-color:#171a17;color:#fff}
+.product .add-btn:hover,.detail-buy .add-btn:hover{background:#3b4535}
+.format-guide{background:#fff}
+.best-value-section{background:#eaf3d7!important;color:#181c16}
+.best-value-section .btn-primary{background:#151a14!important;border-color:#151a14!important;color:#fff!important}
+.best-value-picture{background:#f5f6ef!important}
+.horeca-section{background:#f8f7f3!important;color:#181a17}
+.horeca-body{background:#f8f7f3!important;color:#161716}
+.horeca-body p,.horeca-body h2{color:#272d25}
+.shipping-worldwide{background:#f8f8f5!important;border-color:#ebebe7}
+.shipping-worldwide-copy p{color:#484f45}
+.industry-research{background:#1c201d!important;color:#f6f7f2}
+.industry-research p,.industry-research h2,.industry-research h3{color:inherit}
+.trust-section{background:#fff!important}
+.payment-section{background:#f7f8f4!important}
+.usage{background:#f4f8e9!important;color:#1b2216}
+.usage-step{border-color:#cbd6b9}
+.business{background:#1c211c!important}
+.footer{background:#f6f6f2!important}
+.drawer{background:#fff}
+.mobile-preorder-dock{background:#fff}
+/* Inline badges and headings should read like ordinary ecommerce copy. */
+.eyebrow,.product-meta,.trust-grid article span{letter-spacing:.08em}
+/* Ensure sticky header never hides the start of the hero. */
+.hero .wrap.hero-grid{min-height:640px}
+@media (min-width:901px){.hero .hero-product-scene.hero-hq{min-height:680px}.hero .wrap.hero-grid{grid-template-columns:minmax(0,51%) minmax(0,49%)}}
+@media (max-width:900px){.hero .hero-product-scene.hero-hq{min-height:425px;margin:0;max-height:620px}.hero-hq .hero-hq-image{object-position:51% 48%}.hero .hero-copy{padding:42px 24px 38px}.hero .hero-copy h1{max-width:100%;font-size:clamp(38px,8vw,61px)}}
+@media (max-width:560px){.hero .hero-product-scene.hero-hq{min-height:350px}.hero-hq .hero-hq-image{object-position:51% center}.hero .hero-copy h1{font-size:clamp(37px,9vw,51px)}.hero .hero-desc{font-size:15.5px}.hero-hq .hero-scene-stamp{bottom:12px;right:12px;max-width:75%;font-size:10px}}
+@media(prefers-reduced-motion:reduce){.hero .hero-price-card{transition:none}.hero .hero-price-card:hover{transform:none}}
