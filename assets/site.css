@@ -503,3 +503,22 @@ body{font-size:15px;line-height:1.65}
  .industry-research-intro h2,.shipping-worldwide-heading h2{font-size:clamp(39px,10vw,55px)}
 }
 @media(prefers-reduced-motion:reduce){.marquee-track{animation:none;transform:none}.hero-scene-objects img{transition:none}}
+
+
+/* Italprotein official logo integration, sourced from the supplied logo */
+.brand.brand-logo-link{font-size:initial;letter-spacing:normal;min-width:0;flex-shrink:0;display:inline-flex;align-items:center;text-decoration:none}
+.site-header .brand-logo-link .italprotein-logo-head{display:block;width:clamp(145px,13.2vw,196px);height:auto;max-height:47px;object-fit:contain;object-position:left center}
+.footer .brand-logo-link{align-items:flex-start}
+.footer .brand-logo-link .italprotein-logo-foot{display:block;width:clamp(230px,23vw,300px);height:auto;object-fit:contain}
+.hero .hero-brand-identity{display:flex;align-items:center;gap:14px;max-width:100%;margin:4px 0 20px}
+.hero .hero-brand-identity img{display:block;width:clamp(185px,18vw,235px);height:auto;object-fit:contain}
+.hero .hero-brand-identity span{max-width:230px;font-size:13px;line-height:1.45;color:var(--muted)}
+.detail-brand-id{display:inline-flex;align-items:center;margin:4px 0 15px;max-width:100%}
+.detail-brand-id img{display:block;width:160px;height:auto;max-width:100%}
+@media(max-width:760px){
+ .site-header .brand-logo-link .italprotein-logo-head{width:clamp(136px,36vw,172px);max-height:39px}
+ .hero .hero-brand-identity{margin:0 0 18px;gap:10px}
+ .hero .hero-brand-identity img{width:clamp(155px,42vw,190px)}
+ .hero .hero-brand-identity span{font-size:11px}
+ .footer .brand-logo-link .italprotein-logo-foot{width:min(280px,77vw)}
+}
