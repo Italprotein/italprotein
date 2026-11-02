@@ -522,3 +522,31 @@ body{font-size:15px;line-height:1.65}
  .hero .hero-brand-identity span{font-size:11px}
  .footer .brand-logo-link .italprotein-logo-foot{width:min(280px,77vw)}
 }
+
+
+/* Public commercial partner rail: names and trademark use restricted to verified disclosures */
+.network-section{background:#fff;color:#20231d;padding:clamp(75px,8vw,112px) 0 60px;overflow:hidden;border-top:1px solid #e8e5de;border-bottom:1px solid #e8e5de}
+.network-intro{display:grid;grid-template-columns:1fr .87fr;gap:clamp(24px,5vw,90px);align-items:end;margin-bottom:35px}
+.network-eyebrow{color:#8c4432;font:700 11px/1.4 'DM Sans',sans-serif;letter-spacing:.1em;margin:0 0 20px}
+.network-intro h2{font:700 clamp(35px,4.3vw,62px)/1.09 'Space Grotesk',sans-serif;letter-spacing:-.055em;max-width:730px;margin:0}
+.network-intro>p{font-size:16px;line-height:1.75;color:#626359;max-width:560px;margin:0}
+.network-rail{position:relative;overflow:hidden;outline-offset:-5px;padding-block:12px 22px}
+.network-track{display:flex;width:max-content;animation:network-marquee 32s linear infinite;will-change:transform}
+.network-group{display:flex;flex:0 0 auto;gap:18px;padding-right:18px}
+.network-card{width:clamp(266px,25vw,343px);min-height:273px;background:#fbfaf6;border:1px solid #e5e0d7;border-radius:12px;padding:21px 23px 22px;display:flex;flex-direction:column;box-sizing:border-box}
+.network-visual{display:flex;align-items:center;justify-content:center;height:103px;min-height:103px;margin:-4px 0 12px}
+.network-visual img{max-width:210px;max-height:94px;object-fit:contain}
+.network-visual-wordmark{justify-content:flex-start}
+.network-leva{font:750 clamp(24px,2.4vw,33px)/1 'Space Grotesk',sans-serif;letter-spacing:-.06em;color:#262b30}
+.network-nh2{font:800 clamp(28px,2.6vw,36px)/1 'Space Grotesk',sans-serif;letter-spacing:-.065em;color:#173e64}
+.network-category{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#8a4435;margin:0 0 8px}
+.network-card h3{font-size:20px;font-weight:700;letter-spacing:-.03em;margin:0 0 4px;color:#20231d}
+.network-place{font-size:13px;line-height:1.5;color:#65645f;margin:0}
+@keyframes network-marquee{to{transform:translateX(-50%)}}
+.network-rail:hover .network-track,.network-rail:focus-within .network-track{animation-play-state:paused}
+.network-bottom{border-top:1px solid #e8e5de;padding-top:28px;display:flex;gap:30px;justify-content:space-between;align-items:end}
+.network-bottom h3{font-size:20px;letter-spacing:-.025em;margin:0 0 8px}
+.network-bottom p{font-size:14px;line-height:1.7;margin:0;max-width:810px;color:#66665e}
+.network-bottom a{white-space:nowrap;font-weight:700;font-size:13px;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:800px){.network-intro{grid-template-columns:1fr}.network-section{padding-block:64px 45px}.network-card{width:276px}.network-bottom{flex-direction:column;align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){.network-rail{overflow-x:auto}.network-track{animation:none}.network-group[aria-hidden="true"]{display:none}}
