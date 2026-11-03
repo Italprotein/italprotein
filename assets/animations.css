@@ -1,0 +1,12 @@
+/* Complements the static storefront without hiding any content when scripts/CDNs fail. */
+@media (prefers-reduced-motion: no-preference) and (pointer: fine) {
+  .scroll-parallax-image {
+    transition: none !important;
+    will-change: transform;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}
