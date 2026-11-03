@@ -83,3 +83,42 @@ body{background:#fff;color:#161716}
 @media (max-width:900px){.hero .hero-product-scene.hero-hq{min-height:425px;margin:0;max-height:620px}.hero-hq .hero-hq-image{object-position:51% 48%}.hero .hero-copy{padding:42px 24px 38px}.hero .hero-copy h1{max-width:100%;font-size:clamp(38px,8vw,61px)}}
 @media (max-width:560px){.hero .hero-product-scene.hero-hq{min-height:350px}.hero-hq .hero-hq-image{object-position:51% center}.hero .hero-copy h1{font-size:clamp(37px,9vw,51px)}.hero .hero-desc{font-size:15.5px}.hero-hq .hero-scene-stamp{bottom:12px;right:12px;max-width:75%;font-size:10px}}
 @media(prefers-reduced-motion:reduce){.hero .hero-price-card{transition:none}.hero .hero-price-card:hover{transform:none}}
+
+/* Italprotein & Proamina: clear B2B-first positioning, responsive and animation-free. */
+.about-italprotein{background:#f7f8f3;color:#171b16;padding:clamp(58px,7.2vw,104px) 0;scroll-margin-top:100px;border-top:1px solid #e7e9df;border-bottom:1px solid #e2e6d9}
+.about-italprotein .about-italprotein-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);align-items:start;column-gap:clamp(26px,5vw,88px)}
+.about-italprotein-lead{position:sticky;top:122px}
+.about-italprotein .about-kicker{display:inline-flex;align-items:center;gap:12px;font-size:11px;font-weight:750;letter-spacing:.13em;color:#626d55;margin:0 0 22px}
+.about-italprotein .about-kicker:before{content:"";width:24px;height:2px;background:#8cab43;flex-shrink:0}
+.about-italprotein h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(39px,4.3vw,67px);line-height:1.04;font-weight:700;letter-spacing:-.065em;max-width:13ch;margin:0 0 27px;color:#171b16}
+.about-italprotein h2 span{display:inline-block;background:linear-gradient(transparent 62%,#d3fd65 62%);color:#171b16}
+.about-italprotein .about-lead-text{font-size:clamp(15px,1.2vw,17px);line-height:1.78;color:#424b42;max-width:660px;margin:0 0 17px}
+.about-italprotein .about-lead-text strong{color:#171b16;font-weight:750}
+.about-italprotein .about-actions{display:flex;align-items:center;gap:23px;flex-wrap:wrap;margin-top:33px}
+.about-italprotein .about-action-primary{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;background:#192219;color:#fff;border-radius:8px;padding:13px 17px;font-size:13px;font-weight:700;transition:background .18s ease}
+.about-italprotein .about-action-primary:hover,.about-italprotein .about-action-primary:focus-visible{background:#42563a;color:#fff}
+.about-italprotein .about-action-link{font-weight:700;font-size:13px;color:#243824;border-bottom:1px solid currentColor;padding:8px 0}
+.about-italprotein .about-italprotein-cards{display:grid;gap:14px}
+.about-italprotein .about-info-card{background:#fff;border:1px solid #e2e8dc;border-radius:17px;padding:clamp(22px,3vw,38px);box-shadow:0 12px 32px rgba(24,31,20,.035)}
+.about-italprotein .about-info-card.about-product-card{background:#eaf0df;border-color:#dbe7cd}
+.about-italprotein .about-card-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px;font-weight:800;letter-spacing:.13em;color:#66725b}
+.about-italprotein .about-card-meta span:last-child{font-size:24px;color:#839b56;line-height:1}
+.about-italprotein .about-info-card h3{font:700 clamp(28px,2.9vw,42px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-.055em;margin:25px 0 14px;color:#1c241b}
+.about-italprotein .about-info-card p{font-size:15px;line-height:1.72;margin:0;color:#4d574b}
+.about-italprotein .about-info-card p strong{color:#1d251b}
+.about-italprotein .about-card-tag{margin-top:22px;display:inline-block;font-size:11px;font-weight:750;letter-spacing:.03em;padding:9px 13px;border-radius:999px;color:#30452b;background:#e8f2d4}
+.about-italprotein .about-info-card .about-card-small{margin-top:15px;font-size:12px;line-height:1.55;color:#63745a}
+@media(max-width:950px){
+  .about-italprotein .about-italprotein-grid{grid-template-columns:1fr;row-gap:36px}
+  .about-italprotein-lead{position:static}
+  .about-italprotein h2{max-width:18ch}
+  .about-italprotein .about-italprotein-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+}
+@media(max-width:640px){
+  .about-italprotein{padding:56px 0 62px}
+  .about-italprotein h2{font-size:clamp(37px,9vw,52px);max-width:100%;margin-bottom:20px}
+  .about-italprotein .about-italprotein-cards{grid-template-columns:1fr}
+  .about-italprotein .about-actions{gap:10px}
+  .about-italprotein .about-action-primary{width:100%}
+  .about-italprotein .about-action-link{margin-top:7px}
+}
