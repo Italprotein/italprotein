@@ -72,16 +72,8 @@ if(copyPreorderBtn){copyPreorderBtn.addEventListener('click',function(){
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(value).then(function(){showToast(lang==='it'?'Riepilogo copiato':'Summary copied')},fallback)}else fallback();
 });}
 render();
-// Motion is progressively enhanced. Reduced-motion users retain static content.
+// Native scrolling. Lightweight image motion is provided by CSS.
 (function(){
- var motionOK=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
- if(motionOK&&'IntersectionObserver' in window){
-  var targets=Array.prototype.slice.call(document.querySelectorAll('.product, .use-case-card, .trust-grid article, .best-value-copy, .best-value-picture, .horeca-body, .horeca-image, .benefit, .payment-intro, .bank-card, .detail-info-grid, .detail-buy, .detail-media'));
-  targets.forEach(function(el,i){el.classList.add('motion-reveal');el.style.setProperty('--reveal-delay',((i%3)*65)+'ms');});
-  var ob=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('is-visible');ob.unobserve(entry.target);}});},{threshold:0.05,rootMargin:'0px 0px -18px 0px'});
-  targets.forEach(function(el){ob.observe(el)});
-  document.documentElement.classList.add('has-motion');
- }
  var header=document.querySelector('.site-header');
  if(header){
   var bar=document.createElement('div');bar.className='reading-progress';bar.setAttribute('aria-hidden','true');header.appendChild(bar);
