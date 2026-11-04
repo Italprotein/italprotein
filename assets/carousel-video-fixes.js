@@ -1,104 +1,209 @@
-/* Advance complete partner/application cards; never leave cropped banners at rest. */
+/* Infinite full-card carousels: repopulate ahead of the viewport on every move.
+   Avoid an end-of-track blank area, even after many complete rotations. */
 (() => {
   "use strict";
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const rails = [
-    {selector:".network-rail", title:"Partner e collaborazioni / Partners and collaborations", count:2},
-    {selector:".research-rail", title:"Applicazioni / Applications", count:3}
+
+  const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const configs = [
+    {rail: ".network-rail", track: ".network-track", title: "Partner e collaborazioni / Partners and collaborations", desktop: 2},
+    {rail: ".research-rail", track: ".research-track", title: "Applicazioni / Applications", desktop: 3}
   ];
-  rails.forEach(({selector,title,count}) => {
-    const rail = document.querySelector(selector);
+
+  configs.forEach(({rail: railSelector, track: trackSelector, title, desktop}) => {
+    const rail = document.querySelector(railSelector);
     if (!rail) return;
-    const track = rail.querySelector(selector === ".network-rail" ? ".network-track" : ".research-track");
+    const track = rail.querySelector(trackSelector);
     if (!track) return;
-    const groups = Array.from(track.children);
-    if (groups.length !== 2) return;
-    const original = groups[0];
-    const total = original.children.length;
-    if (total <= 1 || groups[1].children.length !== total) return;
-    const copies = Array.from(groups[1].children);
-    let index = 0, step = 0, visible = 1, paused = false, inView = false, transitioning = false;
+
+    // Preserve the true articles as a template. The old HTML includes two
+    // fixed groups; they cannot guarantee a filled viewport as the rail loops.
+    const sourceGroup = track.querySelector(railSelector === ".network-rail" ? ".network-group" : ".research-group");
+    if (!sourceGroup) return;
+    const templates = Array.from(sourceGroup.children).map(item => item.cloneNode(true));
+    const total = templates.length;
+    if (total < 2) return;
+
+    let first = 0;
+    let shown = 1;
+    let step = 0;
+    let busy = false;
+    let hovered = false;
+    let focused = false;
+    let inView = !("IntersectionObserver" in window);
+    let fallbackTimer = null;
+    let pendingDirection = 0;
+    let lastWidth = 0;
     const gap = 16;
+
     const controls = document.createElement("div");
     controls.className = "rail-carousel-controls";
-    const makeButton = (symbol, name) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.textContent = symbol;
-      btn.setAttribute("aria-label", name + " – " + title);
-      return btn;
+    const button = (symbol, action) => {
+      const el = document.createElement("button");
+      el.type = "button";
+      el.textContent = symbol;
+      el.setAttribute("aria-label", action + " – " + title);
+      return el;
     };
-    const prev = makeButton("‹", "Precedente / Previous");
-    const next = makeButton("›", "Successivo / Next");
-    controls.append(prev, next);
-    rail.insertAdjacentElement("afterend",controls);
-    rail.classList.add("is-card-carousel");
-    rail.setAttribute("role","region");
-    rail.setAttribute("aria-roledescription","carousel");
-    rail.setAttribute("aria-label",title);
-    copies.forEach(item => { item.setAttribute("aria-hidden","true");item.inert=true; });
-    const position = () => {track.style.transform = "translate3d(" + (-index*step) + "px,0,0)";};
+    const previous = button("‹", "Precedente / Previous");
+    const next = button("›", "Successivo / Next");
+    controls.append(previous, next);
+    rail.insertAdjacentElement("afterend", controls);
+
+    const cardAt = index => {
+      const sourceIndex = ((index % total) + total) % total;
+      const card = templates[sourceIndex].cloneNode(true);
+      // Keep each application card's original colour as it moves.
+      if (railSelector === ".research-rail") {
+        card.setAttribute("data-tone", String(sourceIndex % 3));
+      }
+      return card;
+    };
+
+    // Always build one full additional card beyond the right edge. As soon as
+    // movement completes, rebuild the next run before the next animation.
+    const draw = () => {
+      track.style.transition = "none";
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < shown + 1; i++) {
+        const card = cardAt(first + i);
+        if (i === shown) {
+          card.setAttribute("aria-hidden", "true");
+          card.inert = true;
+        }
+        fragment.appendChild(card);
+      }
+      track.replaceChildren(fragment);
+      track.style.transform = "translate3d(0,0,0)";
+      void track.offsetWidth;
+      track.style.transition = "";
+    };
+
     const resize = () => {
       const width = rail.getBoundingClientRect().width;
-      visible = width <= 620 ? 1 : width <= 1020 ? 2 : count;
-      visible = Math.min(visible,total);
-      step = width / visible;
-      const cardWidth = Math.max(180,step-gap);
-      rail.style.setProperty("--full-card-width",cardWidth+"px");
-      rail.style.setProperty("--full-card-gap",gap+"px");
-      track.style.transition="none";
-      position();
+      // ResizeObserver fires for height changes too; never reset a moving
+      // carousel just because the currently displayed text is taller.
+      if (width < 1 || (step > 0 && Math.abs(width - lastWidth) < 0.5)) return;
+      lastWidth = width;
+      if (fallbackTimer !== null) {
+        window.clearTimeout(fallbackTimer);
+        fallbackTimer = null;
+      }
+      busy = false;
+      pendingDirection = 0;
+      shown = Math.min(total, width <= 620 ? 1 : width <= 1020 ? 2 : desktop);
+      step = width / shown;
+      rail.style.setProperty("--full-card-width", (step - gap) + "px");
+      rail.style.setProperty("--full-card-gap", gap + "px");
+      draw();
+    };
+
+    const finish = () => {
+      if (!busy) return;
+      if (fallbackTimer !== null) {
+        window.clearTimeout(fallbackTimer);
+        fallbackTimer = null;
+      }
+      const direction = pendingDirection;
+      track.style.transition = "none";
+      first = (first + direction + total) % total;
+      // Recycle the cards instead of replacing all visible DOM nodes.
+      // This avoids any white flash when the carousel loops back around.
+      if (direction === 1) {
+        track.firstElementChild.remove();
+        track.appendChild(cardAt(first + shown));
+      } else if (direction === -1) {
+        track.lastElementChild.remove();
+      }
+      Array.from(track.children).forEach((card, i) => {
+        if (i === shown) {
+          card.setAttribute("aria-hidden", "true");
+          card.inert = true;
+        } else {
+          card.removeAttribute("aria-hidden");
+          card.inert = false;
+        }
+      });
+      track.style.transform = "translate3d(0,0,0)";
       void track.offsetWidth;
-      track.style.transition="";
+      track.style.transition = "";
+      pendingDirection = 0;
+      busy = false;
     };
-    const snapToStart = () => {
-      track.style.transition="none";
-      index=0;position();
-      void track.offsetWidth;
-      track.style.transition="";
-      transitioning=false;
-    };
-    const advance = (direction=1) => {
-      if (transitioning) return;
-      if(direction<0 && index===0){
-        track.style.transition="none";index=total;position();
-        void track.offsetWidth;track.style.transition="";
+
+    const go = direction => {
+      if (busy || step <= 0) return;
+      if (motionPreference.matches) {
+        first = (first + direction + total) % total;
+        draw();
+        return;
       }
-      transitioning=true;
-      index += direction;
-      position();
-      if (reduceMotion.matches) {
-        if (index===total) snapToStart();
-        else transitioning=false;
+
+      busy = true;
+      pendingDirection = direction;
+      if (direction === 1) {
+        // The next item already exists at the right, fully rendered.
+        track.style.transform = "translate3d(" + (-step) + "px,0,0)";
+      } else {
+        // Prepend a full card invisibly, then animate it into view.
+        track.style.transition = "none";
+        track.insertBefore(cardAt(first - 1), track.firstChild);
+        track.style.transform = "translate3d(" + (-step) + "px,0,0)";
+        void track.offsetWidth;
+        track.style.transition = "";
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            if (busy && pendingDirection === -1) {
+              track.style.transform = "translate3d(0,0,0)";
+            }
+          });
+        });
       }
+      fallbackTimer = window.setTimeout(finish, 850);
     };
-    track.addEventListener("transitionend",event=>{
-      if(event.target!==track || event.propertyName!=="transform") return;
-      if(index===total) snapToStart();
-      else transitioning=false;
+
+    track.addEventListener("transitionend", event => {
+      if (event.target === track && event.propertyName === "transform") finish();
     });
-    next.addEventListener("click",()=>{paused=true;advance(1);});
-    prev.addEventListener("click",()=>{paused=true;advance(-1);});
-    rail.addEventListener("keydown",event=>{
-      if(event.key==="ArrowRight" || event.key==="ArrowLeft"){
-        event.preventDefault();paused=true;advance(event.key==="ArrowRight"?1:-1);
-      }
+    previous.addEventListener("click", () => go(-1));
+    next.addEventListener("click", () => go(1));
+    rail.addEventListener("keydown", event => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      go(event.key === "ArrowRight" ? 1 : -1);
     });
-    rail.addEventListener("mouseenter",()=>{paused=true;});
-    rail.addEventListener("mouseleave",()=>{paused=false;});
-    rail.addEventListener("focusin",()=>{paused=true;});
-    rail.addEventListener("focusout",()=>{paused=false;});
+    rail.addEventListener("mouseenter", () => { hovered = true; });
+    rail.addEventListener("mouseleave", () => { hovered = false; });
+    rail.addEventListener("focusin", () => { focused = true; });
+    rail.addEventListener("focusout", event => {
+      if (!rail.contains(event.relatedTarget)) focused = false;
+    });
+    controls.addEventListener("focusin", () => { focused = true; });
+    controls.addEventListener("focusout", event => {
+      if (!controls.contains(event.relatedTarget)) focused = false;
+    });
+
+    rail.classList.add("is-card-carousel");
+    rail.setAttribute("role", "region");
+    rail.setAttribute("aria-roledescription", "carousel");
+    rail.setAttribute("aria-label", title);
+    track.setAttribute("aria-live", "off");
+
     if ("IntersectionObserver" in window) {
-      new IntersectionObserver(entries=>{inView=entries.some(x=>x.isIntersecting);},{threshold:.05}).observe(rail);
-    } else inView=true;
-    if ("ResizeObserver" in window) new ResizeObserver(resize).observe(rail);
-    else window.addEventListener("resize",resize,{passive:true});
-    resize();
-    window.setInterval(()=>{
-      if(!document.hidden && !paused && inView && !reduceMotion.matches)advance(1);
-    },4800);
-    if(reduceMotion.matches){
-      next.disabled=false;prev.disabled=false;
+      new IntersectionObserver(entries => {
+        inView = entries.some(entry => entry.isIntersecting);
+      }, {threshold: 0.05}).observe(rail);
     }
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(resize).observe(rail);
+    } else {
+      window.addEventListener("resize", resize, {passive: true});
+    }
+    resize();
+
+    window.setInterval(() => {
+      if (!document.hidden && !hovered && !focused && inView && !motionPreference.matches) {
+        go(1);
+      }
+    }, 4800);
   });
 })();
