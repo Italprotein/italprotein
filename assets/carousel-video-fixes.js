@@ -32,6 +32,7 @@
     let inView = !("IntersectionObserver" in window);
     let fallbackTimer = null;
     let pendingDirection = 0;
+    let lastWidth = 0;
     const gap = 16;
 
     const controls = document.createElement("div");
@@ -70,14 +71,17 @@
     };
 
     const resize = () => {
+      const width = rail.getBoundingClientRect().width;
+      // ResizeObserver fires for height changes too; never reset a moving
+      // carousel just because the currently displayed text is taller.
+      if (width < 1 || (step > 0 && Math.abs(width - lastWidth) < 0.5)) return;
+      lastWidth = width;
       if (fallbackTimer !== null) {
         window.clearTimeout(fallbackTimer);
         fallbackTimer = null;
       }
       busy = false;
       pendingDirection = 0;
-      const width = rail.getBoundingClientRect().width;
-      if (width < 1) return;
       shown = Math.min(total, width <= 620 ? 1 : width <= 1020 ? 2 : desktop);
       step = width / shown;
       rail.style.setProperty("--full-card-width", (step - gap) + "px");
