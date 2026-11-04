@@ -1,0 +1,59 @@
+name: Repair glitchy Proamina hero loop
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-proamina-clean-cut.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix-hero-video:
+    runs-on: ubuntu-latest
+    env:
+      SOURCE_VIDEO: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/21090fce-d339-459f-ab45-092b9e02edaa.mp4?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiZTQ5MTFiMWEzZDE4OTE4YyIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc5Mzk0NjkwNn0.8YWqNGclF2uxsVy98-JiI4PAuRh-oYGZ5nEVvio6Hig'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Download the original video
+        run: |
+          curl --fail --location --retry 3 --silent --show-error "$SOURCE_VIDEO" -o /tmp/proamina-original.mp4
+          ffprobe -v error -show_entries format=duration:stream=width,height,codec_type -of json /tmp/proamina-original.mp4
+      - name: Export clean cut without crossfade or ghost frames
+        run: |
+          set -euo pipefail
+          mkdir -p assets/video
+          ffmpeg -nostdin -y -hide_banner -loglevel error \
+            -ss 0.208333 -i /tmp/proamina-original.mp4 -t 9.75 \
+            -map 0:v:0 -an -vf 'fps=24,format=yuv420p' \
+            -c:v libx264 -preset medium -crf 17 -pix_fmt yuv420p -movflags +faststart \
+            assets/video/proamina-hero-clean-v2.mp4
+          python3 - <<'PY'
+          import json, subprocess, pathlib
+          path = pathlib.Path('assets/video/proamina-hero-clean-v2.mp4')
+          data = json.loads(subprocess.check_output([
+              'ffprobe','-v','error','-show_entries',
+              'format=duration:stream=width,height,codec_type',
+              '-of','json', str(path)
+          ]))
+          streams=data['streams']
+          assert len(streams)==1 and streams[0]['codec_type']=='video', streams
+          assert streams[0]['width']==1440 and streams[0]['height']==608, streams
+          assert 9.7<float(data['format']['duration'])<9.8, data
+          assert path.stat().st_size < 10000000, path.stat().st_size
+          print('Clean video, native resolution, silent, no dissolves:', data, path.stat().st_size)
+          PY
+      - name: Commit repaired video
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/video/proamina-hero-clean-v2.mp4
+          if ! git diff --staged --quiet; then
+            git commit -m "media: publish real hard-cut hero video without glitch"
+            git push
+          fi
