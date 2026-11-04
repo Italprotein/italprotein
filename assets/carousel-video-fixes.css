@@ -137,3 +137,8 @@
   backface-visibility:hidden;
   transform:translateZ(0);
 }
+
+/* A card retains its own colour when the infinite carousel recycles DOM nodes. */
+.network-section .research-card[data-tone="0"]{background:#1e2520;color:#fff;border:1px solid #1e2520}
+.network-section .research-card[data-tone="1"]{background:#e5edcc;color:#1e2520;border:1px solid #e5edcc}
+.network-section .research-card[data-tone="2"]{background:#f3eee5;color:#1e2520;border:1px solid #e4ded3}
