@@ -49,7 +49,15 @@
     controls.append(previous, next);
     rail.insertAdjacentElement("afterend", controls);
 
-    const cardAt = index => templates[((index % total) + total) % total].cloneNode(true);
+    const cardAt = index => {
+      const sourceIndex = ((index % total) + total) % total;
+      const card = templates[sourceIndex].cloneNode(true);
+      // Keep each application card's original colour as it moves.
+      if (railSelector === ".research-rail") {
+        card.setAttribute("data-tone", String(sourceIndex % 3));
+      }
+      return card;
+    };
 
     // Always build one full additional card beyond the right edge. As soon as
     // movement completes, rebuild the next run before the next animation.
@@ -95,10 +103,31 @@
         window.clearTimeout(fallbackTimer);
         fallbackTimer = null;
       }
-      first = (first + pendingDirection + total) % total;
+      const direction = pendingDirection;
+      track.style.transition = "none";
+      first = (first + direction + total) % total;
+      // Recycle the cards instead of replacing all visible DOM nodes.
+      // This avoids any white flash when the carousel loops back around.
+      if (direction === 1) {
+        track.firstElementChild.remove();
+        track.appendChild(cardAt(first + shown));
+      } else if (direction === -1) {
+        track.lastElementChild.remove();
+      }
+      Array.from(track.children).forEach((card, i) => {
+        if (i === shown) {
+          card.setAttribute("aria-hidden", "true");
+          card.inert = true;
+        } else {
+          card.removeAttribute("aria-hidden");
+          card.inert = false;
+        }
+      });
+      track.style.transform = "translate3d(0,0,0)";
+      void track.offsetWidth;
+      track.style.transition = "";
       pendingDirection = 0;
       busy = false;
-      draw();
     };
 
     const go = direction => {
