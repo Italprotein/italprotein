@@ -1,0 +1,57 @@
+name: Build browser-compatible seamless Proamina hero
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-proamina-hero-v4.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  media:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install bundled FFmpeg
+        run: python3 -m pip install --disable-pip-version-check imageio-ffmpeg
+      - name: Produce WebM + MP4 with exact matching fallback image
+        run: |
+          set -euo pipefail
+          FF=$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')
+          SOURCE=assets/video/proamina-hero-seamless-v3.mp4
+          test -s "$SOURCE"
+          mkdir -p assets/video assets/img
+          "$FF" -nostdin -hide_banner -loglevel error -y -i "$SOURCE" \
+            -frames:v 1 -q:v 3 assets/img/proamina-hero-loop-v4-poster.jpg
+          "$FF" -nostdin -hide_banner -loglevel error -y -i "$SOURCE" \
+            -map 0:v:0 -an -vf 'fps=24,format=yuv420p' \
+            -c:v libx264 -preset medium -crf 17 -g 72 -keyint_min 24 -sc_threshold 0 \
+            -movflags +faststart assets/video/proamina-hero-loop-v4.mp4
+          "$FF" -nostdin -hide_banner -loglevel error -y -i "$SOURCE" \
+            -map 0:v:0 -an -vf 'fps=24,format=yuv420p' \
+            -c:v libvpx-vp9 -b:v 0 -crf 32 -deadline good -cpu-used 5 -row-mt 1 -threads 4 -g 240 \
+            assets/video/proamina-hero-loop-v4.webm
+          python3 - <<'PY'
+          import imageio_ffmpeg, pathlib
+          for name in ('proamina-hero-loop-v4.mp4','proamina-hero-loop-v4.webm'):
+              f=pathlib.Path('assets/video') / name
+              reader = imageio_ffmpeg.read_frames(str(f))
+              meta=next(reader)
+              reader.close()
+              assert meta['source_size'] == (1440,608), meta
+              assert 9.6 < meta['duration'] < 9.85, meta
+              assert f.stat().st_size < 10_000_000, f.stat().st_size
+              print('Verified:',name,meta['duration'],f.stat().st_size)
+          assert pathlib.Path('assets/img/proamina-hero-loop-v4-poster.jpg').stat().st_size > 10000
+          PY
+      - name: Commit browser-compatible media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/video/proamina-hero-loop-v4.mp4 assets/video/proamina-hero-loop-v4.webm assets/img/proamina-hero-loop-v4-poster.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m "media: stable seamless hero in WebM and MP4 with matched poster"
+            git push
+          fi
