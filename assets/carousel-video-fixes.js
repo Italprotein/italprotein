@@ -16,9 +16,8 @@
     const original = groups[0];
     const total = original.children.length;
     if (total <= 1 || groups[1].children.length !== total) return;
-    const items = Array.from(original.children);
     const copies = Array.from(groups[1].children);
-    let index = 0, step = 0, visible = 1, paused = false, inView = false, transitioning = false, timer;
+    let index = 0, step = 0, visible = 1, paused = false, inView = false, transitioning = false;
     const gap = 16;
     const controls = document.createElement("div");
     controls.className = "rail-carousel-controls";
@@ -60,7 +59,7 @@
       transitioning=false;
     };
     const advance = (direction=1) => {
-      if (transitioning || reduceMotion.matches && direction===1) return;
+      if (transitioning) return;
       if(direction<0 && index===0){
         track.style.transition="none";index=total;position();
         void track.offsetWidth;track.style.transition="";
@@ -91,7 +90,7 @@
     if ("ResizeObserver" in window) new ResizeObserver(resize).observe(rail);
     else window.addEventListener("resize",resize,{passive:true});
     resize();
-    timer=window.setInterval(()=>{
+    window.setInterval(()=>{
       if(!document.hidden && !paused && inView && !reduceMotion.matches)advance(1);
     },4800);
     if(reduceMotion.matches){
