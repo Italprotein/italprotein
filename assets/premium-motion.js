@@ -64,7 +64,8 @@
       if (!reduced.matches) scene.classList.add("hero-video-playing");
     });
     video.addEventListener("error", clearVideo);
-    video.addEventListener("stalled", clearVideo);
+    // A temporary buffering stall must not reveal the fallback image or flash.
+    // Keep the last decoded frame until playback resumes.
     if ("IntersectionObserver" in window) {
       const observer = new IntersectionObserver((entries) => {
         visible = entries.some(entry => entry.isIntersecting);
