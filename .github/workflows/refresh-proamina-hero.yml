@@ -1,0 +1,60 @@
+name: Refresh premium Proamina hero video
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-proamina-hero.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render-hq-loop:
+    runs-on: ubuntu-latest
+    env:
+      SOURCE_VIDEO: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/60c00d53-45d9-4353-8ad1-02a041594c6e.mp4?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiOTQ1YmQzM2MyZjdiNDdlOSIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc5Mzk1NzgyMH0.WEmM2bVayDGf4MM46MY-oQJ0An3moqwodj-9tRuDOVU'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install video tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Download original footage
+        run: |
+          curl --fail --location --retry 3 --silent --show-error "$SOURCE_VIDEO" -o /tmp/proamina-original.mp4
+          ffprobe -v error -show_entries format=duration:stream=width,height,codec_type -of json /tmp/proamina-original.mp4
+      - name: Re-encode in native 1440x608, without sound and with seamless fade
+        run: |
+          set -euo pipefail
+          mkdir -p assets/video assets/img
+          ffmpeg -nostdin -y -hide_banner -loglevel error \
+            -ss 0.208333 -i /tmp/proamina-original.mp4 \
+            -frames:v 1 -q:v 2 assets/img/proamina-hero-video-poster.jpg
+          ffmpeg -nostdin -y -hide_banner -loglevel error \
+            -ss 0.208333 -i /tmp/proamina-original.mp4 \
+            -loop 1 -framerate 24 -t 1.0 -i assets/img/proamina-hero-video-poster.jpg \
+            -filter_complex '[0:v]trim=duration=9.80,setpts=PTS-STARTPTS,fps=24,format=yuv420p[main];[1:v]trim=duration=1.00,setpts=PTS-STARTPTS,fps=24,format=yuv420p[still];[main][still]xfade=transition=fade:duration=0.75:offset=9.05,format=yuv420p[vid]' \
+            -map '[vid]' -t 9.8 -an -c:v libx264 -preset slow -crf 17 \
+            -pix_fmt yuv420p -movflags +faststart \
+            assets/video/proamina-hero.mp4
+          python3 - <<'PY'
+          import json,subprocess,pathlib
+          path='assets/video/proamina-hero.mp4'
+          probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration:stream=codec_type,codec_name,width,height','-of','json',path]))
+          streams=probe['streams']
+          assert len(streams)==1 and streams[0]['codec_type']=='video', streams
+          assert (streams[0]['width'],streams[0]['height'])==(1440,608), streams
+          assert 9.7<float(probe['format']['duration'])<10.1, probe
+          assert pathlib.Path(path).stat().st_size<10000000
+          print('Verified silent HQ loop:',probe, pathlib.Path(path).stat().st_size,'bytes')
+          PY
+      - name: Commit final hero media
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/video/proamina-hero.mp4 assets/img/proamina-hero-video-poster.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m "media: sharper seamless 1440px silent Proamina hero video"
+            git push
+          fi
