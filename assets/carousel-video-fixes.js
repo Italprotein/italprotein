@@ -67,6 +67,10 @@
       transitioning=true;
       index += direction;
       position();
+      if (reduceMotion.matches) {
+        if (index===total) snapToStart();
+        else transitioning=false;
+      }
     };
     track.addEventListener("transitionend",event=>{
       if(event.target!==track || event.propertyName!=="transform") return;
