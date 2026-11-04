@@ -104,3 +104,17 @@ html { scroll-behavior: auto !important; }
   .promo-live-title{animation:none!important;transition:none!important;}
   .promo-film-video{display:none!important;}
 }
+
+
+/* User-provided Proamina video in the primary hero, kept silent and lightweight. */
+.hero .hero-product-scene.hero-hq .hero-ai-video{
+  display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:center center;z-index:2;opacity:0;pointer-events:none;
+  transition:opacity .38s ease;background:#e9e2d8;
+}
+.hero .hero-product-scene.hero-hq.hero-video-playing .hero-ai-video{opacity:1}
+.hero .hero-product-scene.hero-hq .hero-scene-stamp{z-index:4}
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero-product-scene.hero-hq .hero-ai-video{display:none!important}
+  .hero .hero-product-scene.hero-hq.hero-video-playing .hero-ai-video{opacity:0!important}
+}
